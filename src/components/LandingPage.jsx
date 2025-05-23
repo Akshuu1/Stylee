@@ -5,7 +5,7 @@ const LandingPage = () => {
     <div className='w-full h-screen bg-zinc-900 pt-1'>
         <div className="textStructure mt-50 px-20">
             {["We Create" , "Eye Opening", "Presentations"].map((item,index)=>(
-                <div className="masker">
+                <div key = {index} className="masker">
                     <div className="w-fit flex items-end overflow-hidden ">
                         {index === 1 && ( 
                             <div className="w-[8vw] h-[6vw] rounded-md mr-[1vw] bg-red-500 relative "></div>
