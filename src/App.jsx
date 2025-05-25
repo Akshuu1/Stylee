@@ -7,7 +7,7 @@ import Eyes from './components/Eyes'
 import Featured from './components/Featured'
 import Cards from './components/Cards'
 import Footer from './components/Footer'
-import Sets from './components/Sets'
+import School from './components/School'
 import LocomotiveScroll from 'locomotive-scroll';
 import BackgroundMusic from './components/BackgroundMusic'
 
@@ -26,7 +26,7 @@ const App = () => {
       <Eyes />
       <Featured />
       <Cards />
-      <Sets />
+      <School />
       <Footer />
     </div>
   )
