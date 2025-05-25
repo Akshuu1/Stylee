@@ -5,9 +5,9 @@ const LandingPage = () => {
 
 
   return (
-    <div data-scroll data-scroll-speed="-.3" className='w-full h-screen bg-zinc-900 pt-1'>
-        <div className="textStructure mt-50 px-20">
-            {["We Create" , "Eye Opening", "Presentations"].map((item,index)=>(
+    <div data-scroll data-scroll-speed="-.3" className='w-full h-screen bg-zinc-900 pt-1 -mb-20'>
+        <div className="textStructure mt-50 px-20 font-[Test_Founders_Grotesk] ">
+            {["Unfolding the" , "stories", "woven in style"].map((item,index)=>(
                 <div key = {index} className="masker">
                     <div className="w-fit flex items-end overflow-hidden ">
                         {index === 1 && ( 
@@ -18,13 +18,13 @@ const LandingPage = () => {
             </div>
             ))}
         </div>
-        <div className='border-t-[1px] border-zinc-700 mt-22 flex justify-between items-center px-[3vw] py-[2vw]'>
-            {["For Public and Private Companies","From the first pitch to IPO"].map((item,index) =>(
-                <p key = {index} className='text-[1vw] font-light tracking-tight leading-none'>{item}</p>
+        <div className='border-t-[1px] border-zinc-700 mt-22 flex justify-between items-center px-[3vw] py-[2vw] font-[Gilroy-Light]'>
+            {["Where Fashion Find it's SOUL","Read | Understand | Boom"].map((item,index) =>(
+                <p key = {index} className='text-[1vw] tracking-tight leading-none'>{item}</p>
             ))}
 
             <div className="start flex items-center gap-5">
-            <div className="px-4 py-2 border-[1px] border-zinc-500 rounded-full font-light text-md uppercase capitalize">Start</div>
+            <div className="px-4 py-2 border-[1px] border-zinc-500 rounded-full text-md uppercase capitalize">Start</div>
             <div className="w-10 h-10 flex items-center justify-center text-white rounded-full border-[1px] border-zinc-500">
                <span className='rotate-[45deg]'>
                 <FaArrowUpLong/>
