@@ -1,34 +1,48 @@
 import React from 'react'
 
-
 const Sets = () => {
   return (
-    <div className='bg-[#CDEA68] w-full h-[90vh] text-black py-10 px-15'>
-      <div className="text-3xl">
-        <h1><span className='font-[Beikho]'>Stylee´</span> School</h1>
-        
+    <div className="bg-[#CDEA68] w-full  text-black py-10 px-10">
+      <div className="text-5xl mb-10">
+        <h1>
+          <span className="font-[Beikho]">Stylee´</span> School
+        </h1>
       </div>
-       <div className='w-full h-screen flex gap-5 p-32'>
-        <div className="cardContainer h-[55vh] w-1/2">
-            <div className="card w-full rounded-xl h-full bg-[#004D43]">
-                <img src="src/assets/graphe-tween-AXqkhXom-K8-unsplash.jpg" alt="" />
-                <button className="absolute px-5 py-3 border-1 rounded-full">Learn</button>
-            </div>
-        </div>
-        <div className="cardContainer flex gap-5 h-[55vh] w-1/2">
-            <div className="card w-1/2 rounded-xl h-full bg-[#192826]">
-              <div className="">
-                <img src="src/assets/pexels-cottonbro-6583367.jpg" alt="" />
-              </div>
-            </div>
-            <div className="card w-1/2 rounded-xl h-full bg-[#292826]">
-              <div className="">
-                <img src="src/assets/svitlana-HbiRi1Owk9k-unsplash.jpg" alt="" />
-              </div>
-            </div>
+
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-10 ">
+        
+        <div className="relative w-full lg:w-1/3 hover:w-full p-4 duration-[1s] group ">
+          <img
+            src="src/assets/graphe-tween-AXqkhXom-K8-unsplash.jpg"
+            alt="Mannequins"
+            className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"/>
+          <div className="absolute inset-0   text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
+            <h2 className='text-3xl '>Basics of Styling</h2>
+          </div>
         </div>
 
-    </div>
+        <div className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group">
+          <img
+            src="src/assets/pexels-cottonbro-6583367.jpg"
+            alt="Color Palette"
+            className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
+          />
+          <div className="absolute inset-0   text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
+            <h2 className='text-3xl '>Dive in Color Theory</h2>
+          </div>
+        </div>
+
+        <div className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group">
+          <img
+            src="src/assets/svitlana-HbiRi1Owk9k-unsplash.jpg"
+            alt="Fabrics"
+            className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
+          />
+          <div className="absolute inset-0   text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
+            <h2 className='text-3xl '>Know about Textiles </h2>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

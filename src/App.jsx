@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div className='w-full min-h-screen bg-zinc-900 text-white overflow-hidden'> 
-    <BackgroundMusic />
+    {/* <BackgroundMusic /> */}
       <Navbar />
       <LandingPage />
       <Marquee />
