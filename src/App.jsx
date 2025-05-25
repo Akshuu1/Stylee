@@ -9,6 +9,7 @@ import Cards from './components/Cards'
 import Footer from './components/Footer'
 import Sets from './components/Sets'
 import LocomotiveScroll from 'locomotive-scroll';
+import BackgroundMusic from './components/BackgroundMusic'
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
 
   return (
     <div className='w-full min-h-screen bg-zinc-900 text-white overflow-hidden'> 
+    <BackgroundMusic />
       <Navbar />
       <LandingPage />
       <Marquee />
