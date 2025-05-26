@@ -14,7 +14,7 @@ const Sets = () => {
         
         <div className="relative w-full lg:w-1/3 hover:w-full p-4 duration-[1s] group">
           <img
-            src="public/photos/graphe-tween-AXqkhXom-K8-unsplash.jpg"
+            src="public/photos/img11.jpg"
             alt="Mannequins"
             className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
           />
@@ -25,7 +25,7 @@ const Sets = () => {
 
         <div className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group">
           <img
-            src="public/photos/pexels-cottonbro-6583367.jpg"
+            src="public/photos/img12.jpg"
             alt="Color Palette"
             className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
           />
@@ -36,7 +36,7 @@ const Sets = () => {
 
         <div className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group">
           <img
-            src="public/photos/svitlana-HbiRi1Owk9k-unsplash.jpg"
+            src="public/photos/img13.jpg"
             alt="Fabrics"
             className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
           />
