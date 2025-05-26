@@ -6,7 +6,7 @@ const LandingPage = () => {
 
   return (
     <div data-scroll data-scroll-speed="-.3" className='w-full h-screen bg-zinc-900 pt-1 -mb-20'>
-        <div className="textStructure mt-50 px-20 font-[Test_Founders_Grotesk] ">
+        <div style={{fontFamily:"Test Founders Grotesk"}} className="textStructure mt-50 px-20 font-[Test_Founders_Grotesk] ">
             {["Unfolding the" , "stories", "woven in style"].map((item,index)=>(
                 <div key = {index} className="masker">
                     <div className="w-fit flex items-end overflow-hidden ">
@@ -18,7 +18,7 @@ const LandingPage = () => {
             </div>
             ))}
         </div>
-        <div className='border-t-[1px] border-zinc-700 mt-22 flex justify-between items-center px-[3vw] py-[2vw] font-[Gilroy-Light]'>
+        <div style={{fontFamily:"Gilroy-Light"}} className='border-t-[1px] border-zinc-700 mt-22 flex justify-between items-center px-[3vw] py-[2vw]'>
             {["Where Fashion Find it's SOUL","Read | Understand | Boom"].map((item,index) =>(
                 <p key = {index} className='text-[1vw] tracking-tight leading-none'>{item}</p>
             ))}

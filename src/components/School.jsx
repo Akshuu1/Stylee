@@ -5,8 +5,8 @@ const Sets = () => {
   return (
     <div data-scroll data-scroll-section data-scroll-speed=".2" className="bg-[#CDEA68] rounded-tl-3xl rounded-tr-3xl w-full text-black py-10 px-10">
       <div className="text-5xl mb-10">
-        <h1 className='font-[Sephora_Sans]'>
-          <span className="font-[Beikho]">Stylee´</span> School
+        <h1 style={{fontFamily:"Sephora Sans"}} >
+          <span style={{fontFamily:"Beikho"}}>Stylee´</span> School
         </h1>
       </div>
 
@@ -19,7 +19,7 @@ const Sets = () => {
             className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
           />
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
-            <h2 className="text-4xl font-[Gilroy-Light] font-bold">Basics of Styling</h2>
+            <h2 style={{fontFamily:"Gilroy-Light"}} className="text-4xl font-bold">Basics of Styling</h2>
           </div>
         </div>
 
@@ -30,7 +30,7 @@ const Sets = () => {
             className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
           />
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
-            <h2 className="text-4xl font-[Gilroy-Light] font-bold">Dive in Color Theory</h2>
+            <h2 style={{fontFamily:"Gilroy-Light"}} className="text-4xl font-bold">Dive in Color Theory</h2>
           </div>
         </div>
 
@@ -41,7 +41,7 @@ const Sets = () => {
             className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
           />
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
-            <h2 className="text-4xl font-[Gilroy-Light] font-bold">Know about Textiles</h2>
+            <h2 style={{fontFamily:"Gilroy-Light"}} className="text-4xl font-bold">Know about Textiles</h2>
           </div>
         </div>
       </div>

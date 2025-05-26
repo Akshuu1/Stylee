@@ -35,13 +35,13 @@ const Cards = () => {
 
   return (
     <div data-scroll data-scroll-section data-scroll-speed=".4" className="w-full min-h-screen px-16 py-24 bg-zinc-800 rounded-tl-3xl rounded-tr-3xl text-white">
-      <h1 className="text-5xl font-semibold mb-12 uppercase font-[Sephora_Sans]">Fashion Through Decades</h1>
+      <h1 style={{fontFamily:"Sephora Sans"}} className="text-5xl font-semibold mb-12 uppercase ">Fashion Through Decades</h1>
       <div className="flex gap-5 h-[60vh] transition-all duration-[1s] ease-in-out">
         {images.map((img, index) => {
           const isMain = index === mainIndex;
           return (
-            <div key={img.id} onMouseEnter={() => handleSwap(index)}
-              className={`flip-card transition-all duration-[1s] ease-in-out rounded-2xl overflow-hidden font-[Gilroy-Light] ${
+            <div style={{fontFamily:"Gilroy-Light"}} key={img.id} onMouseEnter={() => handleSwap(index)}
+              className={`flip-card transition-all duration-[1s] ease-in-out rounded-2xl overflow-hidden ${
                 isMain ? 'w-1/2' : 'w-1/4'
               } h-full`}
             >

@@ -18,15 +18,15 @@ const Featured = () => {
   return (
     <div className='w-full py-15 rounded-tl-3xl rounded-tr-3xl  ' >
         <div className="w-full px-20 py-2 border-b-[1px] border-zinc-700 pb-15">
-            <h1 className='text-8xl font-["Sephora_Sans"]  uppercase'>Latest 2k´ 25</h1>
+            <h1 style={{fontFamily:"Sephora Sans"}} className='text-8xl  uppercase'>Latest 2k´ 25</h1>
         </div>
-            <div className="px-20">
+            <div style={{fontFamily:"Gilroy-Light"}} className="px-20 font-bold">
             <div className="cards w-full flex gap-10 mt-10 ">
                 <motion.div 
                 onHoverStart={()=>handleHolver(0)} 
                 onHoverEnd={()=>handleHoverEnd(0)}
                 className="cardContainer w-1/2 relative ">
-                    <h1 className="absolute flex overflow-hidden text-[#CDEA68] z-[9] -mb-10 top-1/2 left-full -translate-x-1/2 -translate-y-1/2 leading-none tracking-right text-8xl">
+                    <h1  className="absolute flex overflow-hidden text-[#CDEA68] z-[9] -mb-10 top-1/2 left-full -translate-x-1/2 -translate-y-1/2 leading-none tracking-right text-8xl">
                         {"Runway Trends".split('').map((item,index) => 
                         <motion.span initial={{y:"100%"}} transition={{ease:[0.22,1,0.36,1],delay:index*0.02}} animate={cards[0]} className='inline-block' key={index}>{item}</motion.span> 
                         )}
