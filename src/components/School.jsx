@@ -2,7 +2,7 @@ import React from 'react'
 
 const Sets = () => {
   return (
-    <div className="bg-[#CDEA68] w-full  text-black py-10 px-10">
+    <div data-scroll data-scroll-section data-scroll-speed=".2" className="bg-[#CDEA68] w-full  text-black py-10 px-10">
       <div className="text-5xl mb-10">
         <h1>
           <span className="font-[Beikho]">Stylee´</span> School
