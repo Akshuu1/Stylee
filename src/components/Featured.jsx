@@ -32,7 +32,7 @@ const Featured = () => {
                         )}
                     </h1>
                     <div className="overflow-hidden w-full h-full  rounded-xl scale-90">
-                        <img src="src/assets/pexels-toniimal-28751173.jpg" className='hover:scale-95 duration-[1s]' alt="" />    
+                        <img src="public/photos/pexels-toniimal-28751173.jpg" className='hover:scale-95 duration-[1s]' alt="" />    
                     </div>   
                 </motion.div>
                 <motion.div 
@@ -45,7 +45,7 @@ const Featured = () => {
                         )}
                     </h1>
                     <div className="overflow-hidden w-full h-full rounded-xl scale-90 ">
-                        <img src="src/assets/dushawn-jovic-py2NabvrB9Q-unsplash.jpg" className='hover:scale-95 duration-[1s]' alt="Street Style" />    
+                        <img src="public/photos/dushawn-jovic-py2NabvrB9Q-unsplash.jpg" className='hover:scale-95 duration-[1s]' alt="Street Style" />    
                     </div>   
                 </motion.div>
             </div>
@@ -88,7 +88,7 @@ const Featured = () => {
                         )}
                     </h1>
                     <div className="overflow-hidden w-full h-full  rounded-xl scale-90">
-                        <img src="src/assets/irham-setyaki-WBr1YrSyEds-unsplash.jpg" alt="" className='hover:scale-95 duration-[1s]' />    
+                        <img src="public/photos/irham-setyaki-WBr1YrSyEds-unsplash.jpg" alt="" className='hover:scale-95 duration-[1s]' />    
                     </div>   
                 </motion.div>
                 <motion.div 
@@ -101,7 +101,7 @@ const Featured = () => {
                         )}
                     </h1>
                     <div className="overflow-hidden w-full h-full rounded-xl scale-90 ">
-                        <img src="src/assets/kanchan-raj-pandey-nKf8yjuJtYQ-unsplash.jpg" alt="Street Style"  className='hover:scale-95 duration-[1s]' />    
+                        <img src="public/photos/kanchan-raj-pandey-nKf8yjuJtYQ-unsplash.jpg" alt="Street Style"  className='hover:scale-95 duration-[1s]' />    
                     </div>   
                 </motion.div>
             </div>
@@ -116,7 +116,7 @@ const Featured = () => {
                         )}
                     </h1>
                     <div className="overflow-hidden w-full h-full  rounded-xl scale-90">
-                        <img src="src/assets/happy-face-emoji-1heQMhex2Ko-unsplash.jpg" alt="" className='hover:scale-95 duration-[1s]' />    
+                        <img src="public/photos/happy-face-emoji-1heQMhex2Ko-unsplash.jpg" alt="" className='hover:scale-95 duration-[1s]' />    
                     </div>   
                 </motion.div>
                 <motion.div 
@@ -129,7 +129,7 @@ const Featured = () => {
                         )}
                     </h1>
                     <div className="overflow-hidden w-full h-full rounded-xl scale-90 ">
-                        <img src="src/assets/nellie-adamyan-J1YzvR1RWvo-unsplash.jpg" alt="Street Style"  className='hover:scale-95 duration-[1s]' />    
+                        <img src="public/photos/nellie-adamyan-J1YzvR1RWvo-unsplash.jpg" alt="Street Style"  className='hover:scale-95 duration-[1s]' />    
                     </div>   
                 </motion.div>
             </div>

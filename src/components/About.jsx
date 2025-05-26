@@ -24,12 +24,7 @@ const About = () => {
 
   return (
     <div className='w-full p-10 md:p-20 bg-[#CDEA68] rounded-tl-3xl rounded-tr-3xl text-black' data-scroll-section>
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className='text-3xl md:text-5xl leading-relaxed tracking-tight font-[Gilroy-Light] font-semibold text-center max-w-6xl mx-auto'
-      >
+      <motion.h1 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className='text-3xl md:text-5xl leading-relaxed tracking-tight font-[Gilroy-Light] font-semibold text-center max-w-6xl mx-auto'>
         Fashion is the whisper of time stitched into fabric — a language of colors, cuts, and confidence. It’s not just what you wear, it’s what you feel and become.
       </motion.h1>
 
@@ -63,7 +58,7 @@ const About = () => {
         </div>
         <div className="md:w-1/2 mt-10 md:mt-20 flex justify-center items-center mb-10" data-scroll data-scroll-speed="0.5">
           <img
-            src="src/assets/_.jpeg"
+            src="public/photos/_.jpeg"
             alt="fashion"
             ref={imgRef}
             className='shadow-xl rounded-[2vw] h-[65vh] object-cover'

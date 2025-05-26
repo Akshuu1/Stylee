@@ -75,7 +75,7 @@ const Footer = () => {
           Your Story. Our Stage.
         </motion.h1>
         <motion.div ref={videoRef} whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200 }} className="dets rounded-2xl backdrop-blur-sm h-full min-h-[50vh] w-full flex items-center justify-center overflow-hidden shadow-2xl">
-          <video src="src/assets/video/mixkit-stylish-woman-posing-with-a-camaro-car-44560-full-hd.mp4" autoPlay muted loop playsInline className="rounded-[2vw] w-full h-full object-cover"/>
+          <video src="public/music/video/mixkit-stylish-woman-posing-with-a-camaro-car-44560-full-hd.mp4" autoPlay muted loop playsInline className="rounded-[2vw] w-full h-full object-cover"/>
         </motion.div>
       </div>
     </div>
