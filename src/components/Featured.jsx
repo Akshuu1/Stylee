@@ -3,12 +3,6 @@ import { a } from 'framer-motion/client'
 import React, { useState } from 'react'
 
 
-
-// https://assets.vogue.in/photos/681e15ffbb42168a5a797ca9/3:4/w_2240,c_limit/SnapInsta.to_495333609_18513974965007581_8504780726696481033_n.jpg
-
-
-
-
 const Featured = () => {
 
     const cards = [useAnimation(),useAnimation()]
@@ -22,9 +16,9 @@ const Featured = () => {
     }
 
   return (
-    <div className='w-full py-10'>
-        <div className="w-full px-20 border-b-[1px] border-zinc-700 pb-15">
-            <h1 className='text-8xl'>Latest 2k´25</h1>
+    <div className='w-full py-15 rounded-tl-3xl rounded-tr-3xl  ' >
+        <div className="w-full px-20 py-2 border-b-[1px] border-zinc-700 pb-15">
+            <h1 className='text-8xl font-["Sephora_Sans"]  uppercase'>Latest 2k´ 25</h1>
         </div>
             <div className="px-20">
             <div className="cards w-full flex gap-10 mt-10 ">
