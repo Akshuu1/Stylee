@@ -58,7 +58,7 @@ const About = () => {
         </div>
         <div className="md:w-1/2 mt-10 md:mt-20 flex justify-center items-center mb-10" data-scroll data-scroll-speed="0.5">
           <img
-            src="public/photos/img1.jpeg"
+            src="/photos/img1.jpeg"
             alt="fashion"
             ref={imgRef}
             className='shadow-xl rounded-[2vw] h-[65vh] object-cover'

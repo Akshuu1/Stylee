@@ -7,19 +7,19 @@ const Cards = () => {
   const images = [
     {
       id: 1,
-      src: 'public/photos/img8.jpg',
+      src: '/photos/img8.jpg',
       bg: '#004D43',
       text: "🌍👠 “The Now of Style – Fashion 2025 👠🌍A bold blend of technology, gender fluidity, nostalgia, and conscious beauty.",
     },
     {
       id: 2,
-      src: 'public/photos/img9.jpg',
+      src: '/photos/img9.jpg',
       bg: '#192826',
       text: "💿🌈 “The Y2K Era – Fashion Rewired 🌈💿 Welcome to a world of bedazzled chaos, digital dreams, and iconic silhouettes. Let’s take your audience on a time-travel to the early 2000s fashion frenzy 💋✨",
     },
     {
       id: 3,
-      src: 'public/photos/img10.jpg',
+      src: '/photos/img10.jpg',
       bg: '#483C32',
       text: "💋✨ The Golden Hour: Fashion in the 1950s ✨💋 The 1950s was the decade when fashion bloomed like a rose in full swing. After the war, women embraced their femininity with full skirts, cinched waists, and elegance sewn into every seam.",
     },
