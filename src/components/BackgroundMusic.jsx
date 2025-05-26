@@ -30,7 +30,7 @@ const BackgroundMusic = () => {
 
   return (
     <audio ref={audioRef} loop>
-      <source src="public/music/music.mp3" type="audio/mp3" />
+      <source src="/music/music.mp3" type="audio/mp3" />
       Your browser does not support the audio tag.
     </audio>
   );
