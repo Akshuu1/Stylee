@@ -47,7 +47,7 @@ const Cards = () => {
             >
               <div className="flip-card-inner">
                 <div className="flip-card-front" style={{ backgroundColor: img.bg }}>
-                  <img src={img.src} alt="" className="w-full h-full object-cover" />
+                  <img src={img.src} alt="..." className="w-full h-full object-cover" />
                 </div>
                 <div className="flip-card-back" style={{ backgroundColor: img.bg }}>
                   <div className="p-10 flex items-center justify-center h-full">
