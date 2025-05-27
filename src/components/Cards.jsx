@@ -35,7 +35,7 @@ const Cards = () => {
 
   return (
     <div data-scroll data-scroll-section data-scroll-speed=".4" className="w-full min-h-screen px-16 py-24 bg-zinc-800 rounded-tl-3xl rounded-tr-3xl text-white">
-      <h1 style={{fontFamily:"Sephora Sans"}} className="text-5xl font-semibold mb-12 uppercase ">Fashion Through Decades</h1>
+      <h1 style={{fontFamily:"Montserrat"}} className="text-5xl font-semibold mb-12 uppercase ">Fashion Through Decades</h1>
       <div className="flex gap-5 h-[60vh] transition-all duration-[1s] ease-in-out">
         {images.map((img, index) => {
           const isMain = index === mainIndex;

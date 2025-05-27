@@ -30,7 +30,7 @@ const About = () => {
 
       <div className="flex flex-col md:flex-row border-b-[1px] w-full border-t-[1px] mt-20 border-[#a1b563] gap-10 md:gap-0">
         <div className="md:w-1/2 mt-10 md:mt-20" data-scroll data-scroll-speed="0.2">
-          <h1 style={{fontFamily:"Sephora Sans"}} className='text-4xl md:text-7xl uppercase font-semibold tracking-tight'>Our Approach</h1>
+          <h1 style={{fontFamily:"Montserrat"}} className='text-4xl md:text-7xl uppercase font-semibold tracking-tight'>Our Approach</h1>
 
           <div style={{fontFamily:"Gilroy-Light"}} className="w-full mt-10 text-xl md:text-2xl py-10 space-y-10">
 
