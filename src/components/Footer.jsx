@@ -58,7 +58,7 @@ const Footer = () => {
             <motion.h1 style={{fontFamily:"Gilroy-Light"}} key={index} className="line text-[2.8vw] font-light uppercase leading-snug mb-4 text-left">
               {line.map((word, i) =>
                 word === "Stylee´" ? (
-                  <span key={i} className='font-["Beikho"] font-bold text-white text-7xl mr-3 tracking-wide'>
+                  <span key={i} className='font-["Beikho"] normal-case capitalize  font-bold text-white text-7xl mr-3 tracking-wide'>
                     {word}
                   </span>
                 ) : (
