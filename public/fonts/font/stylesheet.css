@@ -1,0 +1,286 @@
+@font-face {
+    font-family: 'Sephora Sans';
+    src: url('SephoraSans-Light.eot');
+    src: local('Sephora Sans Light'), local('SephoraSans-Light'),
+        url('SephoraSans-Light.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSans-Light.woff2') format('woff2'),
+        url('SephoraSans-Light.woff') format('woff'),
+        url('SephoraSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Sans Book';
+    src: url('SephoraSans-Book.eot');
+    src: local('Sephora Sans Book'), local('SephoraSans-Book'),
+        url('SephoraSans-Book.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSans-Book.woff2') format('woff2'),
+        url('SephoraSans-Book.woff') format('woff'),
+        url('SephoraSans-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Sans';
+    src: url('SephoraSans-Medium.eot');
+    src: local('Sephora Sans Medium'), local('SephoraSans-Medium'),
+        url('SephoraSans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSans-Medium.woff2') format('woff2'),
+        url('SephoraSans-Medium.woff') format('woff'),
+        url('SephoraSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Sans Book';
+    src: url('SephoraSans-Bold.eot');
+    src: local('Sephora Sans Bold'), local('SephoraSans-Bold'),
+        url('SephoraSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSans-Bold.woff2') format('woff2'),
+        url('SephoraSans-Bold.woff') format('woff'),
+        url('SephoraSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display Book';
+    src: url('SephoraSerifDisplay-Book.eot');
+    src: local('Sephora Serif Display Book'), local('SephoraSerifDisplay-Book'),
+        url('SephoraSerifDisplay-Book.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-Book.woff2') format('woff2'),
+        url('SephoraSerifDisplay-Book.woff') format('woff'),
+        url('SephoraSerifDisplay-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text Book';
+    src: url('SephoraSerifText-BookItalic.eot');
+    src: local('Sephora Serif Text Book Italic'), local('SephoraSerifText-BookItalic'),
+        url('SephoraSerifText-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-BookItalic.woff2') format('woff2'),
+        url('SephoraSerifText-BookItalic.woff') format('woff'),
+        url('SephoraSerifText-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text';
+    src: url('SephoraSerifText-LightItalic.eot');
+    src: local('Sephora Serif Text Light Italic'), local('SephoraSerifText-LightItalic'),
+        url('SephoraSerifText-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-LightItalic.woff2') format('woff2'),
+        url('SephoraSerifText-LightItalic.woff') format('woff'),
+        url('SephoraSerifText-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text Book';
+    src: url('SephoraSerifText-BoldItalic.eot');
+    src: local('Sephora Serif Text Bold Italic'), local('SephoraSerifText-BoldItalic'),
+        url('SephoraSerifText-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-BoldItalic.woff2') format('woff2'),
+        url('SephoraSerifText-BoldItalic.woff') format('woff'),
+        url('SephoraSerifText-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text';
+    src: url('SephoraSerifText-Light.eot');
+    src: local('Sephora Serif Text Light'), local('SephoraSerifText-Light'),
+        url('SephoraSerifText-Light.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-Light.woff2') format('woff2'),
+        url('SephoraSerifText-Light.woff') format('woff'),
+        url('SephoraSerifText-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Script Collection';
+    src: url('SephoraScript-Collection.eot');
+    src: local('Sephora Script Collection'), local('SephoraScript-Collection'),
+        url('SephoraScript-Collection.eot?#iefix') format('embedded-opentype'),
+        url('SephoraScript-Collection.woff2') format('woff2'),
+        url('SephoraScript-Collection.woff') format('woff'),
+        url('SephoraScript-Collection.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Script Editor';
+    src: url('SephoraScript-Editor.eot');
+    src: local('Sephora Script Editor'), local('SephoraScript-Editor'),
+        url('SephoraScript-Editor.eot?#iefix') format('embedded-opentype'),
+        url('SephoraScript-Editor.woff2') format('woff2'),
+        url('SephoraScript-Editor.woff') format('woff'),
+        url('SephoraScript-Editor.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display';
+    src: url('SephoraSerifDisplay-Medium.eot');
+    src: local('Sephora Serif Display Medium'), local('SephoraSerifDisplay-Medium'),
+        url('SephoraSerifDisplay-Medium.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-Medium.woff2') format('woff2'),
+        url('SephoraSerifDisplay-Medium.woff') format('woff'),
+        url('SephoraSerifDisplay-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display';
+    src: url('SephoraSerifDisplay-MediumItalic.eot');
+    src: local('Sephora Serif Display Medium Italic'), local('SephoraSerifDisplay-MediumItalic'),
+        url('SephoraSerifDisplay-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-MediumItalic.woff2') format('woff2'),
+        url('SephoraSerifDisplay-MediumItalic.woff') format('woff'),
+        url('SephoraSerifDisplay-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display';
+    src: url('SephoraSerifDisplay-Light.eot');
+    src: local('Sephora Serif Display Light'), local('SephoraSerifDisplay-Light'),
+        url('SephoraSerifDisplay-Light.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-Light.woff2') format('woff2'),
+        url('SephoraSerifDisplay-Light.woff') format('woff'),
+        url('SephoraSerifDisplay-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text Book';
+    src: url('SephoraSerifText-Bold.eot');
+    src: local('Sephora Serif Text Bold'), local('SephoraSerifText-Bold'),
+        url('SephoraSerifText-Bold.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-Bold.woff2') format('woff2'),
+        url('SephoraSerifText-Bold.woff') format('woff'),
+        url('SephoraSerifText-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text';
+    src: url('SephoraSerifText-MediumItalic.eot');
+    src: local('Sephora Serif Text Medium Italic'), local('SephoraSerifText-MediumItalic'),
+        url('SephoraSerifText-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-MediumItalic.woff2') format('woff2'),
+        url('SephoraSerifText-MediumItalic.woff') format('woff'),
+        url('SephoraSerifText-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display Book';
+    src: url('SephoraSerifDisplay-BoldItalic.eot');
+    src: local('Sephora Serif Display Bold Italic'), local('SephoraSerifDisplay-BoldItalic'),
+        url('SephoraSerifDisplay-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-BoldItalic.woff2') format('woff2'),
+        url('SephoraSerifDisplay-BoldItalic.woff') format('woff'),
+        url('SephoraSerifDisplay-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display';
+    src: url('SephoraSerifDisplay-LightItalic.eot');
+    src: local('Sephora Serif Display Light Italic'), local('SephoraSerifDisplay-LightItalic'),
+        url('SephoraSerifDisplay-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-LightItalic.woff2') format('woff2'),
+        url('SephoraSerifDisplay-LightItalic.woff') format('woff'),
+        url('SephoraSerifDisplay-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text';
+    src: url('SephoraSerifText-Medium.eot');
+    src: local('Sephora Serif Text Medium'), local('SephoraSerifText-Medium'),
+        url('SephoraSerifText-Medium.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-Medium.woff2') format('woff2'),
+        url('SephoraSerifText-Medium.woff') format('woff'),
+        url('SephoraSerifText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Text Book';
+    src: url('SephoraSerifText-Book.eot');
+    src: local('Sephora Serif Text Book'), local('SephoraSerifText-Book'),
+        url('SephoraSerifText-Book.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifText-Book.woff2') format('woff2'),
+        url('SephoraSerifText-Book.woff') format('woff'),
+        url('SephoraSerifText-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display Book';
+    src: url('SephoraSerifDisplay-BookItalic.eot');
+    src: local('Sephora Serif Display Book Italic'), local('SephoraSerifDisplay-BookItalic'),
+        url('SephoraSerifDisplay-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-BookItalic.woff2') format('woff2'),
+        url('SephoraSerifDisplay-BookItalic.woff') format('woff'),
+        url('SephoraSerifDisplay-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sephora Serif Display Book';
+    src: url('SephoraSerifDisplay-Bold.eot');
+    src: local('Sephora Serif Display Bold'), local('SephoraSerifDisplay-Bold'),
+        url('SephoraSerifDisplay-Bold.eot?#iefix') format('embedded-opentype'),
+        url('SephoraSerifDisplay-Bold.woff2') format('woff2'),
+        url('SephoraSerifDisplay-Bold.woff') format('woff'),
+        url('SephoraSerifDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
