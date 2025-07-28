@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 
 const Navbar = () => {
@@ -10,12 +11,11 @@ const Navbar = () => {
     setShow(zinc)
   },[])
   if (show) return null
-
   return (
     <div className='fixed z-100 w-full px-20 py-8 flex justify-between items-center '>
 
         <div className="logo text-2xl">
-            <h2 style={{fontFamily:"Beikho"}} className='font-bold text-[2vw]'>Stylee´</h2>
+            <motion.h2 style={{fontFamily:"Beikho"}} className='font-bold text-[2vw]'>Stylee´</motion.h2>
         </div>
         <div style={{fontFamily:"Gilroy-Light"}} className="links justify-center items-center text-center flex gap-10 ">
             {['Home','Trends','Knowledge','About Us','Contact'].map((item,index) => (

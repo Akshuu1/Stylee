@@ -11,15 +11,17 @@ import Footer from './components/Footer'
 import School from './components/School'
 import LocomotiveScroll from 'locomotive-scroll';
 import BackgroundMusic from './components/BackgroundMusic'
+import { NavbarDemo } from './components/Animations/Navbar-Animated'
 const App = () => {
 
   const locomotiveScroll = new LocomotiveScroll();
 
-
   return (
     <div className='w-full min-h-screen bg-zinc-900 text-white overflow-hidden'> 
-    <BackgroundMusic />
-      <Navbar />
+  <NavbarDemo />
+
+      <BackgroundMusic />
+      {/* <Navbar /> */}
       <LandingPage />
       <Marquee />
       <About />
@@ -32,4 +34,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
