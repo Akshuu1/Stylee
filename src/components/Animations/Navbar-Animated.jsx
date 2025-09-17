@@ -15,8 +15,8 @@ import { useState } from "react";
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "Home",
-      link: "#features",
+      name: "About",
+      link: "#about"
     },
     {
       name: "Trends",
@@ -77,7 +77,6 @@ export function NavbarDemo() {
         </MobileNav>
       </Navbar>
       <DummyContent />
-      {/* Navbar */}
     </div>
   );
 }

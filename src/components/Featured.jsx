@@ -16,7 +16,7 @@ const Featured = () => {
     }
 
   return (
-    <div className='w-full py-15 rounded-tl-3xl rounded-tr-3xl  ' >
+    <div id='Trends' className='w-full py-15 rounded-tl-3xl rounded-tr-3xl  ' >
         <div className="w-full px-20 py-2 border-b-[1px] border-zinc-700 pb-15">
             <h1 style={{fontFamily:"Sephora Sans"}} className='text-8xl  uppercase'>Latest 2k´ 25</h1>
         </div>

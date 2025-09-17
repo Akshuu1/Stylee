@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import School from './components/School'
 import LocomotiveScroll from 'locomotive-scroll';
 import BackgroundMusic from './components/BackgroundMusic'
+import {SignupFormDemo} from './components/Login'
 import { NavbarDemo } from './components/Animations/Navbar-Animated'
 const App = () => {
 
@@ -18,8 +19,8 @@ const App = () => {
 
   return (
     <div className='w-full min-h-screen bg-zinc-900 text-white overflow-hidden'> 
-  <NavbarDemo />
-
+      <NavbarDemo />
+      {/* <SignupFormDemo /> */}
       <BackgroundMusic />
       {/* <Navbar /> */}
       <LandingPage />
@@ -30,6 +31,7 @@ const App = () => {
       <Cards />
       <School />
       <Footer />
+
     </div>
   )
 }

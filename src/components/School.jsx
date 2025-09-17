@@ -3,7 +3,7 @@ import Eyes from './Eyes'
 
 const Sets = () => {
   return (
-    <div data-scroll data-scroll-section data-scroll-speed=".2" className="bg-[#CDEA68] rounded-tl-3xl rounded-tr-3xl w-full text-black py-10 px-10">
+    <div id='Knowledge' data-scroll data-scroll-section data-scroll-speed=".2" className="bg-[#CDEA68] rounded-tl-3xl rounded-tr-3xl w-full text-black py-10 px-10">
       <div className="text-5xl mb-10">
         <h1 style={{fontFamily:"Sephora Sans"}} >
           <span style={{fontFamily:"Beikho"}}>Stylee´</span> School
