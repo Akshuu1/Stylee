@@ -14,9 +14,9 @@ import Cards from "./components/Cards";
 import Footer from "./components/Footer";
 import School from "./components/School";
 import AuthPage from "./components/Loginoop";
+import Profile from "./components/Profile";
 
 const App = () => {
-  const locomotiveScroll = new LocomotiveScroll();
 
   return (
     <Router>
@@ -44,6 +44,8 @@ const App = () => {
 
           {/* Login Page Route */}
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/signup" element={<AuthPage mode="signup" />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
