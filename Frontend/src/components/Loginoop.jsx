@@ -63,7 +63,6 @@ export default function AuthPage({ mode }) {
               placeholder="Full Name"
               onChange={handleChange}
               value={formData.name}
-              required
               className="p-3 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50"
             />
           )}
@@ -73,7 +72,6 @@ export default function AuthPage({ mode }) {
             placeholder="Email"
             onChange={handleChange}
             value={formData.email}
-            required
             className="p-3 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50"
           />
           <input
@@ -82,7 +80,6 @@ export default function AuthPage({ mode }) {
             placeholder="Password"
             onChange={handleChange}
             value={formData.password}
-            required
             className="p-3 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50"
           />
 
