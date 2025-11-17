@@ -12,16 +12,19 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(
   cors({
-    origin: "[http://localhost:5173 , https://stylee-seven.vercel.app/]",
-      methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    origin: [
+      "http://localhost:5173",
+      "https://stylee-seven.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 
 const PORT = process.env.PORT || 5001;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// ✅ SIGNUP
+// ==================== SIGNUP ====================
 app.post("/api/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -33,22 +36,23 @@ app.post("/api/signup", async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await prisma.user.create({
       data: { name, email, password: hashedPassword },
     });
 
-    console.log("✅ USER CREATED:", newUser);
     res.status(201).json({ message: "User created successfully!" });
   } catch (error) {
-    console.error("SIGNUP ERROR:", error.message);
+    console.error("SIGNUP ERROR:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-// ✅ LOGIN
+// ==================== LOGIN ====================
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) return res.status(400).json({ message: "User not found" });
 
@@ -66,38 +70,41 @@ app.post("/api/login", async (req, res) => {
       user: { id: user.id, name: user.name, email: user.email },
     });
   } catch (error) {
-    console.error("LOGIN ERROR:", error.message);
+    console.error("LOGIN ERROR:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-// ✅ PROFILE
 app.get("/api/profile", async (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader)
-    return res.status(401).json({ message: "Missing authorization header" });
-
-  const token = authHeader.split(" ")[1];
   try {
+    const auth = req.headers.authorization;
+
+    if (!auth)
+      return res.status(401).json({ message: "No authorization header" });
+
+    const token = auth.split(" ")[1];
+
     const decoded = jwt.verify(token, JWT_SECRET);
+
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
       select: { id: true, name: true, email: true },
     });
 
     if (!user)
-      return res.status(404).json({ message: "User not found or deleted" });
+      return res.status(404).json({ message: "User not found" });
 
-    res.json({ message: "Access granted", user });
+    res.json({ user });
   } catch (error) {
-    console.error("PROFILE ERROR:", error.message);
+    console.error("PROFILE ERROR:", error);
     res.status(401).json({ message: "Invalid or expired token" });
   }
 });
 
-// ✅ LOGOUT (Frontend handles token removal)
 app.get("/", (req, res) => {
-  res.send("Backend running successfully!");
+  res.send("Backend is running successfully!");
 });
 
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
