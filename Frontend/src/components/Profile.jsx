@@ -10,7 +10,7 @@ export default function Profile() {
 
     // 2️⃣ Make a GET request to the protected backend route
     axios
-      .get("https://stylee-4cbh.vercel.app/api/profile", {
+      .get("http://localhost:5001/api/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setUser(res.data.user))
