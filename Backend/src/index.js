@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "[http://localhost:5173 , https://stylee-seven.vercel.app/]",
     credentials: true,
   })
 );

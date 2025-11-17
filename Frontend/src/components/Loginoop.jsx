@@ -23,7 +23,7 @@ export default function AuthPage({ mode }) {
     e.preventDefault();
     try {
       const endpoint = isLogin ? "/api/login" : "/api/signup";
-      const res = await axios.post(`http://localhost:5001${endpoint}`, formData);
+      const res = await axios.post(`https://stylee.onrender.com${endpoint}`, formData);
 
       if (isLogin) {
         localStorage.setItem("token", res.data.token);

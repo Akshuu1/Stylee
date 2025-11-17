@@ -10,7 +10,7 @@ export default function Profile() {
 
     // 2️⃣ Make a GET request to the protected backend route
     axios
-      .get("http://localhost:5001/api/profile", {
+      .get("https://stylee.onrender.com/api/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setUser(res.data.user))
