@@ -194,11 +194,17 @@ export const MobileNavToggle = ({
   );
 };
 
-export const NavbarLogo = () => {
+export const NavbarLogo = ({ onClick }) => {
   return (
     <a
       href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm text-black">
+      onClick={(e) => {
+        e.preventDefault();
+        if (onClick) {
+          onClick();
+        }
+      }}
+      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm text-black cursor-pointer">
       <img className="dark:invert h-10 w-10"
         src="/photos/styelee-logo.png"
         alt="logo"

@@ -36,7 +36,7 @@ export function NavbarDemo() {
       <Navbar>
         {/* 💻 Desktop Navigation */}
         <NavBody>
-          <NavbarLogo />
+          <NavbarLogo onClick={() => navigate('/')} />
           <NavItems
             items={navItems}
             onItemClick={(item) => {
@@ -92,7 +92,10 @@ export function NavbarDemo() {
         {/* 📱 Mobile Navigation */}
         <MobileNav>
           <MobileNavHeader>
-            <NavbarLogo />
+            <NavbarLogo onClick={() => {
+              setIsMobileMenuOpen(false);
+              navigate('/');
+            }} />
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
