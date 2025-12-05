@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { itemsAPI } from "../services/api";
 
 const ProductDetail = () => {
@@ -9,6 +10,7 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedImage, setSelectedImage] = useState(0);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -29,156 +31,330 @@ const ProductDetail = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-zinc-900 text-white flex items-center justify-center">
-                <div className="text-center">
-                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                    <p className="mt-4 text-gray-400">Loading product...</p>
-                </div>
+            <div className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white flex items-center justify-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center"
+                >
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="inline-block w-20 h-20 border-4 border-[#CDEA68] border-t-transparent rounded-full"
+                    />
+                    <motion.p
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="mt-6 text-xl text-zinc-400"
+                    >
+                        Loading product details...
+                    </motion.p>
+                </motion.div>
             </div>
         );
     }
 
     if (error || !item) {
         return (
-            <div className="min-h-screen bg-zinc-900 text-white flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-red-400 text-xl mb-4">{error || "Product not found"}</p>
-                    <button
-                        onClick={() => navigate("/products")}
-                        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition"
+            <div className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white flex items-center justify-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center"
+                >
+                    <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 0.5, repeat: 3 }}
+                        className="text-8xl mb-6"
                     >
-                        Back to Products
-                    </button>
-                </div>
+                        ⚠️
+                    </motion.div>
+                    <p className="text-red-400 text-2xl mb-6">{error || "Product not found"}</p>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => navigate("/products")}
+                        className="px-8 py-4 bg-[#CDEA68] text-[#004D54] rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-[#CDEA68]/30"
+                    >
+                        ← Back to Products
+                    </motion.button>
+                </motion.div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-zinc-900 text-white pt-24 px-6 pb-12">
-            <div className="max-w-7xl mx-auto">
-                <button
+        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white pt-24 px-6 pb-12 relative overflow-hidden">
+            {/* Animated Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <motion.div
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 90, 0],
+                        opacity: [0.03, 0.06, 0.03]
+                    }}
+                    transition={{ duration: 20, repeat: Infinity }}
+                    className="absolute top-20 -left-20 w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl"
+                />
+                <motion.div
+                    animate={{
+                        scale: [1, 1.3, 1],
+                        rotate: [0, -90, 0],
+                        opacity: [0.02, 0.05, 0.02]
+                    }}
+                    transition={{ duration: 25, repeat: Infinity }}
+                    className="absolute bottom-20 -right-20 w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl"
+                />
+            </div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+                {/* Back Button */}
+                <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    whileHover={{ scale: 1.05, x: -5 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/products")}
-                    className="mb-6 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition"
+                    className="mb-8 px-6 py-3 bg-zinc-900/60 backdrop-blur-2xl hover:bg-zinc-800/80 rounded-2xl transition-all duration-300 border border-[#CDEA68]/20 font-semibold shadow-lg"
                 >
                     ← Back to Products
-                </button>
+                </motion.button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Images */}
-                    <div>
-                        <div className="aspect-square bg-zinc-800 rounded-lg overflow-hidden mb-4">
-                            {item.images && item.images.length > 0 ? (
-                                <img
-                                    src={item.images[selectedImage]}
-                                    alt={item.name}
-                                    className="w-full h-full object-cover"
-                                />
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center text-gray-500 text-6xl">
-                                    📦
-                                </div>
-                            )}
-                        </div>
+                    {/* Images Section */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        {/* Main Image */}
+                        <motion.div
+                            className="aspect-square bg-zinc-900/60 backdrop-blur-2xl rounded-3xl overflow-hidden mb-6 border border-[#CDEA68]/20 shadow-2xl"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <AnimatePresence mode="wait">
+                                {item.images && item.images.length > 0 ? (
+                                    <motion.img
+                                        key={selectedImage}
+                                        src={item.images[selectedImage]}
+                                        alt={item.name}
+                                        className="w-full h-full object-cover"
+                                        initial={{ opacity: 0, scale: 1.1 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.3 }}
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-zinc-800/50">
+                                        <motion.div
+                                            animate={{ rotate: 360 }}
+                                            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                            className="text-[#CDEA68]/30 text-8xl"
+                                        >
+                                            📦
+                                        </motion.div>
+                                    </div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+
+                        {/* Thumbnail Images */}
                         {item.images && item.images.length > 1 && (
-                            <div className="grid grid-cols-4 gap-2">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="grid grid-cols-4 gap-4"
+                            >
                                 {item.images.map((img, index) => (
-                                    <button
+                                    <motion.button
                                         key={index}
                                         onClick={() => setSelectedImage(index)}
-                                        className={`aspect-square bg-zinc-800 rounded-lg overflow-hidden ${selectedImage === index ? "ring-2 ring-blue-500" : ""
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`aspect-square bg-zinc-900/60 backdrop-blur-2xl rounded-2xl overflow-hidden border-2 transition-all duration-300 ${selectedImage === index
+                                                ? "border-[#CDEA68] shadow-lg shadow-[#CDEA68]/50"
+                                                : "border-[#CDEA68]/20 hover:border-[#CDEA68]/50"
                                             }`}
                                     >
                                         <img src={img} alt={`${item.name} ${index + 1}`} className="w-full h-full object-cover" />
-                                    </button>
+                                    </motion.button>
                                 ))}
-                            </div>
+                            </motion.div>
                         )}
-                    </div>
+                    </motion.div>
 
-                    {/* Details */}
-                    <div>
-                        <h1 className="text-4xl font-bold mb-4">{item.name}</h1>
-                        <p className="text-3xl font-bold text-blue-400 mb-6">${item.price}</p>
+                    {/* Product Details Section */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        {/* Product Name */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-5xl font-bold mb-4 text-[#CDEA68]"
+                        >
+                            {item.name}
+                        </motion.h1>
 
-                        <div className="mb-6">
-                            <h2 className="text-xl font-semibold mb-2">Description</h2>
-                            <p className="text-gray-300 leading-relaxed">{item.description}</p>
-                        </div>
+                        {/* Price */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.3 }}
+                            className="mb-8"
+                        >
+                            <span className="text-5xl font-bold text-[#CDEA68]">
+                                ${item.price}
+                            </span>
+                        </motion.div>
 
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                            {item.category && (
-                                <div>
-                                    <span className="text-gray-400">Category:</span>
-                                    <p className="font-semibold">{item.category}</p>
-                                </div>
+                        {/* Stock Status */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="mb-8"
+                        >
+                            {item.stock > 0 ? (
+                                <span className="inline-block px-6 py-3 bg-green-500/20 border border-green-500/50 text-green-400 rounded-full font-semibold backdrop-blur-xl">
+                                    ✓ {item.stock} In Stock
+                                </span>
+                            ) : (
+                                <span className="inline-block px-6 py-3 bg-red-500/20 border border-red-500/50 text-red-400 rounded-full font-semibold backdrop-blur-xl">
+                                    ✗ Out of Stock
+                                </span>
                             )}
-                            {item.brand && (
-                                <div>
-                                    <span className="text-gray-400">Brand:</span>
-                                    <p className="font-semibold">{item.brand}</p>
+                        </motion.div>
+
+                        {/* Description */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="mb-8 p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
+                        >
+                            <h2 className="text-2xl font-bold mb-3 text-[#CDEA68]">Description</h2>
+                            <p className="text-zinc-300 leading-relaxed text-lg">{item.description}</p>
+                        </motion.div>
+
+                        {/* Product Specifications */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="mb-8 p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
+                        >
+                            <h2 className="text-2xl font-bold mb-4 text-[#CDEA68]">Specifications</h2>
+                            <div className="grid grid-cols-2 gap-4">
+                                {item.category && (
+                                    <div className="p-4 bg-zinc-800/50 rounded-xl border border-[#CDEA68]/20">
+                                        <span className="text-zinc-400 text-sm">Category</span>
+                                        <p className="font-semibold text-lg text-white">{item.category}</p>
+                                    </div>
+                                )}
+                                {item.brand && (
+                                    <div className="p-4 bg-zinc-800/50 rounded-xl border border-[#CDEA68]/20">
+                                        <span className="text-zinc-400 text-sm">Brand</span>
+                                        <p className="font-semibold text-lg text-white">{item.brand}</p>
+                                    </div>
+                                )}
+                                {item.color && (
+                                    <div className="p-4 bg-zinc-800/50 rounded-xl border border-[#CDEA68]/20">
+                                        <span className="text-zinc-400 text-sm">Color</span>
+                                        <p className="font-semibold text-lg text-white">{item.color}</p>
+                                    </div>
+                                )}
+                                {item.size && (
+                                    <div className="p-4 bg-zinc-800/50 rounded-xl border border-[#CDEA68]/20">
+                                        <span className="text-zinc-400 text-sm">Size</span>
+                                        <p className="font-semibold text-lg text-white">{item.size}</p>
+                                    </div>
+                                )}
+                                <div className="p-4 bg-zinc-800/50 rounded-xl border border-[#CDEA68]/20">
+                                    <span className="text-zinc-400 text-sm">Popularity</span>
+                                    <p className="font-semibold text-lg text-white">⭐ {item.popularity || 0} views</p>
                                 </div>
-                            )}
-                            {item.color && (
-                                <div>
-                                    <span className="text-gray-400">Color:</span>
-                                    <p className="font-semibold">{item.color}</p>
-                                </div>
-                            )}
-                            {item.size && (
-                                <div>
-                                    <span className="text-gray-400">Size:</span>
-                                    <p className="font-semibold">{item.size}</p>
-                                </div>
-                            )}
-                            <div>
-                                <span className="text-gray-400">Stock:</span>
-                                <p className={`font-semibold ${item.stock > 0 ? "text-green-400" : "text-red-400"}`}>
-                                    {item.stock > 0 ? `${item.stock} available` : "Out of stock"}
-                                </p>
                             </div>
-                            <div>
-                                <span className="text-gray-400">Popularity:</span>
-                                <p className="font-semibold">{item.popularity || 0} views</p>
-                            </div>
-                        </div>
+                        </motion.div>
 
+                        {/* Tags */}
                         {item.tags && item.tags.length > 0 && (
-                            <div className="mb-6">
-                                <h2 className="text-xl font-semibold mb-2">Tags</h2>
-                                <div className="flex flex-wrap gap-2">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.7 }}
+                                className="mb-8"
+                            >
+                                <h2 className="text-xl font-semibold mb-3 text-[#CDEA68]">Tags</h2>
+                                <div className="flex flex-wrap gap-3">
                                     {item.tags.map((tag, index) => (
-                                        <span key={index} className="bg-zinc-800 px-3 py-1 rounded-full text-sm">
-                                            {tag}
-                                        </span>
+                                        <motion.span
+                                            key={index}
+                                            whileHover={{ scale: 1.1, y: -2 }}
+                                            className="bg-[#CDEA68]/20 border border-[#CDEA68]/30 px-4 py-2 rounded-full text-sm text-[#CDEA68] font-semibold backdrop-blur-xl"
+                                        >
+                                            #{tag}
+                                        </motion.span>
                                     ))}
                                 </div>
-                            </div>
+                            </motion.div>
                         )}
 
-                        <div className="flex gap-4">
-                            <button
+                        {/* Action Buttons */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8 }}
+                            className="flex gap-4 mb-8"
+                        >
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 disabled={item.stock === 0}
-                                className="flex-1 px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg font-semibold text-lg transition"
+                                className="flex-1 px-8 py-5 bg-[#CDEA68] text-[#004D54] disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg shadow-[#CDEA68]/30 disabled:shadow-none hover:bg-[#dfff7a]"
                             >
-                                {item.stock > 0 ? "Add to Cart" : "Out of Stock"}
-                            </button>
-                            <button className="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-lg font-semibold text-lg transition">
-                                ♥
-                            </button>
-                        </div>
+                                {item.stock > 0 ? "🛒 Add to Cart" : "Out of Stock"}
+                            </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.1, rotate: 5 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setIsFavorite(!isFavorite)}
+                                className={`px-8 py-5 rounded-2xl font-bold text-2xl transition-all duration-300 border-2 ${isFavorite
+                                        ? "bg-red-500/20 border-red-500/50 text-red-400"
+                                        : "bg-zinc-900/60 border-[#CDEA68]/20 text-white hover:bg-zinc-800/80 hover:border-[#CDEA68]/50"
+                                    }`}
+                            >
+                                {isFavorite ? "❤️" : "🤍"}
+                            </motion.button>
+                        </motion.div>
 
+                        {/* Seller Info */}
                         {item.user && (
-                            <div className="mt-8 pt-8 border-t border-zinc-800">
-                                <p className="text-gray-400 text-sm">
-                                    Listed by: <span className="text-white font-semibold">{item.user.name}</span>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.9 }}
+                                className="p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
+                            >
+                                <p className="text-zinc-400 text-sm mb-1">
+                                    Listed by
                                 </p>
-                                <p className="text-gray-500 text-xs mt-1">
-                                    Added on {new Date(item.createdAt).toLocaleDateString()}
+                                <p className="text-white font-bold text-xl mb-2">{item.user.name}</p>
+                                <p className="text-zinc-500 text-sm">
+                                    📅 Added on {new Date(item.createdAt).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
                                 </p>
-                            </div>
+                            </motion.div>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </div>
