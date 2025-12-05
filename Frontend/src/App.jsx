@@ -15,41 +15,55 @@ import Footer from "./components/Footer";
 import School from "./components/School";
 import AuthPage from "./components/Loginoop";
 import Profile from "./components/Profile";
+import Products from "./components/Products";
+import ProductDetail from "./components/ProductDetail";
+import AdminDashboard from "./components/AdminDashboard";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
 
   return (
-    <Router>
-      <div className="w-full min-h-screen bg-zinc-900 text-white overflow-hidden">
-        <NavbarDemo />
-        <BackgroundMusic />
+    <AuthProvider>
+      <Router>
+        <div className="w-full min-h-screen bg-zinc-900 text-white overflow-hidden">
+          <NavbarDemo />
+          <BackgroundMusic />
 
-        <Routes>
-          {/* Landing Page Route */}
-          <Route
-            path="/"
-            element={
-              <>
-                <LandingPage />
-                <Marquee />
-                <About />
-                <Eyes />
-                <Featured />
-                <Cards />
-                <School />
-                <Footer />
-              </>
-            }
-          />
+          <Routes>
+            {/* Landing Page Route */}
+            <Route
+              path="/"
+              element={
+                <>
+                  <LandingPage />
+                  <Marquee />
+                  <About />
+                  <Eyes />
+                  <Featured />
+                  <Cards />
+                  <School />
+                  <Footer />
+                </>
+              }
+            />
 
-          {/* Login Page Route */}
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/signup" element={<AuthPage mode="signup" />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </div>
-    </Router>
+            {/* Auth Routes */}
+            <Route path="/login" element={<AuthPage />} />
+            <Route path="/signup" element={<AuthPage mode="signup" />} />
+            <Route path="/profile" element={<Profile />} />
+
+            {/* Product Routes */}
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+
+            {/* Admin Route */}
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 
 export default App;
+

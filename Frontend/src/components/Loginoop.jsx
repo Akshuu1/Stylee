@@ -1,11 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
 
 export default function AuthPage({ mode }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { login, signup } = useAuth();
 
   // detect mode from path or props
   const isLogin = mode === "login" || location.pathname === "/login";
@@ -15,31 +16,42 @@ export default function AuthPage({ mode }) {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const endpoint = isLogin ? "/api/login" : "/api/signup";
-      const res = await axios.post(`https://stylee.onrender.com${endpoint}`, formData);
+    setLoading(true);
 
+    try {
       if (isLogin) {
-        localStorage.setItem("token", res.data.token);
-        alert("Login successful!");
-        setFormData({ name: "", email: "", password: "" });
-        setTimeout(() =>{
-          navigate("/")
-        },1000)
+        const result = await login(formData.email, formData.password);
+        if (result.success) {
+          alert("Login successful!");
+          setFormData({ name: "", email: "", password: "" });
+          setTimeout(() => {
+            navigate("/");
+          }, 500);
+        } else {
+          alert(result.message || "Login failed");
+        }
       } else {
-        alert("Signup successful! Please login now.");
-        setFormData({ name: "", email: "", password: "" });
-        navigate("/login");
+        const result = await signup(formData.name, formData.email, formData.password);
+        if (result.success) {
+          alert("Signup successful! Please login now.");
+          setFormData({ name: "", email: "", password: "" });
+          navigate("/login");
+        } else {
+          alert(result.message || "Signup failed");
+        }
       }
     } catch (err) {
-      console.error("Error:", err.response?.data || err.message);
-      alert(err.response?.data?.message || "Something went wrong!");
+      console.error("Error:", err);
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,10 +98,11 @@ export default function AuthPage({ mode }) {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            className="bg-[#CDEA68] text-[#004D54] py-3 rounded-xl font-semibold shadow-lg hover:bg-[#dfff7a] transition-all"
+            className="bg-[#CDEA68] text-[#004D54] py-3 rounded-xl font-semibold shadow-lg hover:bg-[#dfff7a] transition-all disabled:opacity-50"
             type="submit"
+            disabled={loading}
           >
-            {isLogin ? "Login" : "Sign Up"}
+            {loading ? "Loading..." : (isLogin ? "Login" : "Sign Up")}
           </motion.button>
         </form>
 

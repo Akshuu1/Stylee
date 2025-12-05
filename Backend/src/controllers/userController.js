@@ -1,0 +1,167 @@
+const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
+
+const prisma = new PrismaClient();
+
+// Get all users (Admin only)
+const getAllUsers = async (req, res) => {
+    try {
+        const { page = 1, limit = 20 } = req.query;
+
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+        const take = parseInt(limit);
+
+        const totalUsers = await prisma.user.count();
+
+        const users = await prisma.user.findMany({
+            skip,
+            take,
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                createdAt: true,
+                updatedAt: true,
+                _count: {
+                    select: { items: true },
+                },
+            },
+            orderBy: { createdAt: "desc" },
+        });
+
+        res.json({
+            users,
+            pagination: {
+                currentPage: parseInt(page),
+                totalPages: Math.ceil(totalUsers / take),
+                totalUsers,
+                usersPerPage: take,
+            },
+        });
+    } catch (error) {
+        console.error("GET ALL USERS ERROR:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+// Get single user by ID (Admin only)
+const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const user = await prisma.user.findUnique({
+            where: { id: parseInt(id) },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                createdAt: true,
+                updatedAt: true,
+                items: {
+                    select: {
+                        id: true,
+                        name: true,
+                        price: true,
+                        category: true,
+                        createdAt: true,
+                    },
+                },
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json({ user });
+    } catch (error) {
+        console.error("GET USER BY ID ERROR:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+// Update user info (Admin only)
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, email, role, password } = req.body;
+
+        const user = await prisma.user.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Prepare update data
+        const updateData = {};
+        if (name) updateData.name = name;
+        if (email) updateData.email = email;
+        if (role && (role === "USER" || role === "ADMIN")) {
+            updateData.role = role;
+        }
+        if (password) {
+            updateData.password = await bcrypt.hash(password, 10);
+        }
+
+        const updatedUser = await prisma.user.update({
+            where: { id: parseInt(id) },
+            data: updateData,
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        });
+
+        res.json({
+            message: "User updated successfully!",
+            user: updatedUser
+        });
+    } catch (error) {
+        console.error("UPDATE USER ERROR:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+// Delete user (Admin only)
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const user = await prisma.user.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Prevent admin from deleting themselves
+        if (user.id === req.user.id) {
+            return res.status(400).json({ message: "You cannot delete your own account" });
+        }
+
+        await prisma.user.delete({
+            where: { id: parseInt(id) },
+        });
+
+        res.json({ message: "User deleted successfully!" });
+    } catch (error) {
+        console.error("DELETE USER ERROR:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+module.exports = {
+    getAllUsers,
+    getUserById,
+    updateUser,
+    deleteUser,
+};

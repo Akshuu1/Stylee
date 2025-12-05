@@ -93,8 +93,13 @@ export const NavItems = ({
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+          onClick={(e) => {
+            e.preventDefault();
+            if (onItemClick) {
+              onItemClick(item);
+            }
+          }}
+          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 cursor-pointer"
           key={`link-${idx}`}
           href={item.link}>
           {hovered === idx && (
@@ -199,7 +204,7 @@ export const NavbarLogo = () => {
         alt="logo"
         width={30}
         height={30} />
-      <span style={{fontFamily:"Beikho"}} className=" text-black dark:text-white text-2xl">Stylee`</span>
+      <span style={{ fontFamily: "Beikho" }} className=" text-black dark:text-white text-2xl">Stylee`</span>
     </a>
   );
 };
