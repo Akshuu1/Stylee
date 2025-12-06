@@ -18,7 +18,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://stylee-gamma.vercel.app"
+      "https://stylee-gamma.vercel.app",
+      "http://10.7.2.90:5173",
+      "http://192.168.1.13:5173"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
