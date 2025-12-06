@@ -6,10 +6,20 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
   const { user, isAdmin, logout } = useAuth();
   const [show, setShow] = useState(false)
+  const [categories, setCategories] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     let zinc = (document.body.classList.contains('bg-zinc-900'));
     setShow(zinc)
+
+    // Fetch categories
+    fetch('http://localhost:5001/items/categories')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setCategories(data);
+      })
+      .catch(err => console.error("Failed to fetch categories", err));
   }, [])
 
   if (show) return null
@@ -21,16 +31,50 @@ const Navbar = () => {
         <motion.h2 style={{ fontFamily: "Beikho" }} className='font-bold text-xl sm:text-2xl md:text-3xl lg:text-[2vw] text-[#CDEA68]'>Stylee´</motion.h2>
       </Link>
 
-      <div style={{ fontFamily: "Gilroy-Light" }} className="links justify-center items-center text-center hidden md:flex gap-4 lg:gap-10 text-white">
-        {['Home', 'Products', 'About'].map((item, index) => (
+      <div style={{ fontFamily: "Gilroy-Light" }} className="links justify-center items-center text-center hidden md:flex gap-4 lg:gap-10 text-white relative">
+        <Link to="/" className="text-sm lg:text-base capitalize font-light hover:text-[#CDEA68] transition-colors">Home</Link>
+
+        {/* Categories Dropdown */}
+        <div
+          className="relative group"
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
           <Link
-            to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
-            key={index}
-            className={`text-sm lg:text-base capitalize font-light hover:text-[#CDEA68] transition-colors`}
+            to="/products"
+            className="text-sm lg:text-base capitalize font-light hover:text-[#CDEA68] transition-colors flex items-center gap-1"
           >
-            {item}
+            Products
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mt-0.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
           </Link>
-        ))}
+
+          {/* Dropdown Menu */}
+          {showDropdown && (
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-[#004D54] border border-[#CDEA68]/20 rounded-xl overflow-hidden shadow-xl backdrop-blur-md">
+              <div className="py-2 max-h-64 overflow-y-auto custom-scrollbar">
+                <Link
+                  to="/products"
+                  className="block px-4 py-2 text-sm text-left hover:bg-[#CDEA68]/10 hover:text-[#CDEA68] transition-colors border-b border-[#CDEA68]/10"
+                >
+                  All Products
+                </Link>
+                {categories.map((cat, index) => (
+                  <Link
+                    key={index}
+                    to={`/products?category=${encodeURIComponent(cat)}`}
+                    className="block px-4 py-2 text-sm text-left hover:bg-[#CDEA68]/10 hover:text-[#CDEA68] transition-colors"
+                  >
+                    {cat}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <Link to="/about" className="text-sm lg:text-base capitalize font-light hover:text-[#CDEA68] transition-colors">About</Link>
 
         {isAdmin() && (
           <Link to="/admin" className="text-sm lg:text-base capitalize font-light text-[#CDEA68] border-b border-[#CDEA68]">

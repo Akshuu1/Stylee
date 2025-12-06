@@ -290,6 +290,23 @@ const updateItem = async (req, res) => {
     }
 };
 
+// Get all unique categories
+const getCategories = async (req, res) => {
+    try {
+        const categories = await prisma.item.findMany({
+            select: { category: true },
+            distinct: ['category']
+        });
+
+        // Return simple array of strings
+        const categoryList = categories.map(c => c.category).sort();
+        res.json(categoryList);
+    } catch (error) {
+        console.error("GET CATEGORIES ERROR:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 // Delete item (Admin only)
 const deleteItem = async (req, res) => {
     try {
@@ -320,4 +337,5 @@ module.exports = {
     createItem,
     updateItem,
     deleteItem,
+    getCategories
 };

@@ -5,6 +5,7 @@ const {
     createItem,
     updateItem,
     deleteItem,
+    getCategories
 } = require("../controllers/itemController");
 const authMiddleware = require("../middleware/auth");
 const adminMiddleware = require("../middleware/admin");
@@ -12,6 +13,7 @@ const adminMiddleware = require("../middleware/admin");
 const router = express.Router();
 
 // Public routes - anyone can view items
+router.get("/categories", getCategories); // Must be before /:id
 router.get("/", getAllItems);
 router.get("/:id", getItemById);
 

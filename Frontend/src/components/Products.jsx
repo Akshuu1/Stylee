@@ -22,6 +22,7 @@ const Products = () => {
     const [sortOrder, setSortOrder] = useState("desc");
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState(null);
+    const [categories, setCategories] = useState([]); // New state for categories dropdown
 
     const limit = 12;
     const { scrollY } = useScroll();
@@ -59,6 +60,16 @@ const Products = () => {
             setLoading(false);
         }
     };
+
+    // Fetch unique categories on mount
+    useEffect(() => {
+        itemsAPI.getCategories()
+            .then(response => {
+                const data = response.data;
+                if (Array.isArray(data)) setCategories(data);
+            })
+            .catch(err => console.error("Failed to fetch categories:", err));
+    }, []);
 
     useEffect(() => {
         fetchItems();
@@ -294,18 +305,27 @@ const Products = () => {
 
                         {/* Filter Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                            {/* Category */}
+                            {/* Category Dropdown */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
                                     📁 Category
                                 </label>
-                                <input
-                                    type="text"
-                                    placeholder="e.g., Shirts, Shoes..."
+                                <select
                                     value={category}
                                     onChange={(e) => { setCategory(e.target.value); setPage(1); }}
-                                    className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm transition-all duration-300"
-                                />
+                                    className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm appearance-none cursor-pointer transition-all duration-300"
+                                >
+                                    <option value="">All Categories</option>
+                                    {categories.map((cat, idx) => (
+                                        <option key={idx} value={cat} className="bg-zinc-800 text-white">
+                                            {cat}
+                                        </option>
+                                    ))}
+                                </select>
+                                {/* Custom arrow icon */}
+                                <div className="absolute right-4 top-[38px] pointer-events-none text-zinc-400">
+                                    ▼
+                                </div>
                             </motion.div>
 
                             {/* Brand */}

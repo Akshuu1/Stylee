@@ -62,6 +62,9 @@ export const itemsAPI = {
 
     // Delete item (admin only)
     delete: (id) => api.delete(`/items/${id}`),
+
+    // Get categories
+    getCategories: () => api.get("/items/categories"),
 };
 
 // ==================== USERS API ====================
