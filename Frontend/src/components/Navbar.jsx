@@ -75,6 +75,7 @@ const Navbar = () => {
         </div>
 
         <Link to="/about" className="text-sm lg:text-base capitalize font-light hover:text-[#CDEA68] transition-colors">About</Link>
+        <Link to="/contact" className="text-sm lg:text-base capitalize font-light hover:text-[#CDEA68] transition-colors">Contact</Link>
 
         {isAdmin() && (
           <Link to="/admin" className="text-sm lg:text-base capitalize font-light text-[#CDEA68] border-b border-[#CDEA68]">

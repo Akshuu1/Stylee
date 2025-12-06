@@ -18,6 +18,7 @@ import Profile from "./components/Profile";
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
 import AdminDashboard from "./components/AdminDashboard";
+import Contact from "./components/Contact";
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
@@ -58,6 +59,9 @@ const App = () => {
             {/* Product Routes */}
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetail />} />
+
+            {/* Contact Route */}
+            <Route path="/contact" element={<Contact />} />
 
             {/* Admin Route */}
             <Route path="/admin" element={<AdminDashboard />} />

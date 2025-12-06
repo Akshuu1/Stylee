@@ -23,7 +23,7 @@ export function NavbarDemo() {
     { name: "About", link: "#about" },
     { name: "Trends", link: "#Trends" },
     { name: "Knowledge", link: "#Knowledge" },
-    { name: "Contact", link: "#contact" },
+    { name: "Contact", link: "/contact" },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
