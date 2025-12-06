@@ -84,7 +84,7 @@ const ProductDetail = () => {
     }
 
     return (
-        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white pt-24 px-6 pb-12 relative overflow-hidden">
+        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white pt-20 px-4 sm:px-6 pb-12 relative overflow-hidden">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -94,7 +94,7 @@ const ProductDetail = () => {
                         opacity: [0.03, 0.06, 0.03]
                     }}
                     transition={{ duration: 20, repeat: Infinity }}
-                    className="absolute top-20 -left-20 w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl"
+                    className="absolute top-20 -left-20 w-64 h-64 sm:w-96 sm:h-96 bg-[#CDEA68] rounded-full blur-3xl"
                 />
                 <motion.div
                     animate={{
@@ -103,7 +103,7 @@ const ProductDetail = () => {
                         opacity: [0.02, 0.05, 0.02]
                     }}
                     transition={{ duration: 25, repeat: Infinity }}
-                    className="absolute bottom-20 -right-20 w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl"
+                    className="absolute bottom-20 -right-20 w-64 h-64 sm:w-96 sm:h-96 bg-[#CDEA68] rounded-full blur-3xl"
                 />
             </div>
 
@@ -115,12 +115,12 @@ const ProductDetail = () => {
                     whileHover={{ scale: 1.05, x: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/products")}
-                    className="mb-8 px-6 py-3 bg-zinc-900/60 backdrop-blur-2xl hover:bg-zinc-800/80 rounded-2xl transition-all duration-300 border border-[#CDEA68]/20 font-semibold shadow-lg"
+                    className="mb-6 sm:mb-8 px-4 py-2 sm:px-6 sm:py-3 bg-zinc-900/60 backdrop-blur-2xl hover:bg-zinc-800/80 rounded-xl sm:rounded-2xl transition-all duration-300 border border-[#CDEA68]/20 font-semibold shadow-lg text-sm sm:text-base"
                 >
                     ← Back to Products
                 </motion.button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                     {/* Images Section */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -129,7 +129,7 @@ const ProductDetail = () => {
                     >
                         {/* Main Image */}
                         <motion.div
-                            className="aspect-square bg-zinc-900/60 backdrop-blur-2xl rounded-3xl overflow-hidden mb-6 border border-[#CDEA68]/20 shadow-2xl"
+                            className="aspect-square bg-zinc-900/60 backdrop-blur-2xl rounded-2xl sm:rounded-3xl overflow-hidden mb-4 sm:mb-6 border border-[#CDEA68]/20 shadow-2xl"
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.3 }}
                         >
@@ -174,8 +174,8 @@ const ProductDetail = () => {
                                         whileHover={{ scale: 1.1, y: -5 }}
                                         whileTap={{ scale: 0.95 }}
                                         className={`aspect-square bg-zinc-900/60 backdrop-blur-2xl rounded-2xl overflow-hidden border-2 transition-all duration-300 ${selectedImage === index
-                                                ? "border-[#CDEA68] shadow-lg shadow-[#CDEA68]/50"
-                                                : "border-[#CDEA68]/20 hover:border-[#CDEA68]/50"
+                                            ? "border-[#CDEA68] shadow-lg shadow-[#CDEA68]/50"
+                                            : "border-[#CDEA68]/20 hover:border-[#CDEA68]/50"
                                             }`}
                                     >
                                         <img src={img} alt={`${item.name} ${index + 1}`} className="w-full h-full object-cover" />
@@ -196,7 +196,7 @@ const ProductDetail = () => {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="text-5xl font-bold mb-4 text-[#CDEA68]"
+                            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-[#CDEA68]"
                         >
                             {item.name}
                         </motion.h1>
@@ -206,9 +206,9 @@ const ProductDetail = () => {
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="mb-8"
+                            className="mb-6 sm:mb-8"
                         >
-                            <span className="text-5xl font-bold text-[#CDEA68]">
+                            <span className="text-4xl sm:text-5xl font-bold text-[#CDEA68]">
                                 ${item.price}
                             </span>
                         </motion.div>
@@ -218,14 +218,14 @@ const ProductDetail = () => {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="mb-8"
+                            className="mb-6 sm:mb-8"
                         >
                             {item.stock > 0 ? (
-                                <span className="inline-block px-6 py-3 bg-green-500/20 border border-green-500/50 text-green-400 rounded-full font-semibold backdrop-blur-xl">
+                                <span className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-green-500/20 border border-green-500/50 text-green-400 rounded-full text-sm sm:text-base font-semibold backdrop-blur-xl">
                                     ✓ {item.stock} In Stock
                                 </span>
                             ) : (
-                                <span className="inline-block px-6 py-3 bg-red-500/20 border border-red-500/50 text-red-400 rounded-full font-semibold backdrop-blur-xl">
+                                <span className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-red-500/20 border border-red-500/50 text-red-400 rounded-full text-sm sm:text-base font-semibold backdrop-blur-xl">
                                     ✗ Out of Stock
                                 </span>
                             )}
@@ -236,10 +236,10 @@ const ProductDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="mb-8 p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
+                            className="mb-6 sm:mb-8 p-4 sm:p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
                         >
-                            <h2 className="text-2xl font-bold mb-3 text-[#CDEA68]">Description</h2>
-                            <p className="text-zinc-300 leading-relaxed text-lg">{item.description}</p>
+                            <h2 className="text-xl sm:text-2xl font-bold mb-3 text-[#CDEA68]">Description</h2>
+                            <p className="text-zinc-300 leading-relaxed text-base sm:text-lg">{item.description}</p>
                         </motion.div>
 
                         {/* Product Specifications */}
@@ -247,10 +247,10 @@ const ProductDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="mb-8 p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
+                            className="mb-6 sm:mb-8 p-4 sm:p-6 bg-zinc-900/60 backdrop-blur-2xl rounded-2xl border border-[#CDEA68]/20"
                         >
-                            <h2 className="text-2xl font-bold mb-4 text-[#CDEA68]">Specifications</h2>
-                            <div className="grid grid-cols-2 gap-4">
+                            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-[#CDEA68]">Specifications</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {item.category && (
                                     <div className="p-4 bg-zinc-800/50 rounded-xl border border-[#CDEA68]/20">
                                         <span className="text-zinc-400 text-sm">Category</span>
@@ -325,8 +325,8 @@ const ProductDetail = () => {
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setIsFavorite(!isFavorite)}
                                 className={`px-8 py-5 rounded-2xl font-bold text-2xl transition-all duration-300 border-2 ${isFavorite
-                                        ? "bg-red-500/20 border-red-500/50 text-red-400"
-                                        : "bg-zinc-900/60 border-[#CDEA68]/20 text-white hover:bg-zinc-800/80 hover:border-[#CDEA68]/50"
+                                    ? "bg-red-500/20 border-red-500/50 text-red-400"
+                                    : "bg-zinc-900/60 border-[#CDEA68]/20 text-white hover:bg-zinc-800/80 hover:border-[#CDEA68]/50"
                                     }`}
                             >
                                 {isFavorite ? "❤️" : "🤍"}

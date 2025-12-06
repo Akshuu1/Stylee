@@ -160,22 +160,22 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-zinc-900 text-white pt-24 px-6 pb-12">
+        <div className="min-h-screen bg-zinc-900 text-white pt-20 px-4 sm:px-6 pb-12">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-5xl font-bold mb-8">Admin Dashboard</h1>
+                <h1 className="text-3xl sm:text-5xl font-bold mb-8">Admin Dashboard</h1>
 
                 {/* Tabs */}
                 <div className="flex gap-4 mb-8">
                     <button
                         onClick={() => setActiveTab("products")}
-                        className={`px-6 py-3 rounded-lg font-semibold transition ${activeTab === "products" ? "bg-blue-600" : "bg-zinc-800 hover:bg-zinc-700"
+                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition text-sm sm:text-base ${activeTab === "products" ? "bg-blue-600" : "bg-zinc-800 hover:bg-zinc-700"
                             }`}
                     >
                         Products
                     </button>
                     <button
                         onClick={() => setActiveTab("users")}
-                        className={`px-6 py-3 rounded-lg font-semibold transition ${activeTab === "users" ? "bg-blue-600" : "bg-zinc-800 hover:bg-zinc-700"
+                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition text-sm sm:text-base ${activeTab === "users" ? "bg-blue-600" : "bg-zinc-800 hover:bg-zinc-700"
                             }`}
                     >
                         Users
@@ -185,7 +185,7 @@ const AdminDashboard = () => {
                 {/* Products Tab */}
                 {activeTab === "products" && (
                     <div>
-                        <div className="flex justify-between items-center mb-6">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                             <h2 className="text-2xl font-bold">Manage Products</h2>
                             <button
                                 onClick={() => {
@@ -204,7 +204,7 @@ const AdminDashboard = () => {
                                         stock: "",
                                     });
                                 }}
-                                className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition"
+                                className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition text-sm sm:text-base"
                             >
                                 + Add Product
                             </button>
@@ -339,8 +339,8 @@ const AdminDashboard = () => {
                                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
                             </div>
                         ) : (
-                            <div className="bg-zinc-800 rounded-lg overflow-hidden">
-                                <table className="w-full">
+                            <div className="bg-zinc-800 rounded-lg overflow-x-auto">
+                                <table className="w-full min-w-[800px]">
                                     <thead className="bg-zinc-700">
                                         <tr>
                                             <th className="px-4 py-3 text-left">Name</th>
@@ -391,8 +391,8 @@ const AdminDashboard = () => {
                                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
                             </div>
                         ) : (
-                            <div className="bg-zinc-800 rounded-lg overflow-hidden">
-                                <table className="w-full">
+                            <div className="bg-zinc-800 rounded-lg overflow-x-auto">
+                                <table className="w-full min-w-[800px]">
                                     <thead className="bg-zinc-700">
                                         <tr>
                                             <th className="px-4 py-3 text-left">Name</th>

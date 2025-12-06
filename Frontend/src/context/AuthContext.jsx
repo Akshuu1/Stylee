@@ -56,12 +56,36 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    // Guest login function
+    const loginAsGuest = () => {
+        const guestUser = {
+            id: 0,
+            name: "Guest",
+            email: "guest@stylee.com",
+            role: "GUEST",
+        };
+
+        localStorage.setItem("token", "guest-token"); // Save token to localStorage
+        localStorage.setItem("isGuest", "true");
+        localStorage.setItem("user", JSON.stringify(guestUser));
+        setUser(guestUser);
+        setToken("guest-token"); // Dummy token for guest
+
+        return { success: true, user: guestUser };
+    };
+
     // Logout function
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("isGuest");
         setToken(null);
         setUser(null);
+    };
+
+    // Check if user is guest
+    const isGuest = () => {
+        return user?.role === "GUEST" || localStorage.getItem("isGuest") === "true";
     };
 
     // Check if user is admin
@@ -80,7 +104,9 @@ export const AuthProvider = ({ children }) => {
         loading,
         login,
         signup,
+        loginAsGuest,
         logout,
+        isGuest,
         isAdmin,
         isAuthenticated,
     };

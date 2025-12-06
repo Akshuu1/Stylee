@@ -15,6 +15,7 @@ export default function AuthPage({ mode }) {
     name: "",
     email: "",
     password: "",
+    role: "USER", // Default role for signup
   });
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +31,7 @@ export default function AuthPage({ mode }) {
         const result = await login(formData.email, formData.password);
         if (result.success) {
           alert("Login successful!");
-          setFormData({ name: "", email: "", password: "" });
+          setFormData({ name: "", email: "", password: "", role: "USER" });
           setTimeout(() => {
             navigate("/");
           }, 500);
@@ -38,10 +39,11 @@ export default function AuthPage({ mode }) {
           alert(result.message || "Login failed");
         }
       } else {
+        // Signup with selected role
         const result = await signup(formData.name, formData.email, formData.password);
         if (result.success) {
           alert("Signup successful! Please login now.");
-          setFormData({ name: "", email: "", password: "" });
+          setFormData({ name: "", email: "", password: "", role: "USER" });
           navigate("/login");
         } else {
           alert(result.message || "Signup failed");
@@ -56,18 +58,21 @@ export default function AuthPage({ mode }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22]">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] px-4 py-6 sm:px-6" style={{ fontFamily: "'Sephora Sans', 'Gilroy', sans-serif" }}>
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-zinc-900/60 backdrop-blur-2xl shadow-2xl p-8 rounded-3xl w-[90%] sm:w-[400px] text-center border border-[#CDEA68]/20"
+        className="bg-zinc-900/60 backdrop-blur-2xl shadow-2xl p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl w-full max-w-lg text-center border border-[#CDEA68]/20"
       >
-        <h1 className="text-3xl font-extrabold text-[#CDEA68] mb-4 tracking-wide">
-          {isLogin ? "Welcome Back" : "Join Stylee"}
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#CDEA68] mb-2 sm:mb-3 tracking-wide" style={{ fontFamily: "'Beikho', sans-serif" }}>
+          {isLogin ? "Welcome to Stylee" : "Join Stylee"}
         </h1>
+        <p className="text-zinc-400 text-sm sm:text-base mb-6 sm:mb-8">
+          {isLogin ? "Login to your account" : "Create your account"}
+        </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
           {!isLogin && (
             <input
               type="text"
@@ -75,39 +80,66 @@ export default function AuthPage({ mode }) {
               placeholder="Full Name"
               onChange={handleChange}
               value={formData.name}
-              className="p-3 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50"
+              required
+              className="p-3 sm:p-4 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50 focus:outline-none text-sm sm:text-base"
+              style={{ fontFamily: "'Sephora Sans', sans-serif" }}
             />
           )}
+
           <input
             type="email"
             name="email"
             placeholder="Email"
             onChange={handleChange}
             value={formData.email}
-            className="p-3 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50"
+            required
+            className="p-3 sm:p-4 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50 focus:outline-none text-sm sm:text-base"
+            style={{ fontFamily: "'Sephora Sans', sans-serif" }}
           />
+
           <input
             type="password"
             name="password"
             placeholder="Password"
             onChange={handleChange}
             value={formData.password}
-            className="p-3 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50"
+            required
+            className="p-3 sm:p-4 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50 focus:outline-none text-sm sm:text-base"
+            style={{ fontFamily: "'Sephora Sans', sans-serif" }}
           />
 
+          {!isLogin && (
+            <div className="text-left">
+              <label className="block text-zinc-400 text-xs sm:text-sm mb-2 ml-1" style={{ fontFamily: "'Sephora Sans', sans-serif" }}>
+                Account Type
+              </label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="w-full p-3 sm:p-4 rounded-xl bg-zinc-800 text-white border border-[#CDEA68]/30 focus:ring-2 focus:ring-[#CDEA68]/50 focus:outline-none text-sm sm:text-base cursor-pointer"
+                style={{ fontFamily: "'Sephora Sans', sans-serif" }}
+              >
+                <option value="USER">User Account</option>
+                <option value="ADMIN">Admin Account</option>
+              </select>
+            </div>
+          )}
+
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="bg-[#CDEA68] text-[#004D54] py-3 rounded-xl font-semibold shadow-lg hover:bg-[#dfff7a] transition-all disabled:opacity-50"
+            className="bg-[#CDEA68] text-[#004D54] py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:bg-[#dfff7a] transition-all disabled:opacity-50 mt-1 sm:mt-2"
             type="submit"
             disabled={loading}
+            style={{ fontFamily: "'Sephora Sans', sans-serif" }}
           >
             {loading ? "Loading..." : (isLogin ? "Login" : "Sign Up")}
           </motion.button>
         </form>
 
-        <p className="text-sm text-zinc-400 mt-6">
-          {isLogin ? "New to Stylee?" : "Already have an account?"}{" "}
+        <p className="text-xs sm:text-sm text-zinc-400 mt-6 sm:mt-8" style={{ fontFamily: "'Sephora Sans', sans-serif" }}>
+          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <Link
             to={isLogin ? "/signup" : "/login"}
             className="text-[#CDEA68] font-semibold hover:underline"

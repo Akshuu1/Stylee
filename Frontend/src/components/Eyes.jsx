@@ -20,7 +20,7 @@ const Eyes = ({ minimal = false }) => {
   }, []);
 
   const EyeBall = () => (
-    <div data-scroll data-scroll-section data-scroll-speed="-.5" className="flex justify-center items-center w-[15vw] h-[15vw] bg-zinc-100 rounded-full">
+    <div data-scroll data-scroll-section data-scroll-speed="-.5" className="flex justify-center items-center w-[15vw] h-[15vw] min-w-[100px] min-h-[100px] bg-zinc-100 rounded-full">
       <div className="relative w-2/3 h-2/3 rounded-full bg-zinc-900">
         <div
           style={{ transform: `rotate(${rotate}deg)` }}

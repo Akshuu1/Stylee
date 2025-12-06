@@ -19,6 +19,12 @@ const getAllItems = async (req, res) => {
             limit = 12,
         } = req.query;
 
+        // Parse query params with fallbacks for empty strings
+        const pMinPrice = minPrice && minPrice !== "" ? parseFloat(minPrice) : 0;
+        const pMaxPrice = maxPrice && maxPrice !== "" ? parseFloat(maxPrice) : 999999;
+        const pPage = page && page !== "" ? parseInt(page) : 1;
+        const pLimit = limit && limit !== "" ? parseInt(limit) : 12;
+
         // Build where clause for filtering
         const where = {
             AND: [
@@ -35,8 +41,8 @@ const getAllItems = async (req, res) => {
                 size ? { size: { equals: size } } : {},
                 {
                     price: {
-                        gte: parseFloat(minPrice),
-                        lte: parseFloat(maxPrice),
+                        gte: pMinPrice,
+                        lte: pMaxPrice,
                     },
                 },
             ],
@@ -47,8 +53,8 @@ const getAllItems = async (req, res) => {
         orderBy[sortBy] = sortOrder;
 
         // Calculate pagination
-        const skip = (parseInt(page) - 1) * parseInt(limit);
-        const take = parseInt(limit);
+        const skip = (pPage - 1) * pLimit;
+        const take = pLimit;
 
         // Get total count for pagination
         const totalItems = await prisma.item.count({ where });

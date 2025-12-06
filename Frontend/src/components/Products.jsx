@@ -31,6 +31,7 @@ const Products = () => {
     // Fetch items
     const fetchItems = async () => {
         setLoading(true);
+        console.log("Fetching items with params:", { search, category, brand, color, size, minPrice, maxPrice, sortBy, sortOrder, page });
         try {
             const params = {
                 search,
@@ -47,6 +48,7 @@ const Products = () => {
             };
 
             const response = await itemsAPI.getAll(params);
+            console.log("API Response:", response.data);
             setItems(response.data.items);
             setPagination(response.data.pagination);
             setError(null);
@@ -76,33 +78,34 @@ const Products = () => {
     };
 
     // Bento grid layout pattern - creates varied card sizes
+    // Bento grid layout pattern - creates varied card sizes
     const getBentoClass = (index) => {
         const patterns = [
-            "md:col-span-2 md:row-span-2", // Large
-            "md:col-span-1 md:row-span-1", // Small
-            "md:col-span-1 md:row-span-1", // Small
-            "md:col-span-1 md:row-span-2", // Tall
-            "md:col-span-2 md:row-span-1", // Wide
-            "md:col-span-1 md:row-span-1", // Small
+            "md:col-span-2 md:row-span-2 col-span-1 row-span-1", // Large
+            "md:col-span-1 md:row-span-1 col-span-1 row-span-1", // Small
+            "md:col-span-1 md:row-span-1 col-span-1 row-span-1", // Small
+            "md:col-span-1 md:row-span-2 col-span-1 row-span-1", // Tall
+            "md:col-span-2 md:row-span-1 col-span-1 row-span-1", // Wide
+            "md:col-span-1 md:row-span-1 col-span-1 row-span-1", // Small
         ];
         return patterns[index % patterns.length];
     };
 
     return (
-        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white pt-24 px-6 pb-12 relative overflow-hidden">
+        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white pt-20 px-4 sm:px-6 pb-12 relative overflow-hidden">
             {/* Animated Background with Parallax */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
                     style={{ y: y1 }}
-                    className="absolute top-20 -left-20 w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl opacity-[0.05]"
+                    className="absolute top-20 -left-20 w-64 h-64 sm:w-96 sm:h-96 bg-[#CDEA68] rounded-full blur-3xl opacity-[0.05]"
                 />
                 <motion.div
                     style={{ y: y2 }}
-                    className="absolute bottom-20 -right-20 w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl opacity-[0.05]"
+                    className="absolute bottom-20 -right-20 w-64 h-64 sm:w-96 sm:h-96 bg-[#CDEA68] rounded-full blur-3xl opacity-[0.05]"
                 />
                 {/* Geometric patterns */}
-                <div className="absolute top-40 right-1/4 w-64 h-64 border border-[#CDEA68]/10 rotate-45 rounded-3xl" />
-                <div className="absolute bottom-40 left-1/4 w-48 h-48 border border-[#CDEA68]/10 -rotate-12 rounded-2xl" />
+                <div className="absolute top-40 right-1/4 w-48 h-48 sm:w-64 sm:h-64 border border-[#CDEA68]/10 rotate-45 rounded-3xl" />
+                <div className="absolute bottom-40 left-1/4 w-32 h-32 sm:w-48 sm:h-48 border border-[#CDEA68]/10 -rotate-12 rounded-2xl" />
             </div>
 
             <div className="max-w-[1600px] mx-auto relative z-10">
@@ -111,22 +114,22 @@ const Products = () => {
                     initial={{ opacity: 0, y: -30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="mb-16"
+                    className="mb-8 sm:mb-16"
                 >
-                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-8">
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 sm:gap-8 mb-8">
                         <div>
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="inline-block px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/30 rounded-full text-[#CDEA68] text-sm font-semibold mb-4"
+                                className="inline-block px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/30 rounded-full text-[#CDEA68] text-xs sm:text-sm font-semibold mb-4"
                             >
                                 ✨ Premium Collection
                             </motion.div>
-                            <h1 className="text-7xl lg:text-8xl font-bold mb-4 text-[#CDEA68] leading-tight">
+                            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold mb-4 text-[#CDEA68] leading-tight">
                                 Discover<br />
                                 <span className="text-white">Your Style</span>
                             </h1>
-                            <p className="text-xl text-zinc-400 max-w-xl">
+                            <p className="text-base sm:text-xl text-zinc-400 max-w-xl">
                                 Curated fashion pieces that define modern elegance
                             </p>
                         </div>
@@ -164,9 +167,9 @@ const Products = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-12"
+                    className="mb-8 sm:mb-12"
                 >
-                    <div className="bg-gradient-to-br from-zinc-900/60 via-zinc-900/40 to-zinc-900/60 backdrop-blur-2xl rounded-3xl p-8 border border-[#CDEA68]/30 shadow-2xl shadow-[#CDEA68]/5">
+                    <div className="bg-gradient-to-br from-zinc-900/60 via-zinc-900/40 to-zinc-900/60 backdrop-blur-2xl rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-[#CDEA68]/30 shadow-2xl shadow-[#CDEA68]/5">
                         {/* Search Bar with Glow Effect */}
                         <div className="mb-6">
                             <motion.div
@@ -175,7 +178,7 @@ const Products = () => {
                             >
                                 <div className="absolute -inset-1 bg-gradient-to-r from-[#CDEA68]/20 to-[#CDEA68]/5 rounded-3xl blur opacity-0 group-focus-within:opacity-100 transition duration-500" />
                                 <div className="relative">
-                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-3xl">🔍</span>
+                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl">🔍</span>
                                     <input
                                         type="text"
                                         placeholder="Search for your perfect style..."
@@ -184,7 +187,7 @@ const Products = () => {
                                             setSearch(e.target.value);
                                             setPage(1);
                                         }}
-                                        className="w-full pl-20 pr-6 py-5 bg-zinc-800/80 text-white text-lg rounded-2xl border-2 border-[#CDEA68]/30 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 transition-all duration-300"
+                                        className="w-full pl-16 sm:pl-20 pr-6 py-4 sm:py-5 bg-zinc-800/80 text-white text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 border-[#CDEA68]/30 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 transition-all duration-300"
                                     />
                                 </div>
                             </motion.div>
@@ -457,7 +460,7 @@ const Products = () => {
                 </AnimatePresence>
 
                 {/* Error State */}
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                     {error && (
                         <motion.div
                             initial={{ opacity: 0, y: -20 }}
@@ -479,13 +482,25 @@ const Products = () => {
                                 className="text-center py-20 bg-zinc-900/40 backdrop-blur-2xl rounded-3xl border border-[#CDEA68]/20"
                             >
                                 <div className="text-8xl mb-6">📦</div>
-                                <p className="text-2xl text-zinc-400 mb-4">No products found</p>
-                                <Link
-                                    to="/admin"
-                                    className="inline-block px-8 py-4 bg-[#CDEA68] text-[#004D54] rounded-2xl font-bold hover:bg-[#dfff7a] transition-all"
-                                >
-                                    Go to Admin Dashboard
-                                </Link>
+                                <h3 className="text-3xl font-bold mb-4 text-[#CDEA68]">No Products Found</h3>
+                                <p className="text-2xl text-zinc-400 mb-8">We couldn't find any products matching your criteria.</p>
+
+                                <div className="flex flex-col items-center gap-4">
+                                    <div className="flex gap-4">
+                                        <button
+                                            onClick={handleResetFilters}
+                                            className="px-8 py-4 bg-[#CDEA68] text-[#004D54] rounded-2xl font-bold hover:bg-[#dfff7a] transition-all"
+                                        >
+                                            Reset Filters
+                                        </button>
+                                        <Link
+                                            to="/admin"
+                                            className="px-8 py-4 bg-zinc-800 text-white rounded-2xl font-bold hover:bg-zinc-700 transition-all border border-zinc-700"
+                                        >
+                                            Go to Admin
+                                        </Link>
+                                    </div>
+                                </div>
                             </motion.div>
                         ) : (
                             <>

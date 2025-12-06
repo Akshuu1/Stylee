@@ -21,6 +21,9 @@ import AdminDashboard from "./components/AdminDashboard";
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
+  React.useEffect(() => {
+    const locomotiveScroll = new LocomotiveScroll();
+  }, []); // Initialize Locomotive Scroll
 
   return (
     <AuthProvider>
