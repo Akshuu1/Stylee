@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 // Signup
 const signup = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
 
         if (!name || !email || !password) {
             return res.status(400).json({ message: "All fields are required" });
@@ -21,7 +21,12 @@ const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await prisma.user.create({
-            data: { name, email, password: hashedPassword },
+            data: {
+                name,
+                email,
+                password: hashedPassword,
+                role: role || 'USER' // Default to USER if not provided
+            },
         });
 
         res.status(201).json({

@@ -31,16 +31,19 @@ export default function AuthPage({ mode }) {
         const result = await login(formData.email, formData.password);
         if (result.success) {
           alert("Login successful!");
+          // Check role and redirect accordingly
+          const targetPath = result.user.role === "ADMIN" ? "/admin" : "/";
+
           setFormData({ name: "", email: "", password: "", role: "USER" });
           setTimeout(() => {
-            navigate("/");
+            navigate(targetPath);
           }, 500);
         } else {
           alert(result.message || "Login failed");
         }
       } else {
         // Signup with selected role
-        const result = await signup(formData.name, formData.email, formData.password);
+        const result = await signup(formData.name, formData.email, formData.password, formData.role);
         if (result.success) {
           alert("Signup successful! Please login now.");
           setFormData({ name: "", email: "", password: "", role: "USER" });
