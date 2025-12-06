@@ -535,6 +535,10 @@ const Products = () => {
                                                                     className="w-full h-full object-cover"
                                                                     animate={{ scale: hoveredCard === item.id ? 1.1 : 1 }}
                                                                     transition={{ duration: 0.6 }}
+                                                                    onError={(e) => {
+                                                                        e.target.onerror = null;
+                                                                        e.target.src = "https://placehold.co/600x400?text=Image+N/A";
+                                                                    }}
                                                                 />
                                                             ) : (
                                                                 <div className="w-full h-full flex items-center justify-center bg-zinc-800/50">

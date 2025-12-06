@@ -14,7 +14,11 @@ async function testApi() {
         if (data.items) {
             console.log(`Found ${data.items.length} items`);
             if (data.items.length > 0) {
-                console.log("First item:", data.items[0].name);
+                const firstItem = data.items[0];
+                console.log("First item:", firstItem.name);
+                console.log("Images type:", typeof firstItem.images);
+                console.log("Images isArray:", Array.isArray(firstItem.images));
+                console.log("Images content:", firstItem.images);
             }
         } else {
             console.log("Response does not contain 'items' property:", data);
