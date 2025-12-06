@@ -12,7 +12,12 @@ const CATEGORIES = [
     "mens-watches",
     "womens-watches",
     "womens-bags",
-    "sunglasses"
+    "sunglasses",
+    "womens-jewellery",
+    "beauty",
+    "fragrances",
+    "skin-care",
+    "home-decoration"
 ];
 
 async function seedLarge() {
@@ -26,8 +31,6 @@ async function seedLarge() {
 
         if (!admin) {
             console.log("Creating admin user...");
-            // Note: In a real app, hash the password. For seed/demo, plain text or simple hash if model requires it.
-            // Assuming model behaves like previous seed.js
             admin = await prisma.user.create({
                 data: {
                     name: "Admin User",
@@ -39,9 +42,9 @@ async function seedLarge() {
         }
         console.log(`Using admin user: ${admin.email} (ID: ${admin.id})`);
 
-        // 2. Clear existing items (Optional - user might want to keep them, but cleaner for "demo" state)
-        // console.log("Clearing existing items...");
-        // await prisma.item.deleteMany({});  // Uncomment if you want to wipe DB first
+        // 2. Clear existing items to remove broken image links
+        console.log("Clearing existing items...");
+        await prisma.item.deleteMany({});
 
         // 3. Fetch and Insert Items
         let totalAdded = 0;
@@ -60,24 +63,23 @@ async function seedLarge() {
             console.log(`Found ${products.length} items in ${category}`);
 
             // Map and Create
-            // We use loop instead of createMany to handle potential unique constraint or relation quirks individually if needed, 
-            // though createMany is faster. createMany doesn't return created records in all DBs (like SQLite sometimes).
-            // For ~100 items, parallel promises are fine.
+            const createPromises = products.map((p, index) => {
+                const cleanCategory = mapCategory(p.category);
 
-            const createPromises = products.map(p => {
+                // Use ORIGINAL DummyJSON images as requested by user.
                 return prisma.item.create({
                     data: {
                         name: p.title,
                         description: p.description,
                         price: p.price,
-                        category: mapCategory(p.category), // Simplify category name if needed
+                        category: cleanCategory,
                         brand: p.brand || "Stylee Select",
-                        color: null, // API doesn't provide color
-                        size: null,  // API doesn't provide size
-                        images: JSON.stringify(p.images), // Store as JSON string
+                        color: null,
+                        size: null,
+                        images: JSON.stringify(p.images),
                         tags: p.tags ? p.tags.join(", ") : "",
                         stock: p.stock,
-                        popularity: Math.floor(p.rating * 10), // Use rating as popularity
+                        popularity: Math.floor(p.rating * 10),
                         createdBy: admin.id
                     }
                 }).catch(err => {
@@ -91,9 +93,7 @@ async function seedLarge() {
             totalAdded += successful;
             console.log(`Added ${successful} items for ${category}`);
         }
-
         console.log(`\n✅ Seeding complete! Added ${totalAdded} total products.`);
-
     } catch (e) {
         console.error("❌ Seeding failed:", e);
     } finally {
@@ -101,11 +101,7 @@ async function seedLarge() {
     }
 }
 
-// Helper to map DummyJSON categories to cleaner UI categories if needed
 function mapCategory(apiCategory) {
-    // Simple mapping or return as is. The API categories are actually quite good (slugs).
-    // We might want to capitalize them for display (although frontend can do that).
-    // Let's store them as reliable keys.
     const map = {
         "womens-dresses": "Dresses",
         "tops": "Tops",
@@ -115,7 +111,12 @@ function mapCategory(apiCategory) {
         "mens-watches": "Watches",
         "womens-watches": "Watches",
         "womens-bags": "Bags",
-        "sunglasses": "Accessories"
+        "sunglasses": "Accessories",
+        "womens-jewellery": "Jewelry",
+        "beauty": "Beauty",
+        "fragrances": "Fragrances",
+        "skin-care": "Skin Care",
+        "home-decoration": "Home Decor"
     };
     return map[apiCategory] || apiCategory;
 }

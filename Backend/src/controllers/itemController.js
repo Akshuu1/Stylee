@@ -13,7 +13,7 @@ const getAllItems = async (req, res) => {
             size = "",
             minPrice = 0,
             maxPrice = 999999,
-            sortBy = "createdAt",
+            sortBy = "random", // Default to random as requested
             sortOrder = "desc",
             page = 1,
             limit = 12,
@@ -48,10 +48,6 @@ const getAllItems = async (req, res) => {
             ],
         };
 
-        // Build orderBy clause
-        const orderBy = {};
-        orderBy[sortBy] = sortOrder;
-
         // Calculate pagination
         const skip = (pPage - 1) * pLimit;
         const take = pLimit;
@@ -59,18 +55,45 @@ const getAllItems = async (req, res) => {
         // Get total count for pagination
         const totalItems = await prisma.item.count({ where });
 
-        // Get items
-        const items = await prisma.item.findMany({
-            where,
-            orderBy,
-            skip,
-            take,
-            include: {
-                user: {
-                    select: { id: true, name: true, email: true },
+        let items;
+
+        if (sortBy === "random") {
+            // Fetch ALL matching items to shuffle globally (ok for small dataset)
+            const allItems = await prisma.item.findMany({
+                where,
+                include: {
+                    user: {
+                        select: { id: true, name: true, email: true },
+                    },
                 },
-            },
-        });
+            });
+
+            // Fisher-Yates Shuffle
+            for (let i = allItems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
+            }
+
+            // Apply pagination in-memory
+            items = allItems.slice(skip, skip + take);
+
+        } else {
+            // Standard Database Sorting
+            const orderBy = {};
+            orderBy[sortBy] = sortOrder;
+
+            items = await prisma.item.findMany({
+                where,
+                orderBy,
+                skip,
+                take,
+                include: {
+                    user: {
+                        select: { id: true, name: true, email: true },
+                    },
+                },
+            });
+        }
 
         // Parse images from JSON string
         const itemsWithParsedImages = items.map(item => ({
