@@ -622,7 +622,15 @@ const Products = () => {
                                                     <div className="bg-zinc-900/60 backdrop-blur-xl rounded-3xl overflow-hidden border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all">
                                                         <div className="aspect-square bg-zinc-800/50">
                                                             {item.images?.[0] ? (
-                                                                <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
+                                                                <img
+                                                                    src={item.images[0]}
+                                                                    alt={item.name}
+                                                                    className="w-full h-full object-cover"
+                                                                    onError={(e) => {
+                                                                        e.target.onerror = null;
+                                                                        e.target.src = "https://placehold.co/600x400?text=Image+N/A";
+                                                                    }}
+                                                                />
                                                             ) : (
                                                                 <div className="w-full h-full flex items-center justify-center text-6xl">📦</div>
                                                             )}
@@ -657,7 +665,15 @@ const Products = () => {
                                                     <div className="bg-zinc-900/60 backdrop-blur-xl rounded-2xl p-6 border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all flex gap-6">
                                                         <div className="w-32 h-32 bg-zinc-800/50 rounded-xl overflow-hidden flex-shrink-0">
                                                             {item.images?.[0] ? (
-                                                                <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
+                                                                <img
+                                                                    src={item.images[0]}
+                                                                    alt={item.name}
+                                                                    className="w-full h-full object-cover"
+                                                                    onError={(e) => {
+                                                                        e.target.onerror = null;
+                                                                        e.target.src = "https://placehold.co/600x400?text=Image+N/A";
+                                                                    }}
+                                                                />
                                                             ) : (
                                                                 <div className="w-full h-full flex items-center justify-center text-4xl">📦</div>
                                                             )}
