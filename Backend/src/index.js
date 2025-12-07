@@ -16,12 +16,23 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://stylee-gamma.vercel.app",
-      "http://10.7.2.90:5173",
-      "http://192.168.1.13:5173"
-    ],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      // Allow localhost and local network IPs (for development/testing on different devices)
+      if (
+        origin.startsWith("http://localhost") ||
+        origin.startsWith("http://127.0.0.1") ||
+        origin.match(/^http:\/\/192\.168\.\d{1,3}\.\d{1,3}/) ||
+        origin.match(/^http:\/\/10\.\d{1,3}\.\d{1,3}\.\d{1,3}/) ||
+        origin === "https://stylee-gamma.vercel.app"
+      ) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -64,8 +75,9 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Stylee Backend running on port ${PORT}`);
-  console.log(`📍 Health check: http://localhost:${PORT}`);
+  console.log(`📍 Local: http://localhost:${PORT}`);
+  console.log(`📱 Network: http://10.7.2.90:${PORT}`);
+  console.log(`   Use the Network URL to access from your phone!`);
 });
-
