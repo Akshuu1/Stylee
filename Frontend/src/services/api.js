@@ -9,17 +9,8 @@ const getApiBaseUrl = () => {
 
     // 2. Production detection - if deployed on Vercel
     if (window.location.hostname.includes('vercel.app')) {
-        // DEPLOY YOUR BACKEND FIRST, then update this URL!
-        // Instructions: See DEPLOYMENT.md in the project root
-        const backendUrl = 'https://your-backend-url.vercel.app/api';
-
-        // Show warning if backend not deployed yet
-        if (backendUrl.includes('your-backend-url')) {
-            console.error('⚠️ BACKEND NOT DEPLOYED! Please deploy backend and update this URL in Frontend/src/services/api.js line 16');
-            console.error('📖 See DEPLOYMENT.md for instructions');
-        }
-
-        return backendUrl;
+        // Production backend URL (Render)
+        return 'https://stylee.onrender.com/api';
     }
 
     // 3. Local development fallback
