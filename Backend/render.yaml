@@ -1,0 +1,11 @@
+i doservices:
+  - type: web
+    name: stylee
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: bash build.sh
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
