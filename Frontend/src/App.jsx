@@ -16,6 +16,13 @@ import School from "./components/School";
 import AuthPage from "./components/Loginoop";
 import Profile from "./components/Profile";
 import Products from "./components/Products";
+import RunwayTrends from "./components/Trends/RunwayTrends";
+import ManishMalhotra from "./components/Trends/ManishMalhotra";
+import StreetStyle from "./components/Trends/StreetStyle";
+import Jacquemus from "./components/Trends/Jacquemus";
+import FutureFashion from "./components/Trends/FutureFashion";
+import RecycledCouture from "./components/Trends/RecycledCouture";
+import CoquetteCore from "./components/Trends/CoquetteCore";
 import ProductDetail from "./components/ProductDetail";
 import AdminDashboard from "./components/AdminDashboard";
 import Contact from "./components/Contact";
@@ -59,6 +66,15 @@ const App = () => {
             {/* Product Routes */}
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetail />} />
+
+            {/* Trends Routes */}
+            <Route path="/trends/runway-trends" element={<RunwayTrends />} />
+            <Route path="/trends/manish-malhotra" element={<ManishMalhotra />} />
+            <Route path="/trends/street-style" element={<StreetStyle />} />
+            <Route path="/trends/jacquemus" element={<Jacquemus />} />
+            <Route path="/trends/future-fashion" element={<FutureFashion />} />
+            <Route path="/trends/recycled-couture" element={<RecycledCouture />} />
+            <Route path="/trends/coquette-core" element={<CoquetteCore />} />
 
             {/* Contact Route */}
             <Route path="/contact" element={<Contact />} />
