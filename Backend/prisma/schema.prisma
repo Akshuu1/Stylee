@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -13,7 +13,7 @@ enum Role {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
   password  String
@@ -24,21 +24,21 @@ model User {
 }
 
 model Item {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          Int      @id @default(autoincrement())
   name        String
-  description String
+  description String   @db.Text
   price       Float
   category    String
   brand       String?
   color       String?
   size        String?
-  images      String // JSON array stored as text
-  tags        String? // Comma-separated tags
+  images      String   @db.Text // JSON array stored as text
+  tags        String?  @db.Text // Comma-separated tags
   stock       Int      @default(0)
   popularity  Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  createdBy   String   @db.ObjectId
+  createdBy   Int
   user        User     @relation(fields: [createdBy], references: [id])
 
   @@index([category])
