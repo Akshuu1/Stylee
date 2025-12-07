@@ -1,1 +1,24 @@
 @import "tailwindcss";
+@import "/fonts/font/stylesheet.css";
+
+@font-face {
+    font-family: 'Beikho';
+    src: url('/fonts/beikho-font-1748301940-0/Beikho-BF66b0e159e77bf.woff') format('woff'),
+        url('/fonts/beikho-font-1748301940-0/Beikho-BF66b0e15a54d87.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Sephora Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Beikho', 'Sephora Sans', sans-serif;
+}
