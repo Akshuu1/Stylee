@@ -1,4 +1,4 @@
-i doservices:
+services:
   - type: web
     name: stylee
     env: node
