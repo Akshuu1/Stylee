@@ -54,7 +54,9 @@ export default function AuthPage({ mode }) {
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("Something went wrong!");
+      // Show descriptive error message if available, otherwise fallback
+      const errorMessage = err.response?.data?.message || err.message || "Something went wrong! Check console.";
+      alert(`Error: ${errorMessage}`);
     } finally {
       setLoading(false);
     }

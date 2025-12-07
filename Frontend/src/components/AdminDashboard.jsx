@@ -146,6 +146,22 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleDeleteUser = async (userId) => {
+        if (!window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) {
+            return;
+        }
+
+        try {
+            await usersAPI.delete(userId);
+            // Refresh users list
+            fetchUsers();
+            alert("User deleted successfully");
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            alert(error.response?.data?.message || "Failed to delete user");
+        }
+    };
+
     const handleUpdateUserRole = async (userId, newRole) => {
         try {
             await usersAPI.update(userId, { role: newRole });
@@ -336,7 +352,7 @@ const AdminDashboard = () => {
                                                         </td>
                                                         <td className="px-6 py-4">{user._count?.items || 0}</td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div className="flex justify-end">
+                                                            <div className="flex justify-end items-center gap-3">
                                                                 <select
                                                                     value={user.role}
                                                                     onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}
@@ -345,6 +361,13 @@ const AdminDashboard = () => {
                                                                     <option value="USER">User</option>
                                                                     <option value="ADMIN">Admin</option>
                                                                 </select>
+                                                                <button
+                                                                    onClick={() => handleDeleteUser(user.id)}
+                                                                    className="px-4 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg text-sm font-semibold transition-all border border-red-500/20 hover:border-red-500/50"
+                                                                    title="Delete User"
+                                                                >
+                                                                    Delete
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </motion.tr>

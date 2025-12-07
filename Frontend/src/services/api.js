@@ -14,7 +14,10 @@ const getApiBaseUrl = () => {
     }
 
     // 3. Local development fallback
-    return `http://${window.location.hostname}:5001/api`;
+    // Use 127.0.0.1 instead of localhost to avoid IPv6 resolution issues (::1) 
+    // when backend is listening on IPv4 (0.0.0.0)
+    const host = window.location.hostname === 'localhost' ? '127.0.0.1' : window.location.hostname;
+    return `http://${host}:5001/api`;
 };
 
 const API_BASE_URL = getApiBaseUrl();
