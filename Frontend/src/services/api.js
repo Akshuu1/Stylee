@@ -1,7 +1,37 @@
 import axios from "axios";
 
-// Base URL configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:5001/api`;
+// Base URL configuration with smart environment detection
+const getApiBaseUrl = () => {
+    // 1. Use explicitly set environment variable (highest priority)
+    if (import.meta.env.VITE_API_URL) {
+        return import.meta.env.VITE_API_URL;
+    }
+
+    // 2. Production detection - if deployed on Vercel
+    if (window.location.hostname.includes('vercel.app')) {
+        // DEPLOY YOUR BACKEND FIRST, then update this URL!
+        // Instructions: See DEPLOYMENT.md in the project root
+        const backendUrl = 'https://your-backend-url.vercel.app/api';
+
+        // Show warning if backend not deployed yet
+        if (backendUrl.includes('your-backend-url')) {
+            console.error('⚠️ BACKEND NOT DEPLOYED! Please deploy backend and update this URL in Frontend/src/services/api.js line 16');
+            console.error('📖 See DEPLOYMENT.md for instructions');
+        }
+
+        return backendUrl;
+    }
+
+    // 3. Local development fallback
+    return `http://${window.location.hostname}:5001/api`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Log the API URL in development for debugging
+if (import.meta.env.DEV) {
+    console.log('🔗 API Base URL:', API_BASE_URL);
+}
 
 // Create axios instance
 const api = axios.create({

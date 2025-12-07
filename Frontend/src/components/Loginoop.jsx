@@ -93,6 +93,7 @@ export default function AuthPage({ mode }) {
             type="email"
             name="email"
             placeholder="Email"
+            autoComplete="email"
             onChange={handleChange}
             value={formData.email}
             required
@@ -104,6 +105,7 @@ export default function AuthPage({ mode }) {
             type="password"
             name="password"
             placeholder="Password"
+            autoComplete="current-password"
             onChange={handleChange}
             value={formData.password}
             required
