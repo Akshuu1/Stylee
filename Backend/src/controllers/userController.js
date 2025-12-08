@@ -1,7 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
+const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
-const prisma = new PrismaClient();
 
 // Get all users (Admin only)
 const getAllUsers = async (req, res) => {
@@ -11,27 +9,32 @@ const getAllUsers = async (req, res) => {
         const skip = (parseInt(page) - 1) * parseInt(limit);
         const take = parseInt(limit);
 
-        const totalUsers = await prisma.user.count();
+        const totalUsers = await User.countDocuments();
 
-        const users = await prisma.user.findMany({
-            skip,
-            take,
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                role: true,
-                createdAt: true,
-                updatedAt: true,
-                _count: {
-                    select: { items: true },
-                },
-            },
-            orderBy: { createdAt: "desc" },
-        });
+        const users = await User.find()
+            .skip(skip)
+            .limit(take)
+            .select('name email role createdAt updatedAt')
+            .sort({ createdAt: -1 })
+            .lean();
+
+        // Get item count for each user
+        const Item = require("../models/Item");
+        const usersWithItemCount = await Promise.all(
+            users.map(async (user) => {
+                const itemCount = await Item.countDocuments({ createdBy: user._id });
+                return {
+                    ...user,
+                    id: user._id,
+                    _count: {
+                        items: itemCount
+                    }
+                };
+            })
+        );
 
         res.json({
-            users,
+            users: usersWithItemCount,
             pagination: {
                 currentPage: parseInt(page),
                 totalPages: Math.ceil(totalUsers / take),
@@ -50,32 +53,33 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                role: true,
-                createdAt: true,
-                updatedAt: true,
-                items: {
-                    select: {
-                        id: true,
-                        name: true,
-                        price: true,
-                        category: true,
-                        createdAt: true,
-                    },
-                },
-            },
-        });
+        const user = await User.findById(id)
+            .select('name email role createdAt updatedAt')
+            .lean();
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.json({ user });
+        // Get user's items
+        const Item = require("../models/Item");
+        const items = await Item.find({ createdBy: id })
+            .select('name price category createdAt')
+            .lean();
+
+        // Transform items to include id field
+        const transformedItems = items.map(item => ({
+            ...item,
+            id: item._id
+        }));
+
+        res.json({
+            user: {
+                ...user,
+                id: user._id,
+                items: transformedItems
+            }
+        });
     } catch (error) {
         console.error("GET USER BY ID ERROR:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -88,9 +92,7 @@ const updateUser = async (req, res) => {
         const { id } = req.params;
         const { name, email, role, password } = req.body;
 
-        const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) },
-        });
+        const user = await User.findById(id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -107,22 +109,18 @@ const updateUser = async (req, res) => {
             updateData.password = await bcrypt.hash(password, 10);
         }
 
-        const updatedUser = await prisma.user.update({
-            where: { id: parseInt(id) },
-            data: updateData,
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                role: true,
-                createdAt: true,
-                updatedAt: true,
-            },
-        });
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            updateData,
+            { new: true, runValidators: true }
+        ).select('name email role createdAt updatedAt');
 
         res.json({
             message: "User updated successfully!",
-            user: updatedUser
+            user: {
+                ...updatedUser.toObject(),
+                id: updatedUser._id
+            }
         });
     } catch (error) {
         console.error("UPDATE USER ERROR:", error);
@@ -135,22 +133,18 @@ const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) },
-        });
+        const user = await User.findById(id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         // Prevent admin from deleting themselves
-        if (user.id === req.user.id) {
+        if (user._id.toString() === req.user.id) {
             return res.status(400).json({ message: "You cannot delete your own account" });
         }
 
-        await prisma.user.delete({
-            where: { id: parseInt(id) },
-        });
+        await User.findByIdAndDelete(id);
 
         res.json({ message: "User deleted successfully!" });
     } catch (error) {

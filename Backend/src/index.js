@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-// Load env vars variables BEFORE importing routes/controllers that use Prisma
+// Load env vars variables BEFORE importing routes/controllers
 dotenv.config();
 
-const { PrismaClient } = require("@prisma/client");
+const { connectDB, closeDB } = require("./config/database");
 
 // Import routes
 const authRoutes = require("./routes/auth");
@@ -12,7 +12,6 @@ const itemRoutes = require("./routes/items");
 const userRoutes = require("./routes/users");
 
 const app = express();
-const prisma = new PrismaClient();
 
 // Middleware
 app.use(express.json());
@@ -73,13 +72,20 @@ app.use((err, req, res, next) => {
 
 // Graceful shutdown
 process.on("SIGINT", async () => {
-  await prisma.$disconnect();
+  await closeDB();
   process.exit(0);
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Stylee Backend running on port ${PORT}`);
-  console.log(`📍 Local: http://localhost:${PORT}`);
-  console.log(`📱 Network: http://10.7.2.90:${PORT}`);
-  console.log(`   Use the Network URL to access from your phone!`);
-});
+// Initialize MongoDB connection and start server
+const startServer = async () => {
+  await connectDB();
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Stylee Backend running on port ${PORT}`);
+    console.log(`📍 Local: http://localhost:${PORT}`);
+    console.log(`📱 Network: http://10.7.2.90:${PORT}`);
+    console.log(`   Use the Network URL to access from your phone!`);
+  });
+};
+
+startServer();

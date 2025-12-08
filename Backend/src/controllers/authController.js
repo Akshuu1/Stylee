@@ -1,8 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+const User = require("../models/User");
 
 // Signup
 const signup = async (req, res) => {
@@ -13,25 +11,23 @@ const signup = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        const existingUser = await prisma.user.findUnique({ where: { email } });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "User already exists" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await prisma.user.create({
-            data: {
-                name,
-                email,
-                password: hashedPassword,
-                role: role || 'USER' // Default to USER if not provided
-            },
+        const newUser = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            role: role || 'USER' // Default to USER if not provided
         });
 
         res.status(201).json({
             message: "User created successfully!",
-            user: { id: newUser.id, name: newUser.name, email: newUser.email }
+            user: { id: newUser._id, name: newUser.name, email: newUser.email }
         });
     } catch (error) {
         console.error("SIGNUP ERROR:", error);
@@ -49,7 +45,7 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Email and password are required" });
         }
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: "User not found" });
         }
@@ -60,7 +56,7 @@ const login = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: user.id, email: user.email, role: user.role },
+            { id: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: "24h" }
         );
@@ -69,7 +65,7 @@ const login = async (req, res) => {
             message: "Login successful!",
             token,
             user: {
-                id: user.id,
+                id: user._id,
                 name: user.name,
                 email: user.email,
                 role: user.role
@@ -84,10 +80,8 @@ const login = async (req, res) => {
 // Get Profile
 const getProfile = async (req, res) => {
     try {
-        const user = await prisma.user.findUnique({
-            where: { id: req.user.id },
-            select: { id: true, name: true, email: true, role: true, createdAt: true },
-        });
+        const user = await User.findById(req.user.id)
+            .select('name email role createdAt');
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });

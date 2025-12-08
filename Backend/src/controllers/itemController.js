@@ -1,6 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+const Item = require("../models/Item");
 
 // Get all items with search, filter, sort, and pagination
 const getAllItems = async (req, res) => {
@@ -25,48 +23,40 @@ const getAllItems = async (req, res) => {
         const pPage = page && page !== "" ? parseInt(page) : 1;
         const pLimit = limit && limit !== "" ? parseInt(limit) : 12;
 
-        // Build where clause for filtering
-        const where = {
-            AND: [
-                search ? {
-                    OR: [
-                        { name: { contains: search } },
-                        { description: { contains: search } },
-                        { tags: { contains: search } },
-                    ],
-                } : {},
-                category ? { category: { equals: category } } : {},
-                brand ? { brand: { equals: brand } } : {},
-                color ? { color: { equals: color } } : {},
-                size ? { size: { equals: size } } : {},
-                {
-                    price: {
-                        gte: pMinPrice,
-                        lte: pMaxPrice,
-                    },
-                },
-            ],
-        };
+        // Build query object for filtering
+        const query = {};
+
+        // Search across multiple fields
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } },
+                { tags: { $in: [new RegExp(search, 'i')] } }
+            ];
+        }
+
+        // Filter by category, brand, color, size
+        if (category) query.category = category;
+        if (brand) query.brand = brand;
+        if (color) query.color = color;
+        if (size) query.size = size;
+
+        // Price range filter
+        query.price = { $gte: pMinPrice, $lte: pMaxPrice };
 
         // Calculate pagination
         const skip = (pPage - 1) * pLimit;
         const take = pLimit;
 
         // Get total count for pagination
-        const totalItems = await prisma.item.count({ where });
+        const totalItems = await Item.countDocuments(query);
 
         let items;
 
         if (sortBy === "random") {
             // Fetch ALL matching items to shuffle globally (ok for small dataset)
-            const allItems = await prisma.item.findMany({
-                where,
-                include: {
-                    user: {
-                        select: { id: true, name: true, email: true },
-                    },
-                },
-            });
+            const allItems = await Item.find(query)
+                .populate('createdBy', 'name email');
 
             // Fisher-Yates Shuffle
             for (let i = allItems.length - 1; i > 0; i--) {
@@ -79,31 +69,32 @@ const getAllItems = async (req, res) => {
 
         } else {
             // Standard Database Sorting
-            const orderBy = {};
-            orderBy[sortBy] = sortOrder;
+            const sortOptions = {};
+            sortOptions[sortBy] = sortOrder === 'asc' ? 1 : -1;
 
-            items = await prisma.item.findMany({
-                where,
-                orderBy,
-                skip,
-                take,
-                include: {
-                    user: {
-                        select: { id: true, name: true, email: true },
-                    },
-                },
-            });
+            items = await Item.find(query)
+                .sort(sortOptions)
+                .skip(skip)
+                .limit(take)
+                .populate('createdBy', 'name email');
         }
 
-        // Parse images from JSON string
-        const itemsWithParsedImages = items.map(item => ({
-            ...item,
-            images: item.images ? JSON.parse(item.images) : [],
-            tags: item.tags ? item.tags.split(',').map(tag => tag.trim()) : [],
-        }));
+        // Transform items to match expected format (rename createdBy to user)
+        const itemsWithUser = items.map(item => {
+            const itemObj = item.toObject();
+            return {
+                ...itemObj,
+                id: itemObj._id,
+                user: itemObj.createdBy ? {
+                    id: itemObj.createdBy._id,
+                    name: itemObj.createdBy.name,
+                    email: itemObj.createdBy.email
+                } : null
+            };
+        });
 
         res.json({
-            items: itemsWithParsedImages,
+            items: itemsWithUser,
             pagination: {
                 currentPage: parseInt(page),
                 totalPages: Math.ceil(totalItems / take),
@@ -122,27 +113,26 @@ const getItemById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const item = await prisma.item.findUnique({
-            where: { id: parseInt(id) },
-            include: {
-                user: {
-                    select: { id: true, name: true, email: true },
-                },
-            },
-        });
+        const item = await Item.findById(id)
+            .populate('createdBy', 'name email');
 
         if (!item) {
             return res.status(404).json({ message: "Item not found" });
         }
 
-        // Parse images and tags
-        const itemWithParsedData = {
-            ...item,
-            images: item.images ? JSON.parse(item.images) : [],
-            tags: item.tags ? item.tags.split(',').map(tag => tag.trim()) : [],
+        // Transform to match expected format
+        const itemObj = item.toObject();
+        const itemWithUser = {
+            ...itemObj,
+            id: itemObj._id,
+            user: itemObj.createdBy ? {
+                id: itemObj.createdBy._id,
+                name: itemObj.createdBy.name,
+                email: itemObj.createdBy.email
+            } : null
         };
 
-        res.json({ item: itemWithParsedData });
+        res.json({ item: itemWithUser });
     } catch (error) {
         console.error("GET ITEM BY ID ERROR:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -171,43 +161,38 @@ const createItem = async (req, res) => {
             });
         }
 
-        // Convert images array to JSON string
-        const imagesString = JSON.stringify(images || []);
-
-        // Convert tags array to comma-separated string
-        const tagsString = Array.isArray(tags) ? tags.join(', ') : tags || '';
-
-        const newItem = await prisma.item.create({
-            data: {
-                name,
-                description,
-                price: parseFloat(price),
-                category,
-                brand: brand || null,
-                color: color || null,
-                size: size || null,
-                images: imagesString,
-                tags: tagsString,
-                stock: stock ? parseInt(stock) : 0,
-                createdBy: req.user.id,
-            },
-            include: {
-                user: {
-                    select: { id: true, name: true, email: true },
-                },
-            },
+        const newItem = await Item.create({
+            name,
+            description,
+            price: parseFloat(price),
+            category,
+            brand: brand || null,
+            color: color || null,
+            size: size || null,
+            images: images || [],
+            tags: tags || [],
+            stock: stock ? parseInt(stock) : 0,
+            createdBy: req.user.id,
         });
 
-        // Parse images and tags for response
-        const itemWithParsedData = {
-            ...newItem,
-            images: JSON.parse(newItem.images),
-            tags: newItem.tags ? newItem.tags.split(',').map(tag => tag.trim()) : [],
+        // Populate user data
+        await newItem.populate('createdBy', 'name email');
+
+        // Transform to match expected format
+        const itemObj = newItem.toObject();
+        const itemWithUser = {
+            ...itemObj,
+            id: itemObj._id,
+            user: itemObj.createdBy ? {
+                id: itemObj.createdBy._id,
+                name: itemObj.createdBy.name,
+                email: itemObj.createdBy.email
+            } : null
         };
 
         res.status(201).json({
             message: "Item created successfully!",
-            item: itemWithParsedData
+            item: itemWithUser
         });
     } catch (error) {
         console.error("CREATE ITEM ERROR:", error);
@@ -234,16 +219,14 @@ const updateItem = async (req, res) => {
         } = req.body;
 
         // Check if item exists
-        const existingItem = await prisma.item.findUnique({
-            where: { id: parseInt(id) },
-        });
+        const existingItem = await Item.findById(id);
 
         if (!existingItem) {
             return res.status(404).json({ message: "Item not found" });
         }
 
         // Check if user owns the item or is admin
-        if (existingItem.createdBy !== req.user.id && req.user.role !== "ADMIN") {
+        if (existingItem.createdBy.toString() !== req.user.id && req.user.role !== "ADMIN") {
             return res.status(403).json({ message: "You don't have permission to update this item" });
         }
 
@@ -256,33 +239,32 @@ const updateItem = async (req, res) => {
         if (brand !== undefined) updateData.brand = brand;
         if (color !== undefined) updateData.color = color;
         if (size !== undefined) updateData.size = size;
-        if (images) updateData.images = JSON.stringify(images);
-        if (tags !== undefined) {
-            updateData.tags = Array.isArray(tags) ? tags.join(', ') : tags;
-        }
+        if (images) updateData.images = images;
+        if (tags !== undefined) updateData.tags = tags;
         if (stock !== undefined) updateData.stock = parseInt(stock);
         if (popularity !== undefined) updateData.popularity = parseInt(popularity);
 
-        const updatedItem = await prisma.item.update({
-            where: { id: parseInt(id) },
-            data: updateData,
-            include: {
-                user: {
-                    select: { id: true, name: true, email: true },
-                },
-            },
-        });
+        const updatedItem = await Item.findByIdAndUpdate(
+            id,
+            updateData,
+            { new: true, runValidators: true }
+        ).populate('createdBy', 'name email');
 
-        // Parse images and tags for response
-        const itemWithParsedData = {
-            ...updatedItem,
-            images: JSON.parse(updatedItem.images),
-            tags: updatedItem.tags ? updatedItem.tags.split(',').map(tag => tag.trim()) : [],
+        // Transform to match expected format
+        const itemObj = updatedItem.toObject();
+        const itemWithUser = {
+            ...itemObj,
+            id: itemObj._id,
+            user: itemObj.createdBy ? {
+                id: itemObj.createdBy._id,
+                name: itemObj.createdBy.name,
+                email: itemObj.createdBy.email
+            } : null
         };
 
         res.json({
             message: "Item updated successfully!",
-            item: itemWithParsedData
+            item: itemWithUser
         });
     } catch (error) {
         console.error("UPDATE ITEM ERROR:", error);
@@ -293,13 +275,10 @@ const updateItem = async (req, res) => {
 // Get all unique categories
 const getCategories = async (req, res) => {
     try {
-        const categories = await prisma.item.findMany({
-            select: { category: true },
-            distinct: ['category']
-        });
+        const categories = await Item.distinct('category');
 
-        // Return simple array of strings
-        const categoryList = categories.map(c => c.category).sort();
+        // Return sorted array of strings
+        const categoryList = categories.sort();
         res.json(categoryList);
     } catch (error) {
         console.error("GET CATEGORIES ERROR:", error);
@@ -312,17 +291,13 @@ const deleteItem = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const item = await prisma.item.findUnique({
-            where: { id: parseInt(id) },
-        });
+        const item = await Item.findById(id);
 
         if (!item) {
             return res.status(404).json({ message: "Item not found" });
         }
 
-        await prisma.item.delete({
-            where: { id: parseInt(id) },
-        });
+        await Item.findByIdAndDelete(id);
 
         res.json({ message: "Item deleted successfully!" });
     } catch (error) {

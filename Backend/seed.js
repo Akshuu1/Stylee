@@ -1,17 +1,23 @@
 // Quick script to add sample products to the database
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const User = require("./src/models/User");
+const Item = require("./src/models/Item");
 
 async function addSampleProducts() {
     try {
+        await mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_URL);
+        console.log("📦 Connected to MongoDB");
+
         // Create a sample user first
-        const user = await prisma.user.create({
-            data: {
-                name: "Admin User",
-                email: "admin@stylee.com",
-                password: "$2a$10$samplehashedpassword", // This is just a placeholder
-                role: "ADMIN",
-            },
+        const user = await User.create({
+            name: "Admin User",
+            email: "admin@stylee.com",
+            password: "$2a$10$samplehashedpassword", // This is just a placeholder
+            role: "ADMIN",
         });
 
         console.log("✅ Created admin user:", user.email);
@@ -26,11 +32,11 @@ async function addSampleProducts() {
                 brand: "StyleBrand",
                 color: "White",
                 size: "M",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"]),
-                tags: "casual, cotton, summer",
+                images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"],
+                tags: ["casual", "cotton", "summer"],
                 stock: 50,
                 popularity: 100,
-                createdBy: user.id,
+                createdBy: user._id,
             },
             {
                 name: "Denim Jacket",
@@ -40,11 +46,11 @@ async function addSampleProducts() {
                 brand: "DenimCo",
                 color: "Blue",
                 size: "L",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500"]),
-                tags: "denim, jacket, casual",
+                images: ["https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500"],
+                tags: ["denim", "jacket", "casual"],
                 stock: 30,
                 popularity: 85,
-                createdBy: user.id,
+                createdBy: user._id,
             },
             {
                 name: "Black Sneakers",
@@ -54,11 +60,11 @@ async function addSampleProducts() {
                 brand: "SneakerPro",
                 color: "Black",
                 size: "10",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"]),
-                tags: "sneakers, shoes, casual",
+                images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"],
+                tags: ["sneakers", "shoes", "casual"],
                 stock: 40,
                 popularity: 120,
-                createdBy: user.id,
+                createdBy: user._id,
             },
             {
                 name: "Summer Dress",
@@ -68,16 +74,16 @@ async function addSampleProducts() {
                 brand: "SummerStyle",
                 color: "Floral",
                 size: "S",
-                images: JSON.stringify(["https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500"]),
-                tags: "dress, summer, floral",
+                images: ["https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500"],
+                tags: ["dress", "summer", "floral"],
                 stock: 25,
                 popularity: 95,
-                createdBy: user.id,
+                createdBy: user._id,
             },
         ];
 
         for (const product of products) {
-            const item = await prisma.item.create({ data: product });
+            const item = await Item.create(product);
             console.log(`✅ Created product: ${item.name}`);
         }
 
@@ -86,7 +92,7 @@ async function addSampleProducts() {
     } catch (error) {
         console.error("❌ Error:", error);
     } finally {
-        await prisma.$disconnect();
+        await mongoose.connection.close();
     }
 }
 

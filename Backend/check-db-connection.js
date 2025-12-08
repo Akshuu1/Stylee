@@ -1,25 +1,27 @@
-const { PrismaClient } = require('@prisma/client');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const prisma = new PrismaClient();
+// Import models
+const User = require('./src/models/User');
 
 async function main() {
     console.log('Testing Database Connection...');
-    console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Loaded (starts with ' + process.env.DATABASE_URL.substring(0, 10) + '...)' : 'NOT LOADED');
+    console.log('MONGODB_URI:', process.env.MONGODB_URI || process.env.DATABASE_URL ? 'Loaded' : 'NOT LOADED');
 
     try {
-        await prisma.$connect();
+        await mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_URL);
         console.log('✅ Database connection successful!');
+        console.log(`📦 Connected to: ${mongoose.connection.name}`);
 
-        const userCount = await prisma.user.count();
+        const userCount = await User.countDocuments();
         console.log(`📊 Current user count: ${userCount}`);
 
     } catch (error) {
         console.error('❌ Database connection failed:', error);
     } finally {
-        await prisma.$disconnect();
+        await mongoose.connection.close();
     }
 }
 

@@ -1,28 +1,29 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-async function checkData() {
+dotenv.config();
+
+const Item = require("./src/models/Item");
+
+async function checkProducts() {
     try {
-        const userCount = await prisma.user.count();
-        const itemCount = await prisma.item.count();
-        const items = await prisma.item.findMany({ take: 5 });
+        await mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_URL);
+        console.log("📦 Connected to MongoDB");
 
-        console.log(`Users count: ${userCount}`);
-        console.log(`Items count: ${itemCount}`);
+        const items = await Item.find({}).populate('createdBy', 'name email');
+        console.log(`📊 Total products: ${items.length}`);
 
-        if (itemCount > 0) {
-            console.log("Sample items:");
-            items.forEach(item => {
-                console.log(`- ${item.name} (${item.id})`);
-            });
-        } else {
-            console.log("No items found in the database.");
-        }
+        items.forEach((item, index) => {
+            console.log(`\n${index + 1}. ${item.name}`);
+            console.log(`   Price: $${item.price}`);
+            console.log(`   Category: ${item.category}`);
+            console.log(`   Stock: ${item.stock}`);
+        });
     } catch (error) {
-        console.error("Error checking data:", error);
+        console.error("❌ Error:", error);
     } finally {
-        await prisma.$disconnect();
+        await mongoose.connection.close();
     }
 }
 
-checkData();
+checkProducts();

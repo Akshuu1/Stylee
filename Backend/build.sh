@@ -2,5 +2,5 @@
 # Install dependencies
 npm install
 
-# Generate Prisma Client
-npx prisma generate
+# No Prisma generation needed - using MongoDB with Mongoose
+echo "✅ Dependencies installed, ready to start!"

@@ -1,34 +1,36 @@
-// Script to update existing admin user with proper password
-const { PrismaClient } = require("@prisma/client");
+const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const dotenv = require("dotenv");
 
-const prisma = new PrismaClient();
+dotenv.config();
+
+const User = require("./src/models/User");
 
 async function updateAdmin() {
     try {
-        // Hash the password properly
+        await mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_URL);
+        console.log("📦 Connected to MongoDB");
+
+        const admin = await User.findOne({ email: "admin@stylee.com" });
+
+        if (!admin) {
+            console.log("❌ Admin user not found!");
+            await mongoose.connection.close();
+            return;
+        }
+
+        // Update password
         const hashedPassword = await bcrypt.hash("admin123", 10);
+        admin.password = hashedPassword;
+        await admin.save();
 
-        // Update the admin user
-        const admin = await prisma.user.update({
-            where: { email: "admin@stylee.com" },
-            data: {
-                password: hashedPassword,
-                role: "ADMIN",
-            },
-        });
-
-        console.log("✅ Admin user updated successfully!");
+        console.log("✅ Admin password updated successfully!");
         console.log("\n📧 Email: admin@stylee.com");
         console.log("🔑 Password: admin123");
-        console.log("\n🎯 Steps to access admin dashboard:");
-        console.log("1. Go to http://localhost:5173/login");
-        console.log("2. Login with the credentials above");
-        console.log("3. Visit http://localhost:5173/admin");
     } catch (error) {
         console.error("❌ Error:", error);
     } finally {
-        await prisma.$disconnect();
+        await mongoose.connection.close();
     }
 }
 
