@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
@@ -7,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const imgRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     gsap.from(imgRef.current, {
@@ -51,10 +54,19 @@ const About = () => {
 
           </div>
 
-          <button className="flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 uppercase bg-zinc-900 rounded-full text-white hover:scale-105 transition-transform duration-300 group">
-            Read More
-            <div className="w-3 h-3 bg-zinc-100 rounded-full group-hover:translate-x-1 transition-transform"></div>
-          </button>
+          <motion.button
+            onClick={() => navigate('/about')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-4 px-8 py-4 bg-zinc-900 rounded-full text-white group relative overflow-hidden cursor-pointer"
+          >
+            <span className='z-10 relative uppercase text-sm font-medium tracking-wider'>Read More</span>
+            <div className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-zinc-900 group-hover:bg-zinc-200 transition-colors z-10 relative">
+              <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-300" />
+            </div>
+            {/* Hover Fill Effect */}
+            <div className="absolute inset-0 bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+          </motion.button>
         </div>
         <div className="w-full md:w-1/2 mt-10 md:mt-20 flex justify-center items-center mb-10" data-scroll data-scroll-speed="0.5">
           <img

@@ -26,6 +26,7 @@ import CoquetteCore from "./components/Trends/CoquetteCore";
 import ProductDetail from "./components/ProductDetail";
 import AdminDashboard from "./components/AdminDashboard";
 import Contact from "./components/Contact";
+import AboutPage from "./components/AboutPage";
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
@@ -78,6 +79,9 @@ const App = () => {
 
             {/* Contact Route */}
             <Route path="/contact" element={<Contact />} />
+
+            {/* About Page Route */}
+            <Route path="/about" element={<AboutPage />} />
 
             {/* Admin Route */}
             <Route path="/admin" element={<AdminDashboard />} />
