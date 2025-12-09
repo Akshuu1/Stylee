@@ -46,7 +46,7 @@ const Sets = () => {
         </div>
       </div>
       <div className=" flex justify-center items-center p-10 text-zinc-800">
-        <h1 className='mb-[30vw] mt-[10vw] text-[17vw] '>Let's learn</h1>
+        <h1 className='absolute z-[-1] mb-[30vw] mt-[10vw] text-[22vw] '>Let's learn</h1>
         <Eyes minimal={true} />
       </div>
     </div>
