@@ -15,7 +15,7 @@ exports.getWishlist = async (req, res) => {
 
         res.json({
             message: 'Wishlist retrieved successfully',
-            wishlist: user.wishlist || []
+            wishlist: (user.wishlist || []).filter(item => item !== null)
         });
     } catch (error) {
         console.error('Get wishlist error:', error);
