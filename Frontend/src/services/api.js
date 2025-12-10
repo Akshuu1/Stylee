@@ -106,4 +106,19 @@ export const usersAPI = {
     delete: (id) => api.delete(`/users/${id}`),
 };
 
+// ==================== WISHLIST API ====================
+export const wishlistAPI = {
+    // Get user's wishlist
+    getWishlist: () => api.get("/wishlist"),
+
+    // Add item to wishlist
+    addToWishlist: (itemId) => api.post(`/wishlist/${itemId}`),
+
+    // Remove item from wishlist
+    removeFromWishlist: (itemId) => api.delete(`/wishlist/${itemId}`),
+
+    // Clear entire wishlist
+    clearWishlist: () => api.delete("/wishlist"),
+};
+
 export default api;

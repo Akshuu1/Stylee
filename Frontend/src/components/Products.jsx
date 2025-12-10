@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { itemsAPI } from "../services/api";
+import { Heart } from "lucide-react";
+import { itemsAPI, wishlistAPI } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 const Products = () => {
     const [items, setItems] = useState([]);
@@ -23,6 +25,8 @@ const Products = () => {
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState(null);
     const [categories, setCategories] = useState([]); // New state for categories dropdown
+    const [wishlistItems, setWishlistItems] = useState([]);
+    const { isAuthenticated, isGuest } = useAuth();
 
     const limit = 12;
     const { scrollY } = useScroll();
@@ -73,7 +77,61 @@ const Products = () => {
 
     useEffect(() => {
         fetchItems();
+        fetchWishlist();
     }, [search, category, brand, color, size, minPrice, maxPrice, sortBy, sortOrder, page]);
+
+    const fetchWishlist = async () => {
+        try {
+            if (isGuest()) {
+                // Load from localStorage for guests
+                const localWishlist = JSON.parse(localStorage.getItem("guestWishlist") || "[]");
+                setWishlistItems(localWishlist.map(item => item._id || item.id));
+            } else if (isAuthenticated()) {
+                // Load from backend for authenticated users
+                const response = await wishlistAPI.getWishlist();
+                setWishlistItems(response.data.wishlist.map(item => item._id || item));
+            }
+        } catch (err) {
+            console.error("Failed to fetch wishlist:", err);
+        }
+    };
+
+
+
+    const toggleWishlist = async (e, item) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const itemId = item._id || item.id;
+        const isInWishlist = wishlistItems.includes(itemId);
+
+        try {
+            if (isGuest()) {
+                // Handle guest wishlist in localStorage
+                const localWishlist = JSON.parse(localStorage.getItem("guestWishlist") || "[]");
+                if (isInWishlist) {
+                    const updated = localWishlist.filter(i => (i._id || i.id) !== itemId);
+                    localStorage.setItem("guestWishlist", JSON.stringify(updated));
+                    setWishlistItems(updated.map(i => i._id || i.id));
+                } else {
+                    localWishlist.push(item);
+                    localStorage.setItem("guestWishlist", JSON.stringify(localWishlist));
+                    setWishlistItems(localWishlist.map(i => i._id || i.id));
+                }
+            } else if (isAuthenticated()) {
+                // Handle authenticated user wishlist via API
+                if (isInWishlist) {
+                    await wishlistAPI.removeFromWishlist(itemId);
+                    setWishlistItems(prev => prev.filter(id => id !== itemId));
+                } else {
+                    await wishlistAPI.addToWishlist(itemId);
+                    setWishlistItems(prev => [...prev, itemId]);
+                }
+            }
+        } catch (err) {
+            console.error("Wishlist toggle error:", err);
+        }
+    };
 
     const handleResetFilters = () => {
         setSearch("");
@@ -616,6 +674,22 @@ const Products = () => {
                                                                 <span>→</span>
                                                             </motion.div>
                                                         </div>
+
+                                                        {/* Wishlist Button */}
+                                                        <motion.button
+                                                            whileHover={{ scale: 1.1 }}
+                                                            whileTap={{ scale: 0.9 }}
+                                                            onClick={(e) => toggleWishlist(e, item)}
+                                                            className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10"
+                                                        >
+                                                            <Heart
+                                                                size={20}
+                                                                className={`transition-all ${wishlistItems.includes(item._id || item.id)
+                                                                    ? "fill-pink-500 text-pink-500"
+                                                                    : "text-white"
+                                                                    }`}
+                                                            />
+                                                        </motion.button>
                                                     </motion.div>
                                                 </Link>
                                             </motion.div>
@@ -637,6 +711,7 @@ const Products = () => {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: idx * 0.05 }}
                                                 whileHover={{ y: -10 }}
+                                                className="relative"
                                             >
                                                 <Link to={`/products/${item.id}`} className="block">
                                                     <div className="bg-zinc-900/60 backdrop-blur-xl rounded-3xl overflow-hidden border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all">
@@ -661,6 +736,22 @@ const Products = () => {
                                                         </div>
                                                     </div>
                                                 </Link>
+
+                                                {/* Wishlist Button */}
+                                                <motion.button
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }}
+                                                    onClick={(e) => toggleWishlist(e, item)}
+                                                    className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10"
+                                                >
+                                                    <Heart
+                                                        size={20}
+                                                        className={`transition-all ${wishlistItems.includes(item._id || item.id)
+                                                            ? "fill-pink-500 text-pink-500"
+                                                            : "text-white"
+                                                            }`}
+                                                    />
+                                                </motion.button>
                                             </motion.div>
                                         ))}
                                     </motion.div>
@@ -680,6 +771,7 @@ const Products = () => {
                                                 animate={{ opacity: 1, x: 0 }}
                                                 transition={{ delay: idx * 0.03 }}
                                                 whileHover={{ x: 10 }}
+                                                className="relative"
                                             >
                                                 <Link to={`/products/${item.id}`}>
                                                     <div className="bg-zinc-900/60 backdrop-blur-xl rounded-2xl p-6 border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all flex gap-6">
@@ -712,6 +804,22 @@ const Products = () => {
                                                         </div>
                                                     </div>
                                                 </Link>
+
+                                                {/* Wishlist Button */}
+                                                <motion.button
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }}
+                                                    onClick={(e) => toggleWishlist(e, item)}
+                                                    className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10"
+                                                >
+                                                    <Heart
+                                                        size={20}
+                                                        className={`transition-all ${wishlistItems.includes(item._id || item.id)
+                                                            ? "fill-pink-500 text-pink-500"
+                                                            : "text-white"
+                                                            }`}
+                                                    />
+                                                </motion.button>
                                             </motion.div>
                                         ))}
                                     </motion.div>

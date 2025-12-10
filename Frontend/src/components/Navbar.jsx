@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Heart } from 'lucide-react';
 
 const Navbar = () => {
   const { user, isAdmin, logout } = useAuth();
@@ -85,6 +86,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
+        {/* Wishlist Icon */}
+        <Link to="/wishlist" className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-all group">
+          <Heart size={20} className="text-white group-hover:text-pink-400 group-hover:fill-pink-400/50 transition-all" />
+        </Link>
+
         {user ? (
           <div className="flex items-center gap-4">
             <Link to="/profile" className="w-10 h-10 rounded-full bg-[#CDEA68] flex items-center justify-center text-[#004D54] font-bold border border-white/20">

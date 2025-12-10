@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LocomotiveScroll from "locomotive-scroll";
 
 import "./index.css";
+
 import { NavbarDemo } from "./components/Animations/Navbar-Animated";
 import BackgroundMusic from "./components/BackgroundMusic";
 import LandingPage from "./components/LandingPage";
@@ -13,9 +14,12 @@ import Featured from "./components/Featured";
 import Cards from "./components/Cards";
 import Footer from "./components/Footer";
 import School from "./components/School";
+
 import AuthPage from "./components/Loginoop";
 import Profile from "./components/Profile";
 import Products from "./components/Products";
+import ProductDetail from "./components/ProductDetail";
+
 import RunwayTrends from "./components/Trends/RunwayTrends";
 import ManishMalhotra from "./components/Trends/ManishMalhotra";
 import StreetStyle from "./components/Trends/StreetStyle";
@@ -23,10 +27,11 @@ import Jacquemus from "./components/Trends/Jacquemus";
 import FutureFashion from "./components/Trends/FutureFashion";
 import RecycledCouture from "./components/Trends/RecycledCouture";
 import CoquetteCore from "./components/Trends/CoquetteCore";
-import ProductDetail from "./components/ProductDetail";
+
 import AdminDashboard from "./components/AdminDashboard";
 import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
+import Wishlist from "./components/Wishlist";
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
@@ -82,6 +87,9 @@ const App = () => {
 
             {/* About Page Route */}
             <Route path="/about" element={<AboutPage />} />
+
+            {/* Wishlist Route */}
+            <Route path="/wishlist" element={<Wishlist />} />
 
             {/* Admin Route */}
             <Route path="/admin" element={<AdminDashboard />} />

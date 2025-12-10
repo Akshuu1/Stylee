@@ -27,7 +27,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['USER', 'ADMIN'],
         default: 'USER'
-    }
+    },
+    wishlist: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Item'
+    }]
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

@@ -13,6 +13,7 @@ import {
 } from "/src/components/ui/resizable-navbar";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { Heart } from "lucide-react";
 
 export function NavbarDemo() {
   const navigate = useNavigate();
@@ -67,6 +68,14 @@ export function NavbarDemo() {
           />
 
           <div className="flex items-center gap-4">
+            <NavbarButton
+              variant="secondary"
+              onClick={() => navigate("/wishlist")}
+              className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all group"
+            >
+              <Heart size={20} className="text-neutral-600 dark:text-neutral-300 group-hover:text-pink-500 group-hover:fill-pink-500/50 transition-all" />
+            </NavbarButton>
+
             {isAuthenticated() ? (
               <>
                 <NavbarButton
@@ -140,6 +149,17 @@ export function NavbarDemo() {
                 <span className="block">{item.name}</span>
               </div>
             ))}
+
+            <div
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                navigate("/wishlist");
+              }}
+              className="relative text-neutral-600 dark:text-neutral-300 text-lg py-2 cursor-pointer flex items-center gap-2"
+            >
+              <span className="block">Wishlist</span>
+              <Heart size={16} className="text-pink-500" />
+            </div>
 
             <div className="flex w-full flex-col gap-4 mt-4">
               {isAuthenticated() ? (

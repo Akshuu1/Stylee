@@ -10,6 +10,7 @@ const { connectDB, closeDB } = require("./config/database");
 const authRoutes = require("./routes/auth");
 const itemRoutes = require("./routes/items");
 const userRoutes = require("./routes/users");
+const wishlistRoutes = require("./routes/wishlist");
 
 const app = express();
 
@@ -45,6 +46,7 @@ const PORT = process.env.PORT || 5001;
 app.use("/api/auth", authRoutes);
 app.use("/api/items", itemRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 
 // Health check
 app.get("/", (req, res) => {
@@ -54,7 +56,8 @@ app.get("/", (req, res) => {
     endpoints: {
       auth: "/api/auth",
       items: "/api/items",
-      users: "/api/users"
+      users: "/api/users",
+      wishlist: "/api/wishlist"
     }
   });
 });

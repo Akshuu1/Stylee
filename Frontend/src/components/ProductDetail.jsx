@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { itemsAPI } from "../services/api";
+import { Heart } from "lucide-react";
+import { itemsAPI, wishlistAPI } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -10,7 +12,8 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedImage, setSelectedImage] = useState(0);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isInWishlist, setIsInWishlist] = useState(false);
+    const { isAuthenticated, isGuest } = useAuth();
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -27,7 +30,54 @@ const ProductDetail = () => {
         };
 
         fetchItem();
+        checkWishlistStatus();
     }, [id]);
+
+    const checkWishlistStatus = async () => {
+        try {
+            if (isGuest()) {
+                const local = JSON.parse(localStorage.getItem("guestWishlist") || "[]");
+                setIsInWishlist(local.some(item => (item._id || item.id) === id));
+            } else if (isAuthenticated()) {
+                const response = await wishlistAPI.getWishlist();
+                const wishlist = response.data.wishlist;
+                setIsInWishlist(wishlist.some(item => (item._id || item) === id));
+            }
+        } catch (err) {
+            console.error("Failed to check wishlist:", err);
+        }
+    };
+
+
+
+    const toggleWishlist = async () => {
+        if (!id || !item) return;
+
+        try {
+            if (isGuest()) {
+                const localWishlist = JSON.parse(localStorage.getItem("guestWishlist") || "[]");
+                if (isInWishlist) {
+                    const updated = localWishlist.filter(i => (i._id || i.id) !== id);
+                    localStorage.setItem("guestWishlist", JSON.stringify(updated));
+                    setIsInWishlist(false);
+                } else {
+                    localWishlist.push(item);
+                    localStorage.setItem("guestWishlist", JSON.stringify(localWishlist));
+                    setIsInWishlist(true);
+                }
+            } else if (isAuthenticated()) {
+                if (isInWishlist) {
+                    await wishlistAPI.removeFromWishlist(id);
+                    setIsInWishlist(false);
+                } else {
+                    await wishlistAPI.addToWishlist(id);
+                    setIsInWishlist(true);
+                }
+            }
+        } catch (err) {
+            console.error("Wishlist toggle error:", err);
+        }
+    };
 
     if (loading) {
         return (
@@ -323,13 +373,19 @@ const ProductDetail = () => {
                             <motion.button
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 whileTap={{ scale: 0.9 }}
-                                onClick={() => setIsFavorite(!isFavorite)}
-                                className={`px-8 py-5 rounded-2xl font-bold text-2xl transition-all duration-300 border-2 ${isFavorite
-                                    ? "bg-red-500/20 border-red-500/50 text-red-400"
-                                    : "bg-zinc-900/60 border-[#CDEA68]/20 text-white hover:bg-zinc-800/80 hover:border-[#CDEA68]/50"
+                                onClick={toggleWishlist}
+                                className={`px-8 py-5 rounded-2xl font-bold transition-all duration-300 border-2 flex items-center justify-center gap-2 ${isInWishlist
+                                    ? "bg-pink-500/20 border-pink-500/50"
+                                    : "bg-zinc-900/60 border-[#CDEA68]/20 hover:bg-zinc-800/80 hover:border-[#CDEA68]/50"
                                     }`}
                             >
-                                {isFavorite ? "❤️" : "🤍"}
+                                <Heart
+                                    size={24}
+                                    className={`transition-all ${isInWishlist
+                                        ? "fill-pink-500 text-pink-500"
+                                        : "text-white"
+                                        }`}
+                                />
                             </motion.button>
                         </motion.div>
 
