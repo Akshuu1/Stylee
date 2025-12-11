@@ -192,7 +192,7 @@ const Products = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 className="inline-block px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/30 rounded-full text-[#CDEA68] text-xs sm:text-sm font-semibold mb-4"
                             >
-                                ✨ Premium Collection
+                                Premium Collection
                             </motion.div>
                             <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold mb-4 text-[#CDEA68] leading-tight">
                                 Discover<br />
@@ -280,7 +280,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span>{category}</span>
+                                                <span> {category}</span>
                                                 <button
                                                     onClick={() => setCategory("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -296,7 +296,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span> {brand}</span>
+                                                <span>{brand}</span>
                                                 <button
                                                     onClick={() => setBrand("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -312,7 +312,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span> {color}</span>
+                                                <span>{color}</span>
                                                 <button
                                                     onClick={() => setColor("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -366,7 +366,7 @@ const Products = () => {
                             {/* Category Dropdown */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                     Category
+                                    Category
                                 </label>
                                 <select
                                     value={category}
@@ -389,7 +389,7 @@ const Products = () => {
                             {/* Brand */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                     Brand
+                                    Brand
                                 </label>
                                 <input
                                     type="text"
@@ -417,7 +417,7 @@ const Products = () => {
                             {/* Size */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                     Size
+                                    Size
                                 </label>
                                 <input
                                     type="text"
@@ -434,7 +434,7 @@ const Products = () => {
                             {/* Price Range */}
                             <div className="flex-1 min-w-[250px]">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    💰 Price Range
+                                    Price Range
                                 </label>
                                 <div className="flex gap-3">
                                     <motion.input
@@ -478,7 +478,7 @@ const Products = () => {
                             {/* Sort Order */}
                             <div className="flex-1 min-w-[150px]">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    Order
+                                    ↕ Order
                                 </label>
                                 <motion.select
                                     whileHover={{ scale: 1.02 }}
@@ -498,7 +498,7 @@ const Products = () => {
                                 onClick={handleResetFilters}
                                 className="px-8 py-3 bg-gradient-to-r from-red-500/20 to-red-600/20 border-2 border-red-500/40 text-red-400 rounded-xl font-bold hover:from-red-500/30 hover:to-red-600/30 hover:border-red-500/60 transition-all duration-300 shadow-lg shadow-red-500/10"
                             >
-                                 Reset All
+                                Reset All
                             </motion.button>
                         </div>
 

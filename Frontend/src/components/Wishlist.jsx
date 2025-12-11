@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Heart, ShoppingCart, Trash2, X } from "lucide-react";
 import { wishlistAPI } from "../services/api";
 import { useAuth } from "../context/AuthContext";
@@ -11,6 +11,10 @@ const Wishlist = () => {
     const [error, setError] = useState(null);
     const { isAuthenticated, isGuest } = useAuth();
     const navigate = useNavigate();
+
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 300], [0, -50]);
+    const y2 = useTransform(scrollY, [0, 300], [0, 50]);
 
     useEffect(() => {
         fetchWishlist();
@@ -81,7 +85,7 @@ const Wishlist = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-teal-950 to-zinc-900 pt-32 px-6">
+            <div className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] pt-32 px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -97,8 +101,23 @@ const Wishlist = () => {
     }
 
     return (
-        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-zinc-900 via-teal-950 to-zinc-900 pt-32 px-6 pb-20">
-            <div className="max-w-7xl mx-auto">
+        <div style={{ fontFamily: "Gilroy-Light" }} className="min-h-screen bg-gradient-to-br from-[#004D54] via-[#00383D] to-[#001F22] text-white pt-32 px-6 pb-20 relative overflow-hidden">
+            {/* Background Blobs */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <motion.div
+                    style={{ y: y1 }}
+                    className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl opacity-[0.05]"
+                />
+                <motion.div
+                    style={{ y: y2 }}
+                    className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-[#CDEA68] rounded-full blur-3xl opacity-[0.05]"
+                />
+                {/* Geometric patterns */}
+                <div className="absolute top-40 right-1/4 w-48 h-48 sm:w-64 sm:h-64 border border-[#CDEA68]/10 rotate-45 rounded-3xl" />
+                <div className="absolute bottom-40 left-1/4 w-32 h-32 sm:w-48 sm:h-48 border border-[#CDEA68]/10 -rotate-12 rounded-2xl" />
+            </div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}

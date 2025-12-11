@@ -74,7 +74,7 @@ const Footer = () => {
         <motion.h1 style={{ fontFamily: "Sephora Sans" }} className="text-4xl sm:text-5xl lg:text-[6vw] font-semibold uppercase leading-tight mb-8 text-white mt-10 lg:mt-0" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
           Your Story. Our Stage.
         </motion.h1>
-        <motion.div ref={videoRef} whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200 }} className="dets rounded-2xl backdrop-blur-sm h-[40vh] sm:h-[50vh] min-h-[300px] w-full flex items-center justify-center overflow-hidden shadow-2xl">
+        <motion.div ref={videoRef} whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200 }} className="dets rounded-2xl backdrop-blur-sm h-[40vh] sm:h-[50vh] min-h-[400px] w-full flex items-center justify-center overflow-hidden shadow-2xl">
           <video src="/music/video/video.mp4" autoPlay muted loop playsInline className="rounded-xl sm:rounded-[2vw] w-full h-full object-cover" />
         </motion.div>
       </div>
