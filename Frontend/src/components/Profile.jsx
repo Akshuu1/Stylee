@@ -50,7 +50,7 @@ export default function Profile() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-[#CDEA68] to-[#9FFF00] bg-clip-text text-transparent">
             Your Profile
           </h1>
-          <p className="text-zinc-400 text-base sm:text-lg">Welcome back, {user.name}! ✨</p>
+          <p className="text-zinc-400 text-base sm:text-lg">Welcome back, {user.name}!</p>
         </div>
 
         {/* Main Profile Card */}
@@ -80,7 +80,7 @@ export default function Profile() {
               onClick={handleLogout}
               className="w-full md:w-auto px-6 py-3 bg-red-600/80 hover:bg-red-700 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/30 border border-red-500/30 font-semibold text-sm sm:text-base"
             >
-              🚪 Logout
+              Logout
             </button>
           </div>
 
@@ -152,7 +152,7 @@ export default function Profile() {
                   onClick={() => navigate("/signup")}
                   className="w-full px-6 py-3 bg-gradient-to-r from-[#CDEA68] to-[#9FFF00] text-[#004D54] rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#CDEA68]/50"
                 >
-                  Sign Up Now - It's Free! 🚀
+                  Sign Up Now - It's Free!
                 </button>
               </div>
             </div>
@@ -166,18 +166,18 @@ export default function Profile() {
                 onClick={() => navigate("/products")}
                 className="px-4 py-3 bg-zinc-800/50 hover:bg-zinc-700/50 rounded-xl transition-all duration-300 hover:scale-105 border border-[#CDEA68]/10 hover:border-[#CDEA68]/30"
               >
-                🛍️ Browse Products
+                Browse Products
               </button>
               <button
                 onClick={() => navigate("/")}
                 className="px-4 py-3 bg-zinc-800/50 hover:bg-zinc-700/50 rounded-xl transition-all duration-300 hover:scale-105 border border-[#CDEA68]/10 hover:border-[#CDEA68]/30"
               >
-                🏠 Home
+                Home
               </button>
               <button
                 className="px-4 py-3 bg-zinc-800/50 hover:bg-zinc-700/50 rounded-xl transition-all duration-300 hover:scale-105 border border-[#CDEA68]/10 hover:border-[#CDEA68]/30 col-span-2 md:col-span-1"
               >
-                ⚙️ Settings
+                Settings
               </button>
             </div>
           </div>

@@ -280,7 +280,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span>📁 {category}</span>
+                                                <span>{category}</span>
                                                 <button
                                                     onClick={() => setCategory("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -296,7 +296,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span>🏷️ {brand}</span>
+                                                <span> {brand}</span>
                                                 <button
                                                     onClick={() => setBrand("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -312,7 +312,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span>🎨 {color}</span>
+                                                <span> {color}</span>
                                                 <button
                                                     onClick={() => setColor("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -328,7 +328,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span>📏 {size}</span>
+                                                <span> {size}</span>
                                                 <button
                                                     onClick={() => setSize("")}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
@@ -344,7 +344,7 @@ const Products = () => {
                                                 exit={{ scale: 0 }}
                                                 className="px-4 py-2 bg-[#CDEA68]/20 border border-[#CDEA68]/40 rounded-full text-[#CDEA68] text-sm font-semibold flex items-center gap-2 group hover:bg-[#CDEA68]/30 transition-all"
                                             >
-                                                <span>💰 ${minPrice || "0"} - ${maxPrice || "∞"}</span>
+                                                <span> ${minPrice || "0"} - ${maxPrice || "∞"}</span>
                                                 <button
                                                     onClick={() => {
                                                         setMinPrice("");
@@ -366,7 +366,7 @@ const Products = () => {
                             {/* Category Dropdown */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    📁 Category
+                                     Category
                                 </label>
                                 <select
                                     value={category}
@@ -389,7 +389,7 @@ const Products = () => {
                             {/* Brand */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    🏷️ Brand
+                                     Brand
                                 </label>
                                 <input
                                     type="text"
@@ -403,7 +403,7 @@ const Products = () => {
                             {/* Color */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    🎨 Color
+                                    Color
                                 </label>
                                 <input
                                     type="text"
@@ -417,7 +417,7 @@ const Products = () => {
                             {/* Size */}
                             <motion.div whileHover={{ scale: 1.02 }} className="relative">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    📏 Size
+                                     Size
                                 </label>
                                 <input
                                     type="text"
@@ -460,7 +460,7 @@ const Products = () => {
                             {/* Sort By */}
                             <div className="flex-1 min-w-[200px]">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    🔄 Sort By
+                                    Sort By
                                 </label>
                                 <motion.select
                                     whileHover={{ scale: 1.02 }}
@@ -468,17 +468,17 @@ const Products = () => {
                                     onChange={(e) => setSortBy(e.target.value)}
                                     className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] text-sm cursor-pointer transition-all duration-300"
                                 >
-                                    <option value="createdAt">📅 Newest First</option>
-                                    <option value="price">💵 Price</option>
-                                    <option value="popularity">⭐ Most Popular</option>
-                                    <option value="name">🔤 Name</option>
+                                    <option value="createdAt">Newest First</option>
+                                    <option value="price"> Price</option>
+                                    <option value="popularity"> Most Popular</option>
+                                    <option value="name"> Name</option>
                                 </motion.select>
                             </div>
 
                             {/* Sort Order */}
                             <div className="flex-1 min-w-[150px]">
                                 <label className="block text-xs text-[#CDEA68] font-semibold mb-2 ml-1">
-                                    ↕️ Order
+                                    Order
                                 </label>
                                 <motion.select
                                     whileHover={{ scale: 1.02 }}
@@ -486,8 +486,8 @@ const Products = () => {
                                     onChange={(e) => setSortOrder(e.target.value)}
                                     className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] text-sm cursor-pointer transition-all duration-300"
                                 >
-                                    <option value="asc">⬆️ Ascending</option>
-                                    <option value="desc">⬇️ Descending</option>
+                                    <option value="asc"> Ascending</option>
+                                    <option value="desc"> Descending</option>
                                 </motion.select>
                             </div>
 
@@ -498,7 +498,7 @@ const Products = () => {
                                 onClick={handleResetFilters}
                                 className="px-8 py-3 bg-gradient-to-r from-red-500/20 to-red-600/20 border-2 border-red-500/40 text-red-400 rounded-xl font-bold hover:from-red-500/30 hover:to-red-600/30 hover:border-red-500/60 transition-all duration-300 shadow-lg shadow-red-500/10"
                             >
-                                🔄 Reset All
+                                 Reset All
                             </motion.button>
                         </div>
 
