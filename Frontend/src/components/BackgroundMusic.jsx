@@ -20,11 +20,11 @@ const BackgroundMusic = () => {
     };
 
     document.addEventListener('click', togglePlay);
-    document.addEventListener('touchstart', togglePlay);
+
 
     return () => {
       document.removeEventListener('click', togglePlay);
-      document.removeEventListener('touchstart', togglePlay);
+
     };
   }, [isPlaying]);
 

@@ -37,7 +37,7 @@ import { AuthProvider } from "./context/AuthContext";
 const App = () => {
   React.useEffect(() => {
     const locomotiveScroll = new LocomotiveScroll();
-  }, []); // Initialize Locomotive Scroll
+  }, []);
 
   return (
     <AuthProvider>
@@ -47,7 +47,6 @@ const App = () => {
           <BackgroundMusic />
 
           <Routes>
-            {/* Landing Page Route */}
             <Route
               path="/"
               element={
