@@ -13,12 +13,26 @@ const Products = () => {
     const [viewMode, setViewMode] = useState("bento"); // bento, grid, list
 
     // Filter states
+    const [searchTerm, setSearchTerm] = useState("");
     const [search, setSearch] = useState("");
+
+    // Category
     const [category, setCategory] = useState("");
+
+    // Text filter inputs
+    const [brandInput, setBrandInput] = useState("");
     const [brand, setBrand] = useState("");
+
+    const [colorInput, setColorInput] = useState("");
     const [color, setColor] = useState("");
+
+    const [sizeInput, setSizeInput] = useState("");
     const [size, setSize] = useState("");
+
+    const [minPriceInput, setMinPriceInput] = useState("");
     const [minPrice, setMinPrice] = useState("");
+
+    const [maxPriceInput, setMaxPriceInput] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const [sortBy, setSortBy] = useState("createdAt");
     const [sortOrder, setSortOrder] = useState("desc");
@@ -32,6 +46,16 @@ const Products = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 300], [0, -50]);
     const y2 = useTransform(scrollY, [0, 300], [0, 50]);
+
+    // Debounce search
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            setSearch(searchTerm);
+            setPage(1);
+        }, 500);
+
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchTerm]);
 
     // Fetch items
     const fetchItems = async () => {
@@ -134,12 +158,18 @@ const Products = () => {
     };
 
     const handleResetFilters = () => {
+        setSearchTerm("");
         setSearch("");
         setCategory("");
+        setBrandInput("");
         setBrand("");
+        setColorInput("");
         setColor("");
+        setSizeInput("");
         setSize("");
+        setMinPriceInput("");
         setMinPrice("");
+        setMaxPriceInput("");
         setMaxPrice("");
         setSortBy("createdAt");
         setSortOrder("desc");
@@ -251,11 +281,8 @@ const Products = () => {
                                     <input
                                         type="text"
                                         placeholder="Search for your perfect style..."
-                                        value={search}
-                                        onChange={(e) => {
-                                            setSearch(e.target.value);
-                                            setPage(1);
-                                        }}
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
                                         className="w-full pl-16 sm:pl-20 pr-6 py-4 sm:py-5 bg-zinc-800/80 text-white text-base sm:text-lg rounded-xl sm:rounded-2xl border-2 border-[#CDEA68]/30 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 transition-all duration-300"
                                     />
                                 </div>
@@ -298,7 +325,11 @@ const Products = () => {
                                             >
                                                 <span>{brand}</span>
                                                 <button
-                                                    onClick={() => setBrand("")}
+                                                    onClick={() => {
+                                                        setBrandInput("");
+                                                        setBrand("");
+                                                        setPage(1);
+                                                    }}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
                                                 >
                                                     ✕
@@ -314,7 +345,11 @@ const Products = () => {
                                             >
                                                 <span>{color}</span>
                                                 <button
-                                                    onClick={() => setColor("")}
+                                                    onClick={() => {
+                                                        setColorInput("");
+                                                        setColor("");
+                                                        setPage(1);
+                                                    }}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
                                                 >
                                                     ✕
@@ -330,7 +365,11 @@ const Products = () => {
                                             >
                                                 <span> {size}</span>
                                                 <button
-                                                    onClick={() => setSize("")}
+                                                    onClick={() => {
+                                                        setSizeInput("");
+                                                        setSize("");
+                                                        setPage(1);
+                                                    }}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
                                                 >
                                                     ✕
@@ -347,8 +386,11 @@ const Products = () => {
                                                 <span> ${minPrice || "0"} - ${maxPrice || "∞"}</span>
                                                 <button
                                                     onClick={() => {
+                                                        setMinPriceInput("");
+                                                        setMaxPriceInput("");
                                                         setMinPrice("");
                                                         setMaxPrice("");
+                                                        setPage(1);
                                                     }}
                                                     className="text-[#CDEA68] hover:text-white transition-colors"
                                                 >
@@ -394,8 +436,8 @@ const Products = () => {
                                 <input
                                     type="text"
                                     placeholder="e.g., Nike, Adidas..."
-                                    value={brand}
-                                    onChange={(e) => { setBrand(e.target.value); setPage(1); }}
+                                    value={brandInput}
+                                    onChange={(e) => setBrandInput(e.target.value)}
                                     className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm transition-all duration-300"
                                 />
                             </motion.div>
@@ -408,8 +450,8 @@ const Products = () => {
                                 <input
                                     type="text"
                                     placeholder="e.g., Black, White..."
-                                    value={color}
-                                    onChange={(e) => { setColor(e.target.value); setPage(1); }}
+                                    value={colorInput}
+                                    onChange={(e) => setColorInput(e.target.value)}
                                     className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm transition-all duration-300"
                                 />
                             </motion.div>
@@ -422,8 +464,8 @@ const Products = () => {
                                 <input
                                     type="text"
                                     placeholder="e.g., M, L, XL..."
-                                    value={size}
-                                    onChange={(e) => { setSize(e.target.value); setPage(1); }}
+                                    value={sizeInput}
+                                    onChange={(e) => setSizeInput(e.target.value)}
                                     className="w-full px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm transition-all duration-300"
                                 />
                             </motion.div>
@@ -441,8 +483,8 @@ const Products = () => {
                                         whileHover={{ scale: 1.02 }}
                                         type="number"
                                         placeholder="Min"
-                                        value={minPrice}
-                                        onChange={(e) => { setMinPrice(e.target.value); setPage(1); }}
+                                        value={minPriceInput}
+                                        onChange={(e) => setMinPriceInput(e.target.value)}
                                         className="flex-1 px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm transition-all duration-300"
                                     />
                                     <span className="text-zinc-500 self-center">—</span>
@@ -450,8 +492,8 @@ const Products = () => {
                                         whileHover={{ scale: 1.02 }}
                                         type="number"
                                         placeholder="Max"
-                                        value={maxPrice}
-                                        onChange={(e) => { setMaxPrice(e.target.value); setPage(1); }}
+                                        value={maxPriceInput}
+                                        onChange={(e) => setMaxPriceInput(e.target.value)}
                                         className="flex-1 px-5 py-3 bg-zinc-800/80 text-white rounded-xl border-2 border-zinc-700/50 focus:outline-none focus:border-[#CDEA68] placeholder-zinc-500 text-sm transition-all duration-300"
                                     />
                                 </div>
