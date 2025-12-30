@@ -13,7 +13,7 @@ const Sets = () => {
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 mb-[15vw]">
 
-        <Link to="/school/basics" className="relative w-full lg:w-1/3 hover:w-full p-4 duration-[1s] group cursor-pointer block">
+        <Link to="/school/basics" className="relative w-full lg:w-1/4 hover:w-full p-4 duration-[1s] group cursor-pointer block">
           <img
             src="/photos/img11.jpg"
             alt="Mannequins"
@@ -25,7 +25,7 @@ const Sets = () => {
         </Link>
 
 
-        <Link to="/school/color-theory" className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group cursor-pointer block">
+        <Link to="/school/color-theory" className="relative w-full lg:w-1/4 p-4 hover:w-full duration-[1s] group cursor-pointer block">
           <img
             src="/photos/img12.jpg"
             alt="Color Palette"
@@ -36,7 +36,7 @@ const Sets = () => {
           </div>
         </Link>
 
-        <Link to="/school/textiles" className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group cursor-pointer block">
+        <Link to="/school/textiles" className="relative w-full lg:w-1/4 p-4 hover:w-full duration-[1s] group cursor-pointer block">
           <img
             src="/photos/img13.jpg"
             alt="Fabrics"
@@ -44,6 +44,17 @@ const Sets = () => {
           />
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
             <h2 style={{ fontFamily: "Gilroy-Light" }} className="text-4xl font-bold">Know about Textiles</h2>
+          </div>
+        </Link>
+
+        <Link to="/school/fashion-decades" className="relative w-full lg:w-1/4 p-4 hover:w-full duration-[1s] group cursor-pointer block">
+          <img
+            src="/photos/img14.jpg"
+            alt="Fashion Through Decades"
+            className="w-full h-[45vh] object-cover rounded-xl shadow-lg group-hover:blur-[2px]"
+          />
+          <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
+            <h2 style={{ fontFamily: "Gilroy-Light" }} className="text-4xl font-bold">Fashion Through Decades</h2>
           </div>
         </Link>
       </div>

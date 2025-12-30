@@ -35,6 +35,7 @@ import Wishlist from "./components/Wishlist";
 import Basics from "./components/School/Basics";
 import ColorTheory from "./components/School/ColorTheory";
 import Textiles from "./components/School/Textiles";
+import FashionDecades from "./components/School/FashionDecades";
 import { AuthProvider } from "./context/AuthContext";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -86,6 +87,7 @@ const App = () => {
             <Route path="/school/basics" element={<Basics />} />
             <Route path="/school/color-theory" element={<ColorTheory />} />
             <Route path="/school/textiles" element={<Textiles />} />
+            <Route path="/school/fashion-decades" element={<FashionDecades />} />
           </Routes>
         </div>
       </Router>
