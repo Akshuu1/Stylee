@@ -1,7 +1,5 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
-
-// Get all users (Admin only)
 const getAllUsers = async (req, res) => {
     try {
         const { page = 1, limit = 20 } = req.query;
@@ -17,8 +15,6 @@ const getAllUsers = async (req, res) => {
             .select('name email role createdAt updatedAt')
             .sort({ createdAt: -1 })
             .lean();
-
-        // Get item count for each user
         const Item = require("../models/Item");
         const usersWithItemCount = await Promise.all(
             users.map(async (user) => {
@@ -47,8 +43,6 @@ const getAllUsers = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
-// Get single user by ID (Admin only)
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -60,14 +54,10 @@ const getUserById = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
-        // Get user's items
         const Item = require("../models/Item");
         const items = await Item.find({ createdBy: id })
             .select('name price category createdAt')
             .lean();
-
-        // Transform items to include id field
         const transformedItems = items.map(item => ({
             ...item,
             id: item._id
@@ -85,8 +75,6 @@ const getUserById = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
-// Update user info (Admin only)
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -97,8 +85,6 @@ const updateUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
-        // Prepare update data
         const updateData = {};
         if (name) updateData.name = name;
         if (email) updateData.email = email;
@@ -127,8 +113,6 @@ const updateUser = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
-// Delete user (Admin only)
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -138,8 +122,6 @@ const deleteUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
-        // Prevent admin from deleting themselves
         if (user._id.toString() === req.user.id) {
             return res.status(400).json({ message: "You cannot delete your own account" });
         }

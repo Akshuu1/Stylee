@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config();
-
-// Import models
 const User = require('./src/models/User');
 
 async function main() {
@@ -12,14 +10,14 @@ async function main() {
 
     try {
         await mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_URL);
-        console.log('✅ Database connection successful!');
-        console.log(`📦 Connected to: ${mongoose.connection.name}`);
+        console.log('Database connection successful!');
+        console.log(`Connected to: ${mongoose.connection.name}`);
 
         const userCount = await User.countDocuments();
-        console.log(`📊 Current user count: ${userCount}`);
+        console.log(`Current user count: ${userCount}`);
 
     } catch (error) {
-        console.error('❌ Database connection failed:', error);
+        console.error('Database connection failed:', error);
     } finally {
         await mongoose.connection.close();
     }

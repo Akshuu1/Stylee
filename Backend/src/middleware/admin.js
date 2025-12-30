@@ -1,6 +1,5 @@
 const adminMiddleware = (req, res, next) => {
     try {
-        // Check if user exists and has admin role
         if (!req.user) {
             return res.status(401).json({ message: "Authentication required" });
         }

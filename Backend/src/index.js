@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-// Load env vars variables BEFORE importing routes/controllers
 dotenv.config();
 
 const { connectDB, closeDB } = require("./config/database");
@@ -14,15 +13,12 @@ const wishlistRoutes = require("./routes/wishlist");
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
-      // Allow localhost and local network IPs (for development/testing on different devices)
       if (
         origin.startsWith("http://localhost") ||
         origin.startsWith("http://127.0.0.1") ||
@@ -48,7 +44,6 @@ app.use("/api/items", itemRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 
-// Health check
 app.get("/", (req, res) => {
   res.json({
     message: "Stylee Backend API is running successfully!",
@@ -62,32 +57,28 @@ app.get("/", (req, res) => {
   });
 });
 
-// 404 handler
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// Error handler
 app.use((err, req, res, next) => {
   console.error("Server Error:", err);
   res.status(500).json({ message: "Internal Server Error" });
 });
 
-// Graceful shutdown
 process.on("SIGINT", async () => {
   await closeDB();
   process.exit(0);
 });
 
-// Initialize MongoDB connection and start server
 const startServer = async () => {
   await connectDB();
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Stylee Backend running on port ${PORT}`);
-    console.log(`📍 Local: http://localhost:${PORT}`);
-    console.log(`📱 Network: http://10.7.2.90:${PORT}`);
-    console.log(`   Use the Network URL to access from your phone!`);
+    console.log(`Stylee Backend running on port ${PORT}`);
+    console.log(`Local: http://localhost:${PORT}`);
+    console.log(`Network: http://10.7.2.90:${PORT}`);
+    console.log(`Use the Network URL to access from your phone!`);
   });
 };
 

@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// Signup
 const signup = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
@@ -22,7 +21,7 @@ const signup = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role: role || 'USER' // Default to USER if not provided
+            role: role || 'USER'
         });
 
         res.status(201).json({
@@ -31,12 +30,10 @@ const signup = async (req, res) => {
         });
     } catch (error) {
         console.error("SIGNUP ERROR:", error);
-        // RETURN ACTUAL ERROR FOR DEBUGGING
         res.status(500).json({ message: `Internal Server Error: ${error.message}` });
     }
 };
 
-// Login
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -77,7 +74,6 @@ const login = async (req, res) => {
     }
 };
 
-// Get Profile
 const getProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user.id)

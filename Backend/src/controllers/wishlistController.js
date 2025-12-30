@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const Item = require('../models/Item');
 
-// Get user's wishlist
 exports.getWishlist = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).populate({
@@ -26,30 +25,22 @@ exports.getWishlist = async (req, res) => {
     }
 };
 
-// Add item to wishlist
 exports.addToWishlist = async (req, res) => {
     try {
         const { itemId } = req.params;
         const userId = req.user.id;
 
-        // Check if item exists
         const item = await Item.findById(itemId);
         if (!item) {
             return res.status(404).json({ message: 'Item not found' });
         }
-
-        // Find user and update wishlist
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
-        // Check if item is already in wishlist
         if (user.wishlist.includes(itemId)) {
             return res.status(400).json({ message: 'Item already in wishlist' });
         }
-
-        // Add item to wishlist
         user.wishlist.push(itemId);
         await user.save();
 
@@ -65,26 +56,18 @@ exports.addToWishlist = async (req, res) => {
         });
     }
 };
-
-// Remove item from wishlist
 exports.removeFromWishlist = async (req, res) => {
     try {
         const { itemId } = req.params;
         const userId = req.user.id;
-
-        // Find user and update wishlist
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
-        // Check if item is in wishlist
         const itemIndex = user.wishlist.indexOf(itemId);
         if (itemIndex === -1) {
             return res.status(400).json({ message: 'Item not in wishlist' });
         }
-
-        // Remove item from wishlist
         user.wishlist.splice(itemIndex, 1);
         await user.save();
 
@@ -100,13 +83,9 @@ exports.removeFromWishlist = async (req, res) => {
         });
     }
 };
-
-// Clear entire wishlist
 exports.clearWishlist = async (req, res) => {
     try {
         const userId = req.user.id;
-
-        // Find user and clear wishlist
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
