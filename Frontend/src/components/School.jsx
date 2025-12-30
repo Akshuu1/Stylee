@@ -1,5 +1,6 @@
 import React from 'react'
 import Eyes from './Eyes'
+import { Link } from 'react-router-dom'
 
 const Sets = () => {
   return (
@@ -12,7 +13,7 @@ const Sets = () => {
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 mb-[15vw]">
 
-        <div className="relative w-full lg:w-1/3 hover:w-full p-4 duration-[1s] group">
+        <Link to="/school/basics" className="relative w-full lg:w-1/3 hover:w-full p-4 duration-[1s] group cursor-pointer block">
           <img
             src="/photos/img11.jpg"
             alt="Mannequins"
@@ -21,9 +22,10 @@ const Sets = () => {
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
             <h2 style={{ fontFamily: "Gilroy-Light" }} className="text-4xl font-bold">Basics of Styling</h2>
           </div>
-        </div>
+        </Link>
 
-        <div className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group">
+
+        <Link to="/school/color-theory" className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group cursor-pointer block">
           <img
             src="/photos/img12.jpg"
             alt="Color Palette"
@@ -32,9 +34,9 @@ const Sets = () => {
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
             <h2 style={{ fontFamily: "Gilroy-Light" }} className="text-4xl font-bold">Dive in Color Theory</h2>
           </div>
-        </div>
+        </Link>
 
-        <div className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group">
+        <Link to="/school/textiles" className="relative w-full lg:w-1/3 p-4 hover:w-full duration-[1s] group cursor-pointer block">
           <img
             src="/photos/img13.jpg"
             alt="Fabrics"
@@ -43,7 +45,7 @@ const Sets = () => {
           <div className="absolute inset-0 text-center text-white flex justify-center items-center opacity-0 group-hover:opacity-100">
             <h2 style={{ fontFamily: "Gilroy-Light" }} className="text-4xl font-bold">Know about Textiles</h2>
           </div>
-        </div>
+        </Link>
       </div>
       <div className=" flex justify-center items-center p-10 text-zinc-800">
         <h1 className='absolute z-[-10] mb-[30vw] mt-[10vw] text-[19vw] '>Let's learn</h1>

@@ -32,7 +32,11 @@ import AdminDashboard from "./components/AdminDashboard";
 import Contact from "./components/Contact";
 import AboutPage from "./components/AboutPage";
 import Wishlist from "./components/Wishlist";
+import Basics from "./components/School/Basics";
+import ColorTheory from "./components/School/ColorTheory";
+import Textiles from "./components/School/Textiles";
 import { AuthProvider } from "./context/AuthContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   React.useEffect(() => {
@@ -42,6 +46,7 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="w-full min-h-screen bg-zinc-900 text-white overflow-hidden">
           <NavbarDemo />
           <BackgroundMusic />
@@ -62,17 +67,11 @@ const App = () => {
                 </>
               }
             />
-
-            {/* Auth Routes */}
             <Route path="/login" element={<AuthPage />} />
             <Route path="/signup" element={<AuthPage mode="signup" />} />
             <Route path="/profile" element={<Profile />} />
-
-            {/* Product Routes */}
             <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetail />} />
-
-            {/* Trends Routes */}
             <Route path="/trends/runway-trends" element={<RunwayTrends />} />
             <Route path="/trends/manish-malhotra" element={<ManishMalhotra />} />
             <Route path="/trends/street-style" element={<StreetStyle />} />
@@ -80,18 +79,13 @@ const App = () => {
             <Route path="/trends/future-fashion" element={<FutureFashion />} />
             <Route path="/trends/recycled-couture" element={<RecycledCouture />} />
             <Route path="/trends/coquette-core" element={<CoquetteCore />} />
-
-            {/* Contact Route */}
             <Route path="/contact" element={<Contact />} />
-
-            {/* About Page Route */}
             <Route path="/about" element={<AboutPage />} />
-
-            {/* Wishlist Route */}
             <Route path="/wishlist" element={<Wishlist />} />
-
-            {/* Admin Route */}
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/school/basics" element={<Basics />} />
+            <Route path="/school/color-theory" element={<ColorTheory />} />
+            <Route path="/school/textiles" element={<Textiles />} />
           </Routes>
         </div>
       </Router>
