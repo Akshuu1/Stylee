@@ -30,12 +30,11 @@ const Section = ({ title, children, className = "" }) => (
     </motion.div>
 );
 
-const SeasonCard = ({ title, characteristics, colors, imagePlaceholder }) => (
+const SeasonCard = ({ title, characteristics, colors,image, imagePlaceholder }) => (
     <div className="bg-zinc-800 rounded-3xl overflow-hidden border border-zinc-700 hover:border-[#CDEA68] transition-all duration-500 group">
         <div className="h-48 bg-zinc-700 relative overflow-hidden">
-            {/* Placeholder for Season Image */}
             <div className="absolute inset-0 flex items-center justify-center text-zinc-500 font-mono">
-                [Image: {title} Aesthetic]
+                <img src={image} alt={imagePlaceholder} className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-zinc-800 to-transparent" />
             <h3 style={{ fontFamily: "Sephora Sans" }} className="absolute bottom-4 left-6 text-3xl font-bold text-white group-hover:text-[#CDEA68] transition-colors">{title}</h3>
@@ -75,8 +74,6 @@ const ColorTheory = () => {
                     Color is the first thing people notice. Learn to wield it to influence mood, perception, and personal radiance.
                 </p>
             </motion.div>
-
-            {/* SWAPPED SECTION: Psychology is now first */}
             <Section title="Psychology of Color">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     {[
@@ -106,7 +103,6 @@ const ColorTheory = () => {
             <Section title="The Science of Color">
                 <div className="flex flex-col lg:flex-row items-center gap-20 relative z-10">
                     <div className="lg:w-1/2 relative flex justify-center">
-                        {/* Interactive Color Wheel Visualization */}
                         <div className="relative w-[400px] h-[400px]">
                             <motion.div
                                 animate={{ rotate: 360 }}
@@ -155,21 +151,26 @@ const ColorTheory = () => {
                         title="Spring"
                         characteristics="Warm undertones + Light/Bright features. You glow in clear, warm colors like coral, peach, and golden yellow."
                         colors={["#fbbf24", "#f87171", "#a3e635", "#f472b6"]}
+                        image='/public/photos/spring.jpg'
                     />
+
                     <SeasonCard
                         title="Summer"
                         characteristics="Cool undertones + Light/Soft features. You look best in delicate, cool colors like lavender, powder blue, and soft rose."
                         colors={["#93c5fd", "#d8b4fe", "#fda4af", "#cbd5e1"]}
+                        image='/public/photos/summer.jpg'
                     />
                     <SeasonCard
                         title="Autumn"
                         characteristics="Warm undertones + Dark/Muted features. Earth tones like olive, rust, mustard, and chocolate brown are your friends."
                         colors={["#9a3412", "#ca8a04", "#3f6212", "#78350f"]}
+                        image='/public/photos/autumn.jpg'
                     />
                     <SeasonCard
                         title="Winter"
                         characteristics="Cool undertones + Dark/Bright features. You shine in high contrast colors: vivid jewel tones, black, and pure white."
                         colors={["#000000", "#1d4ed8", "#be123c", "#ffffff"]}
+                        image='/public/photos/winter.jpg'
                     />
                 </div>
             </Section>

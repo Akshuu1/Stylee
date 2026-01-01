@@ -16,15 +16,14 @@ const Section = ({ title, children, className = "" }) => (
     </motion.div>
 );
 
-const FabricCard = ({ name, type, description, icon, imagePlaceholder }) => (
+const FabricCard = ({ name, type, description, icon,image, imagePlaceholder }) => (
     <motion.div
         whileHover={{ scale: 1.02 }}
         className="bg-zinc-800 rounded-3xl overflow-hidden border border-zinc-700 hover:border-[#CDEA68] transition-all duration-300 group"
     >
         <div className="h-40 bg-zinc-700 relative">
-            {/* Placeholder for Fabric Texture Image */}
             <div className="absolute inset-0 flex items-center justify-center text-zinc-500 font-mono text-sm">
-                [Texture: {name}]
+                <img src={image} alt={imagePlaceholder} className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' />
             </div>
             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
             <div className="absolute top-4 right-4 bg-zinc-900/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-[#CDEA68] border border-[#CDEA68]/20">
@@ -129,36 +128,42 @@ const Textiles = () => {
                         type="Natural"
                         description="The workhorse of fashion. Soft, breathable, and absorbent. Used in everything from denim to jersey."
                         icon={<Feather size={16} />}
+                        image='/public/photos/cotton.jpg'
                     />
                     <FabricCard
                         name="Silk"
                         type="Natural"
                         description="The queen of fibers. Luxurious, smooth, and lustrous. Has excellent drape but requires fragile care."
                         icon={<Sparkles className="w-4 h-4" />}
+                        image='/public/photos/silk.jpg' 
                     />
                     <FabricCard
                         name="Wool"
                         type="Natural"
                         description="Nature's insulator. Warm, wrinkle-resistant, and moisture-wicking. range from scratchy to cashmere-soft."
                         icon={<Feather size={16} />}
+                        image='/public/photos/wool.jpg'
                     />
                     <FabricCard
                         name="Polyester"
                         type="Synthetic"
                         description="The durable contender. Quick-drying and wrinkle-free. Often blended to add strength to natural fibers."
                         icon={<Droplets size={16} />}
+                        image='/public/photos/polyadster.jpg'
                     />
                     <FabricCard
                         name="Linen"
                         type="Natural"
                         description="The summer staple. Stronger than cotton and highly breathable. Known for its effortless wrinkles."
                         icon={<Leaf size={16} />}
+                        image='/public/photos/linen.jpg'
                     />
                     <FabricCard
                         name="Leather"
                         type="Animal"
                         description="Durable, flexible material created by tanning animal rawhide and skin. Ages with character."
                         icon={<Scissors size={16} />}
+                        image='/public/photos/leather.jpg'
                     />
                 </div>
             </Section>
