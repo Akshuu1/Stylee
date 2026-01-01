@@ -16,7 +16,7 @@ const Section = ({ title, children, className = "" }) => (
     </motion.div>
 );
 
-const BodyShapeCard = ({ title, content, imagePlaceholder, delay = 0 }) => (
+const BodyShapeCard = ({ title, content, imagePlaceholder,image, delay = 0 }) => (
     <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -25,9 +25,8 @@ const BodyShapeCard = ({ title, content, imagePlaceholder, delay = 0 }) => (
         className="group relative overflow-hidden bg-zinc-800 rounded-3xl h-[500px] border border-zinc-700 hover:border-[#CDEA68] transition-all duration-500"
     >
         <div className="absolute inset-0 bg-zinc-900">
-            {/* Placeholder for Body Shape Image */}
             <div className="w-full h-1/2 bg-zinc-800 flex items-center justify-center border-b border-zinc-700 group-hover:bg-zinc-700 transition-colors">
-                <span className="text-zinc-600 font-mono text-sm">[Body Shape: {title}]</span>
+                <img src={image} alt={imagePlaceholder}  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             </div>
             <div className="p-8 h-1/2 flex flex-col justify-between">
                 <div>
@@ -42,7 +41,7 @@ const BodyShapeCard = ({ title, content, imagePlaceholder, delay = 0 }) => (
     </motion.div>
 );
 
-const ArchetypeCard = ({ title, description, items, icon, imagePlaceholder }) => (
+const ArchetypeCard = ({ title, description, items, icon,image, imagePlaceholder }) => (
     <div data-scroll data-scroll-speed="0.1" className="bg-zinc-800/50 backdrop-blur-sm rounded-3xl p-8 border border-zinc-700/50 hover:bg-zinc-800 transition-colors duration-500">
         <div className="flex justify-between items-start mb-6">
             <div className="w-16 h-16 rounded-2xl bg-[#CDEA68]/20 flex items-center justify-center text-[#CDEA68]">
@@ -54,9 +53,9 @@ const ArchetypeCard = ({ title, description, items, icon, imagePlaceholder }) =>
         <p className="text-zinc-400 mb-6 leading-relaxed" style={{ fontFamily: "Gilroy-Light" }}>{description}</p>
 
         <div className="mb-6 h-48 bg-zinc-900 rounded-xl overflow-hidden relative group">
-            {/* Placeholder for Archetype Style Image */}
+
             <div className="absolute inset-0 flex items-center justify-center text-zinc-600 font-mono text-sm">
-                [Image: {title} Outfit]
+                <img src={image} alt={imagePlaceholder} className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' />
             </div>
         </div>
 
@@ -106,26 +105,31 @@ const Basics = () => {
                         title="Hourglass"
                         content="Balanced bust and hips with a defined waist. Your goal is to follow your natural curves without hiding them."
                         delay={0}
+                        image="https://cdn.prod.website-files.com/5eca30fd2b50b671e2107b06/60f12a025285e1675eb6871b_Hourglass%20Body%20Shape%20Title%20Image.webp"
                     />
                     <BodyShapeCard
                         title="Pear"
                         content="Hips visually wider than the bust. Your goal is to add volume to your upper body to balance the silhouette."
                         delay={0.1}
+                        image="https://cdn.prod.website-files.com/5eca30fd2b50b671e2107b06/60efde82ce0dc256c05142f2_Pear%20Body%20Shape%20Title%20Image.webp"
                     />
                     <BodyShapeCard
                         title="Apple"
                         content="Carries weight around the midsection with fantastic legs. Your goal is to elongate the torso and show off your legs."
                         delay={0.2}
+                        image="https://cdn.prod.website-files.com/5eca30fd2b50b671e2107b06/60f12ec55285e1aca7b6a437_Apple%20Body%20Shape%20Title%20Image.webp"
                     />
                     <BodyShapeCard
                         title="Rectangle"
                         content="Shoulders, waist, and hips are similar in width. Your goal is to create the illusion of curves through structured pieces."
                         delay={0.3}
+                        image="https://cdn.prod.website-files.com/5eca30fd2b50b671e2107b06/60ee8f387785b9eb58eb0ea8_Rectangle%20Body%20Shape%20Title%20Image.webp"
                     />
                     <BodyShapeCard
                         title="Inverted Triangle"
                         content="Broad shoulders narrowing to the hips. Your goal is to soften the shoulder line and add volume to the hips."
                         delay={0.4}
+                        image="https://cdn.prod.website-files.com/5eca30fd2b50b671e2107b06/60efe4a9ce19af708fe6e3dc_Inverted%20Triangle%20Body%20Shape%20Title%20Image.webp"
                     />
                 </div>
             </Section>
@@ -165,13 +169,10 @@ const Basics = () => {
                         </div>
 
                         <div className="lg:w-1/2 relative">
-                            {/* Abstract Visual of Ratio */}
                             <div className="relative h-[600px] w-full flex justify-center items-end">
                                 <div className="w-1 bg-[#CDEA68]/20 h-full absolute left-1/2 -translate-x-1/2" />
-
-                                {/* Mannequin / Visual Placeholder */}
                                 <div className="w-[300px] h-[500px] bg-zinc-700 rounded-full relative flex flex-col items-center justify-center text-center p-4">
-                                    <span className="text-zinc-500 mb-4">[Insert Grid Visual of Outfit Proportions]</span>
+                                    <img src="/public/photos/golden ratio.png" alt="" className='w-full h-full rounded-full object-cover hover:scale-105 transition-transform duration-700' />
                                     <div className="w-full border-t border-dashed border-[#CDEA68] absolute top-1/3">
                                         <span className="bg-[#CDEA68] text-black text-xs px-2 py-1 rounded absolute right-0 -translate-y-1/2 translate-x-1/2" style={{ fontFamily: "Gilroy-Light" }}>Waist Definition</span>
                                     </div>
@@ -189,24 +190,28 @@ const Basics = () => {
                         description="Timeless, polished, and structured. You prefer clean lines, neutral colors, and high-quality fabrics."
                         items={["Trench Coat", "Tailored Blazer", "Loafers", "Pearl Earrings"]}
                         icon={<Crown size={32} />}
+                        image='/public/photos/the classic.jpg'
                     />
                     <ArchetypeCard
                         title="The Bohemian"
                         description="Free-spirited, relaxed, and artistic. You love flowy silhouettes, earthy tones, and intricate patterns."
                         items={["Maxi Dresses", "Fringe Details", "Wide-brim Hats", "Layered Jewelry"]}
                         icon={<Sparkles size={32} />}
+                        image='/public/photos/the bohemia.jpg'
                     />
                     <ArchetypeCard
                         title="The Minimalist"
                         description="Less is more. You focus on shape, silhouette, and function. Your palette is restricted and impactful."
                         items={["Oversized Shirt", "Wide-leg Trousers", "Monochrome Sets", "Sleek Boots"]}
                         icon={<Shirt size={32} />}
+                        image='/public/photos/the minimalist.jpg'
                     />
                     <ArchetypeCard
                         title="Street Style"
                         description="Bold, trend-driven, and expressive. You mix high fashion with casual staples and aren't afraid of volume."
                         items={["Statement Sneakers", "Graphic Tees", "Oversized Hoodies", "Cargo Pants"]}
                         icon={<Mic2 size={32} />}
+                        image='/public/photos/street style.jpg'
                     />
                 </div>
             </Section>
