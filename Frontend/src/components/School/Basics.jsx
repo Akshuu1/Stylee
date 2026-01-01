@@ -172,7 +172,7 @@ const Basics = () => {
                             <div className="relative h-[600px] w-full flex justify-center items-end">
                                 <div className="w-1 bg-[#CDEA68]/20 h-full absolute left-1/2 -translate-x-1/2" />
                                 <div className="w-[300px] h-[500px] bg-zinc-700 rounded-full relative flex flex-col items-center justify-center text-center p-4">
-                                    <img src="/public/photos/golden ratio.png" alt="" className='w-full h-full rounded-full object-cover hover:scale-105 transition-transform duration-700' />
+                                    <img src="/photos/golden ratio.png" alt="" className='w-full h-full rounded-full object-cover hover:scale-105 transition-transform duration-700' />
                                     <div className="w-full border-t border-dashed border-[#CDEA68] absolute top-1/3">
                                         <span className="bg-[#CDEA68] text-black text-xs px-2 py-1 rounded absolute right-0 -translate-y-1/2 translate-x-1/2" style={{ fontFamily: "Gilroy-Light" }}>Waist Definition</span>
                                     </div>
@@ -190,28 +190,28 @@ const Basics = () => {
                         description="Timeless, polished, and structured. You prefer clean lines, neutral colors, and high-quality fabrics."
                         items={["Trench Coat", "Tailored Blazer", "Loafers", "Pearl Earrings"]}
                         icon={<Crown size={32} />}
-                        image='/public/photos/the classic.jpg'
+                        image='/photos/the classic.jpg'
                     />
                     <ArchetypeCard
                         title="The Bohemian"
                         description="Free-spirited, relaxed, and artistic. You love flowy silhouettes, earthy tones, and intricate patterns."
                         items={["Maxi Dresses", "Fringe Details", "Wide-brim Hats", "Layered Jewelry"]}
                         icon={<Sparkles size={32} />}
-                        image='/public/photos/the bohemia.jpg'
+                        image='/photos/the bohemia.jpg'
                     />
                     <ArchetypeCard
                         title="The Minimalist"
                         description="Less is more. You focus on shape, silhouette, and function. Your palette is restricted and impactful."
                         items={["Oversized Shirt", "Wide-leg Trousers", "Monochrome Sets", "Sleek Boots"]}
                         icon={<Shirt size={32} />}
-                        image='/public/photos/the minimalist.jpg'
+                        image='/photos/the minimalist.jpg'
                     />
                     <ArchetypeCard
                         title="Street Style"
                         description="Bold, trend-driven, and expressive. You mix high fashion with casual staples and aren't afraid of volume."
                         items={["Statement Sneakers", "Graphic Tees", "Oversized Hoodies", "Cargo Pants"]}
                         icon={<Mic2 size={32} />}
-                        image='/public/photos/street style.jpg'
+                        image='/photos/street style.jpg'
                     />
                 </div>
             </Section>

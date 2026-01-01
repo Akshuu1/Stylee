@@ -151,26 +151,26 @@ const ColorTheory = () => {
                         title="Spring"
                         characteristics="Warm undertones + Light/Bright features. You glow in clear, warm colors like coral, peach, and golden yellow."
                         colors={["#fbbf24", "#f87171", "#a3e635", "#f472b6"]}
-                        image='/public/photos/spring.jpg'
+                        image='/photos/spring.jpg'
                     />
 
                     <SeasonCard
                         title="Summer"
                         characteristics="Cool undertones + Light/Soft features. You look best in delicate, cool colors like lavender, powder blue, and soft rose."
                         colors={["#93c5fd", "#d8b4fe", "#fda4af", "#cbd5e1"]}
-                        image='/public/photos/summer.jpg'
+                        image='/photos/summer.jpg'
                     />
                     <SeasonCard
                         title="Autumn"
                         characteristics="Warm undertones + Dark/Muted features. Earth tones like olive, rust, mustard, and chocolate brown are your friends."
                         colors={["#9a3412", "#ca8a04", "#3f6212", "#78350f"]}
-                        image='/public/photos/autumn.jpg'
+                        image='/photos/autumn.jpg'
                     />
                     <SeasonCard
                         title="Winter"
                         characteristics="Cool undertones + Dark/Bright features. You shine in high contrast colors: vivid jewel tones, black, and pure white."
                         colors={["#000000", "#1d4ed8", "#be123c", "#ffffff"]}
-                        image='/public/photos/winter.jpg'
+                        image='/photos/winter.jpg'
                     />
                 </div>
             </Section>
