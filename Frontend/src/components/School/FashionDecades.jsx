@@ -2,8 +2,9 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, Calendar, TrendingUp, Sparkles, Crown, Music, Zap, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { image } from 'framer-motion/client';
 
-const DecadeCard = ({ decade, title, description, keyTrends, icon, colorAccent, delay = 0 }) => {
+const DecadeCard = ({ decade, title, description, keyTrends, icon, image,colorAccent, delay = 0 }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -13,7 +14,6 @@ const DecadeCard = ({ decade, title, description, keyTrends, icon, colorAccent, 
             className="group relative"
         >
             <div className="relative overflow-hidden bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-[2.5rem] p-8 md:p-10 border border-zinc-700 hover:border-[#CDEA68] transition-all duration-700 h-full">
-                {/* Decade Badge */}
                 <div className="flex justify-between items-start mb-6">
                     <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${colorAccent} flex items-center justify-center text-white shadow-lg`}>
                         {icon}
@@ -22,21 +22,16 @@ const DecadeCard = ({ decade, title, description, keyTrends, icon, colorAccent, 
                         {decade}
                     </span>
                 </div>
-
-                {/* Content */}
                 <h3 className="text-4xl md:text-5xl font-bold text-white mb-4 group-hover:text-[#CDEA68] transition-colors" style={{ fontFamily: "Sephora Sans" }}>
                     {title}
                 </h3>
                 <p className="text-zinc-400 text-base md:text-lg leading-relaxed mb-6" style={{ fontFamily: "Gilroy-Light" }}>
                     {description}
                 </p>
-
-                {/* Image Placeholder with Pattern */}
                 <div className="mb-6 h-64 bg-zinc-800/50 rounded-2xl overflow-hidden relative group-hover:bg-zinc-800 transition-colors">
                     <div className="absolute inset-0 flex items-center justify-center text-zinc-600 font-mono text-sm">
-                        [Decade: {decade} Fashion]
+                        <img src={image} alt={`${decade} Fashion`} className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' />
                     </div>
-                    {/* Decorative Pattern */}
                     <div className="absolute inset-0 opacity-10">
                         <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
                             {[...Array(64)].map((_, i) => (
@@ -46,7 +41,6 @@ const DecadeCard = ({ decade, title, description, keyTrends, icon, colorAccent, 
                     </div>
                 </div>
 
-                {/* Key Trends */}
                 <div>
                     <h4 className="text-sm font-bold text-[#CDEA68] uppercase tracking-wider mb-4" style={{ fontFamily: "Gilroy-Light" }}>
                         Signature Trends
@@ -60,8 +54,6 @@ const DecadeCard = ({ decade, title, description, keyTrends, icon, colorAccent, 
                         ))}
                     </div>
                 </div>
-
-                {/* Hover Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#CDEA68]/0 via-[#CDEA68]/0 to-[#CDEA68]/0 group-hover:from-[#CDEA68]/5 group-hover:via-transparent group-hover:to-transparent transition-all duration-700 rounded-[2.5rem] pointer-events-none" />
             </div>
         </motion.div>
@@ -93,7 +85,8 @@ const FashionDecades = () => {
             description: "The era of liberation and jazz. Flapper dresses, drop waists, and Art Deco glamour defined this revolutionary decade.",
             keyTrends: ["Flapper Dresses", "Cloche Hats", "Drop Waists", "Pearls & Fringe"],
             icon: <Music size={36} />,
-            colorAccent: "from-amber-600 to-amber-800"
+            colorAccent: "from-amber-600 to-amber-800",
+            image:'/public/photos/the roaring twenties.jpg'
         },
         {
             decade: "1950s",
@@ -101,7 +94,8 @@ const FashionDecades = () => {
             description: "Post-war elegance brought feminine silhouettes back. Think Dior's New Look with cinched waists and full skirts.",
             keyTrends: ["Circle Skirts", "Cat-Eye Glasses", "Pencil Dresses", "Red Lipstick"],
             icon: <Crown size={36} />,
-            colorAccent: "from-rose-500 to-pink-700"
+            colorAccent: "from-rose-500 to-pink-700",
+            image:'/public/photos/the golden age.jpg'
         },
         {
             decade: "1960s",
@@ -109,7 +103,8 @@ const FashionDecades = () => {
             description: "Youth culture exploded with mod fashion, mini skirts, and bold geometric patterns. Fashion became rebellious and fun.",
             keyTrends: ["Mini Skirts", "Go-Go Boots", "Mod Patterns", "Shift Dresses"],
             icon: <Sparkles size={36} />,
-            colorAccent: "from-blue-500 to-indigo-700"
+            colorAccent: "from-blue-500 to-indigo-700",
+            image:'/public/photos/the swinging sixties.jpg'
         },
         {
             decade: "1970s",
@@ -117,7 +112,8 @@ const FashionDecades = () => {
             description: "A decade of contradictions: disco glam met bohemian freedom. Bell bottoms, platforms, and psychedelic prints ruled.",
             keyTrends: ["Bell Bottoms", "Platform Shoes", "Halter Tops", "Disco Glitter"],
             icon: <Zap size={36} />,
-            colorAccent: "from-orange-500 to-red-700"
+            colorAccent: "from-orange-500 to-red-700",
+            image:'/public/photos/disco & bohemia.jpg'
         },
         {
             decade: "1980s",
@@ -125,7 +121,8 @@ const FashionDecades = () => {
             description: "Bold shoulders, neon colors, and maximalist attitude. The era of power dressing and MTV fashion influence.",
             keyTrends: ["Shoulder Pads", "Neon Colors", "Leg Warmers", "Bold Accessories"],
             icon: <TrendingUp size={36} />,
-            colorAccent: "from-purple-500 to-fuchsia-700"
+            colorAccent: "from-purple-500 to-fuchsia-700",
+            image:'/public/photos/power & excess.jpg'
         },
         {
             decade: "1990s",
@@ -133,7 +130,8 @@ const FashionDecades = () => {
             description: "The decade that rejected excess. Grunge met minimalism, and fashion became about anti-fashion and individuality.",
             keyTrends: ["Slip Dresses", "Chokers", "Combat Boots", "Flannel Shirts"],
             icon: <Heart size={36} />,
-            colorAccent: "from-slate-500 to-zinc-700"
+            colorAccent: "from-slate-500 to-zinc-700",
+            image:'/public/photos/grunge & minimalism.jpg'
         },
         {
             decade: "2000s",
@@ -141,7 +139,8 @@ const FashionDecades = () => {
             description: "Low-rise jeans, velour tracksuits, and bling culture. Technology met fashion with futuristic metallics.",
             keyTrends: ["Low-Rise Jeans", "Velour Sets", "Butterfly Clips", "Metallic Fabrics"],
             icon: <Sparkles size={36} />,
-            colorAccent: "from-cyan-500 to-blue-700"
+            colorAccent: "from-cyan-500 to-blue-700",
+            image:'/public/photos/y2k revival.jpg'
         },
         {
             decade: "2020s",
@@ -149,7 +148,8 @@ const FashionDecades = () => {
             description: "Sustainability meets technology. Gender-fluid, inclusive fashion with a focus on conscious consumption and digital expression.",
             keyTrends: ["Oversized Fits", "Sustainable Fashion", "Gender Fluidity", "Digital Fashion"],
             icon: <Calendar size={36} />,
-            colorAccent: "from-emerald-500 to-teal-700"
+            colorAccent: "from-emerald-500 to-teal-700",
+            image:'/public/photos/digital age fashion.jpg'
         }
     ];
 
