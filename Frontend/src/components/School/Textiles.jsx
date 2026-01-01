@@ -149,7 +149,7 @@ const Textiles = () => {
                         type="Synthetic"
                         description="The durable contender. Quick-drying and wrinkle-free. Often blended to add strength to natural fibers."
                         icon={<Droplets size={16} />}
-                        image='/photos/polyadster.jpg'
+                        image='/photos/polyster.jpg'
                     />
                     <FabricCard
                         name="Linen"
