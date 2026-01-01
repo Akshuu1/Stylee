@@ -81,11 +81,6 @@ const Basics = () => {
 
     return (
         <div className="w-full min-h-screen bg-zinc-900 text-white pt-24 px-5 md:px-20 pb-20 overflow-hidden">
-            <button onClick={() => navigate(-1)} className="fixed top-10 left-5 md:left-20 z-50 inline-flex items-center gap-2 px-4 py-2 bg-zinc-800/80 backdrop-blur-md rounded-full text-zinc-400 hover:text-[#CDEA68] hover:bg-zinc-800 transition-all cursor-pointer">
-                <ArrowLeft size={16} /> <span className="text-sm font-medium" style={{ fontFamily: "Gilroy-Light" }}>Back</span>
-            </button>
-
-            {/* Hero Section */}
             <div className="relative min-h-[80vh] flex flex-col justify-center mb-32">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#CDEA68] rounded-full blur-[150px] opacity-10 pointer-events-none" />
 

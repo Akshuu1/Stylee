@@ -57,11 +57,6 @@ const ColorTheory = () => {
 
     return (
         <div className="w-full min-h-screen bg-zinc-900 text-white pt-24 px-5 md:px-20 pb-20 overflow-hidden">
-            <button onClick={() => navigate(-1)} className="fixed top-10 left-5 md:left-20 z-50 inline-flex items-center gap-2 px-4 py-2 bg-zinc-800/80 backdrop-blur-md rounded-full text-zinc-400 hover:text-[#CDEA68] hover:bg-zinc-800 transition-all cursor-pointer">
-                <ArrowLeft size={16} /> <span className="text-sm font-medium" style={{ fontFamily: "Gilroy-Light" }}>Back</span>
-            </button>
-
-            {/* Dynamic Background Gradients */}
             <div className="fixed inset-0 z-0 pointer-events-none">
                 <div className="absolute top-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-purple-500/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-blue-500/10 rounded-full blur-[120px]" />
