@@ -86,7 +86,7 @@ const FashionDecades = () => {
             keyTrends: ["Flapper Dresses", "Cloche Hats", "Drop Waists", "Pearls & Fringe"],
             icon: <Music size={36} />,
             colorAccent: "from-amber-600 to-amber-800",
-            image:'/photos/the roaring twenties.jpg'
+            image:'/photos/The Roaring Twenties.jpg'
         },
         {
             decade: "1950s",
@@ -95,7 +95,7 @@ const FashionDecades = () => {
             keyTrends: ["Circle Skirts", "Cat-Eye Glasses", "Pencil Dresses", "Red Lipstick"],
             icon: <Crown size={36} />,
             colorAccent: "from-rose-500 to-pink-700",
-            image:'/photos/the golden age.jpg'
+            image:'/photos/The Golden Age.jpg'
         },
         {
             decade: "1960s",
@@ -104,7 +104,7 @@ const FashionDecades = () => {
             keyTrends: ["Mini Skirts", "Go-Go Boots", "Mod Patterns", "Shift Dresses"],
             icon: <Sparkles size={36} />,
             colorAccent: "from-blue-500 to-indigo-700",
-            image:'/photos/the swinging sixties.jpg'
+            image:'/photos/The Swinging Sixties.jpg'
         },
         {
             decade: "1970s",
@@ -113,7 +113,7 @@ const FashionDecades = () => {
             keyTrends: ["Bell Bottoms", "Platform Shoes", "Halter Tops", "Disco Glitter"],
             icon: <Zap size={36} />,
             colorAccent: "from-orange-500 to-red-700",
-            image:'/photos/disco & bohemia.jpg'
+            image:'/photos/Disco & Bohemia.jpg'
         },
         {
             decade: "1980s",
@@ -122,7 +122,7 @@ const FashionDecades = () => {
             keyTrends: ["Shoulder Pads", "Neon Colors", "Leg Warmers", "Bold Accessories"],
             icon: <TrendingUp size={36} />,
             colorAccent: "from-purple-500 to-fuchsia-700",
-            image:'/photos/power & excess.jpg'
+            image:'/photos/Power & Excess.jpg'
         },
         {
             decade: "1990s",
@@ -131,7 +131,7 @@ const FashionDecades = () => {
             keyTrends: ["Slip Dresses", "Chokers", "Combat Boots", "Flannel Shirts"],
             icon: <Heart size={36} />,
             colorAccent: "from-slate-500 to-zinc-700",
-            image:'/photos/grunge & minimalism.jpg'
+            image:'/photos/Grunge & Minimalism.jpg'
         },
         {
             decade: "2000s",
@@ -140,7 +140,7 @@ const FashionDecades = () => {
             keyTrends: ["Low-Rise Jeans", "Velour Sets", "Butterfly Clips", "Metallic Fabrics"],
             icon: <Sparkles size={36} />,
             colorAccent: "from-cyan-500 to-blue-700",
-            image:'/photos/y2k revival.jpg'
+            image:'/photos/Y2K Revival.jpg'
         },
         {
             decade: "2020s",
@@ -149,7 +149,7 @@ const FashionDecades = () => {
             keyTrends: ["Oversized Fits", "Sustainable Fashion", "Gender Fluidity", "Digital Fashion"],
             icon: <Calendar size={36} />,
             colorAccent: "from-emerald-500 to-teal-700",
-            image:'/photos/digital age fashion.jpg'
+            image:'/photos/Digital Age Fashion.jpg'
         }
     ];
 
