@@ -8,31 +8,25 @@ const ManishMalhotra = () => {
 
     return (
         <div style={{ fontFamily: "Sephora Sans" }} className="w-full min-h-screen bg-zinc-950 text-white pt-24 pb-20">
-            {/* Header */}
             <div className="px-8 md:px-20 mb-20 text-center">
                 <div className="overflow-hidden flex justify-center">
                     <motion.h1
                         initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
                         style={{ fontFamily: "Beikho" }}
-                        className="text-6xl md:text-9xl uppercase leading-[0.9] text-zinc-100"
-                    >
+                        className="text-6xl md:text-9xl uppercase leading-[0.9] text-zinc-100">
                         Manish<br />Malhotra
                     </motion.h1>
                 </div>
             </div>
-
-            {/* Content */}
             <div className="px-8 md:px-20 grid grid-cols-1 md:grid-cols-12 gap-10">
                 <div className="md:col-span-8 md:col-start-3 space-y-12">
                     <motion.p
                         initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.8 }}
-                        className="text-xl md:text-4xl text-center font-light leading-tight text-zinc-200"
-                    >
+                        className="text-xl md:text-4xl text-center font-light leading-tight text-zinc-200">
                         "Couture is not just about clothes, it's about the emotion they evoke."
                     </motion.p>
 
                     <div className="w-full h-[70vh] bg-zinc-800 rounded-lg overflow-hidden relative group">
-                        {/* Replace with actual image */}
                         <img src="https://assets.vogue.in/photos/681e15ffbb42168a5a797ca9/3:4/w_2240,c_limit/SnapInsta.to_495333609_18513974965007581_8504780726696481033_n.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Manish Malhotra Design" />
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-950 opacity-80"></div>
                         <div className="absolute bottom-10 left-0 w-full text-center">
@@ -66,10 +60,6 @@ const ManishMalhotra = () => {
                                     Sarees with pre-constructed corset bodices, eliminating the need for a separate petticoat and blouse, fusing western structure with eastern drape.
                                 </p>
                             </div>
-                        </div>
-
-                        <div className="inline-block p-4 border border-[#CDEA68] rounded-full text-[#CDEA68] hover:bg-[#CDEA68] hover:text-[#004D54] transition-all cursor-pointer mt-8">
-                            View Full Collection
                         </div>
                     </div>
                 </div>

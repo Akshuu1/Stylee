@@ -64,7 +64,6 @@ const About = () => {
             <div className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-zinc-900 group-hover:bg-zinc-200 transition-colors z-10 relative">
               <ArrowUpRight size={16} className="group-hover:rotate-45 transition-transform duration-300" />
             </div>
-            {/* Hover Fill Effect */}
             <div className="absolute inset-0 bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
           </motion.button>
         </div>

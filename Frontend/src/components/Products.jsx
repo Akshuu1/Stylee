@@ -532,8 +532,6 @@ const Products = () => {
                                     <option value="desc"> Descending</option>
                                 </motion.select>
                             </div>
-
-                            {/* Reset Button */}
                             <motion.button
                                 whileHover={{ scale: 1.05, rotate: 5 }}
                                 whileTap={{ scale: 0.95 }}
@@ -543,8 +541,6 @@ const Products = () => {
                                 Reset All
                             </motion.button>
                         </div>
-
-                        {/* Results Count */}
                         {!loading && pagination && (
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -624,13 +620,11 @@ const Products = () => {
                             </motion.div>
                         ) : (
                             <>
-                                {/* Bento Grid Layout */}
                                 {viewMode === "bento" && (
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="grid grid-cols-1 md:grid-cols-4 auto-rows-[300px] gap-6"
-                                    >
+                                        className="grid grid-cols-1 md:grid-cols-4 auto-rows-[300px] gap-6">
                                         {items.map((item, idx) => (
                                             <motion.div
                                                 key={item.id}
@@ -639,14 +633,11 @@ const Products = () => {
                                                 transition={{ delay: idx * 0.05 }}
                                                 className={getBentoClass(idx)}
                                                 onHoverStart={() => setHoveredCard(item.id)}
-                                                onHoverEnd={() => setHoveredCard(null)}
-                                            >
+                                                onHoverEnd={() => setHoveredCard(null)}>
                                                 <Link to={`/products/${item.id}`} className="block h-full group">
                                                     <motion.div
                                                         whileHover={{ y: -5 }}
-                                                        className="relative h-full bg-zinc-900/60 backdrop-blur-xl rounded-3xl overflow-hidden border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-[#CDEA68]/20"
-                                                    >
-                                                        {/* Image */}
+                                                        className="relative h-full bg-zinc-900/60 backdrop-blur-xl rounded-3xl overflow-hidden border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-[#CDEA68]/20">
                                                         <div className="absolute inset-0">
                                                             {item.images && item.images.length > 0 ? (
                                                                 <motion.img
@@ -665,19 +656,14 @@ const Products = () => {
                                                                     <span className="text-6xl">📦</span>
                                                                 </div>
                                                             )}
-                                                            {/* Gradient Overlay */}
                                                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80" />
                                                         </div>
-
-                                                        {/* Content */}
                                                         <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                                                            {/* Category Badge */}
                                                             {item.category && (
                                                                 <motion.div
                                                                     initial={{ opacity: 0, y: 10 }}
                                                                     animate={{ opacity: 1, y: 0 }}
-                                                                    className="mb-2"
-                                                                >
+                                                                    className="mb-2">
                                                                     <span className="inline-block px-3 py-1 bg-[#CDEA68]/20 border border-[#CDEA68]/40 backdrop-blur-xl rounded-full text-xs text-[#CDEA68] font-semibold">
                                                                         {item.category}
                                                                     </span>
@@ -702,8 +688,6 @@ const Products = () => {
                                                                     </span>
                                                                 )}
                                                             </div>
-
-                                                            {/* Hover Arrow */}
                                                             <motion.div
                                                                 initial={{ opacity: 0, x: -10 }}
                                                                 animate={{
@@ -716,14 +700,11 @@ const Products = () => {
                                                                 <span>→</span>
                                                             </motion.div>
                                                         </div>
-
-                                                        {/* Wishlist Button */}
                                                         <motion.button
                                                             whileHover={{ scale: 1.1 }}
                                                             whileTap={{ scale: 0.9 }}
                                                             onClick={(e) => toggleWishlist(e, item)}
-                                                            className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10"
-                                                        >
+                                                            className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10">
                                                             <Heart
                                                                 size={20}
                                                                 className={`transition-all ${wishlistItems.includes(item._id || item.id)
@@ -738,8 +719,6 @@ const Products = () => {
                                         ))}
                                     </motion.div>
                                 )}
-
-                                {/* Grid Layout */}
                                 {viewMode === "grid" && (
                                     <motion.div
                                         initial={{ opacity: 0 }}
@@ -753,8 +732,7 @@ const Products = () => {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: idx * 0.05 }}
                                                 whileHover={{ y: -10 }}
-                                                className="relative"
-                                            >
+                                                className="relative">
                                                 <Link to={`/products/${item.id}`} className="block">
                                                     <div className="bg-zinc-900/60 backdrop-blur-xl rounded-3xl overflow-hidden border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all">
                                                         <div className="aspect-square bg-zinc-800/50">
@@ -778,34 +756,27 @@ const Products = () => {
                                                         </div>
                                                     </div>
                                                 </Link>
-
-                                                {/* Wishlist Button */}
                                                 <motion.button
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
                                                     onClick={(e) => toggleWishlist(e, item)}
-                                                    className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10"
-                                                >
+                                                    className="absolute top-4 right-4 p-3 bg-zinc-900/80 backdrop-blur-md rounded-full border border-zinc-700/50 hover:border-pink-500/50 transition-all z-10">
                                                     <Heart
                                                         size={20}
                                                         className={`transition-all ${wishlistItems.includes(item._id || item.id)
                                                             ? "fill-pink-500 text-pink-500"
                                                             : "text-white"
-                                                            }`}
-                                                    />
+                                                            }`}/>
                                                 </motion.button>
                                             </motion.div>
                                         ))}
                                     </motion.div>
                                 )}
-
-                                {/* List Layout */}
                                 {viewMode === "list" && (
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="space-y-4"
-                                    >
+                                        className="space-y-4">
                                         {items.map((item, idx) => (
                                             <motion.div
                                                 key={item.id}
@@ -813,8 +784,7 @@ const Products = () => {
                                                 animate={{ opacity: 1, x: 0 }}
                                                 transition={{ delay: idx * 0.03 }}
                                                 whileHover={{ x: 10 }}
-                                                className="relative"
-                                            >
+                                                className="relative">
                                                 <Link to={`/products/${item.id}`}>
                                                     <div className="bg-zinc-900/60 backdrop-blur-xl rounded-2xl p-6 border border-[#CDEA68]/20 hover:border-[#CDEA68]/50 transition-all flex gap-6">
                                                         <div className="w-32 h-32 bg-zinc-800/50 rounded-xl overflow-hidden flex-shrink-0">
@@ -866,21 +836,17 @@ const Products = () => {
                                         ))}
                                     </motion.div>
                                 )}
-
-                                {/* Pagination */}
                                 {pagination && pagination.totalPages > 1 && (
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="mt-16 flex justify-center items-center gap-4"
-                                    >
+                                        className="mt-16 flex justify-center items-center gap-4">
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setPage(page - 1)}
                                             disabled={page === 1}
-                                            className="px-8 py-4 bg-zinc-900/60 backdrop-blur-xl rounded-2xl border border-[#CDEA68]/30 disabled:opacity-30 font-semibold"
-                                        >
+                                            className="px-8 py-4 bg-zinc-900/60 backdrop-blur-xl rounded-2xl border border-[#CDEA68]/30 disabled:opacity-30 font-semibold">
                                             ← Prev
                                         </motion.button>
                                         <div className="px-6 py-4 bg-[#CDEA68]/20 border border-[#CDEA68]/30 rounded-2xl font-bold text-[#CDEA68]">

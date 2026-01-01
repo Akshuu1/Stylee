@@ -291,8 +291,6 @@ const ProductDetail = () => {
                             <h2 className="text-xl sm:text-2xl font-bold mb-3 text-[#CDEA68]">Description</h2>
                             <p className="text-zinc-300 leading-relaxed text-base sm:text-lg">{item.description}</p>
                         </motion.div>
-
-                        {/* Product Specifications */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -360,16 +358,7 @@ const ProductDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8 }}
-                            className="flex gap-4 mb-8"
-                        >
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                disabled={item.stock === 0}
-                                className="flex-1 px-8 py-5 bg-[#CDEA68] text-[#004D54] disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg shadow-[#CDEA68]/30 disabled:shadow-none hover:bg-[#dfff7a]"
-                            >
-                                {item.stock > 0 ? "🛒 Add to Cart" : "Out of Stock"}
-                            </motion.button>
+                            className="flex gap-4 mb-8">
                             <motion.button
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 whileTap={{ scale: 0.9 }}
@@ -377,19 +366,15 @@ const ProductDetail = () => {
                                 className={`px-8 py-5 rounded-2xl font-bold transition-all duration-300 border-2 flex items-center justify-center gap-2 ${isInWishlist
                                     ? "bg-pink-500/20 border-pink-500/50"
                                     : "bg-zinc-900/60 border-[#CDEA68]/20 hover:bg-zinc-800/80 hover:border-[#CDEA68]/50"
-                                    }`}
-                            >
+                                    }`}>
                                 <Heart
                                     size={24}
                                     className={`transition-all ${isInWishlist
                                         ? "fill-pink-500 text-pink-500"
                                         : "text-white"
-                                        }`}
-                                />
+                                        }`}/>
                             </motion.button>
                         </motion.div>
-
-                        {/* Seller Info */}
                         {item.user && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}

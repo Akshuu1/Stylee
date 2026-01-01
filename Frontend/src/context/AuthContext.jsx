@@ -19,8 +19,6 @@ export const AuthProvider = ({ children }) => {
         }
         setLoading(false);
     }, []);
-
-    // Login function
     const login = async (email, password) => {
         try {
             const response = await authAPI.login({ email, password });
@@ -41,8 +39,6 @@ export const AuthProvider = ({ children }) => {
             };
         }
     };
-
-    // Signup function
     const signup = async (name, email, password, role) => {
         try {
             const response = await authAPI.signup({ name, email, password, role });
@@ -55,8 +51,6 @@ export const AuthProvider = ({ children }) => {
             };
         }
     };
-
-    // Guest login function
     const loginAsGuest = () => {
         const guestUser = {
             id: 0,
@@ -74,7 +68,6 @@ export const AuthProvider = ({ children }) => {
         return { success: true, user: guestUser };
     };
 
-    // Logout function
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -82,18 +75,12 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setUser(null);
     };
-
-    // Check if user is guest
     const isGuest = () => {
         return user?.role === "GUEST" || localStorage.getItem("isGuest") === "true";
     };
-
-    // Check if user is admin
     const isAdmin = () => {
         return user?.role === "ADMIN";
     };
-
-    // Check if user is authenticated
     const isAuthenticated = () => {
         return !!token && !!user;
     };
